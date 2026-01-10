@@ -115,11 +115,11 @@ function append_dynamic_menu_items($items, $menu, $args)
 		}
 
 		if ($item->title == 'Блог') {
-			$categories = get_categories();
+			$categories = get_categories(['hide_empty' => false]);
 			foreach ($categories as $cat) {
 				$cat->menu_item_parent = $item->ID;
 				$cat->db_id = 0;
-				$cat->ID = 'cat-' . $cat->term_id;
+				$cat->ID = 'blog-cat-' . $cat->term_id;
 				$cat->object_id = $cat->term_id;
 				$cat->object = 'category';
 				$cat->type = 'taxonomy';
@@ -291,5 +291,59 @@ function custom_taxonomy_permalinks($post_link, $post)
 
 	return $post_link;
 }
+
+
+// Article Blog fix
+add_action('init', 'modify_base_post_settings');
+function modify_base_post_settings()
+{
+	global $wp_rewrite;
+
+	$wp_rewrite->extra_permastructs['category']['struct'] = 'blog/%category%';
+}
+
+add_action('init', 'fix_blog_single_rewrite_rules');
+function fix_blog_single_rewrite_rules()
+{
+	add_rewrite_rule(
+		'^blog/([^/]+)/([^/]+)/?$',
+		'index.php?name=$matches[2]',
+		'top'
+	);
+}
+
+add_filter('post_link', 'custom_blog_post_link', 10, 2);
+function custom_blog_post_link($post_link, $post)
+{
+	if ($post->post_type === 'post') {
+		$categories = get_the_category($post->ID);
+		if (!empty($categories)) {
+			$category_slug = $categories[0]->slug;
+			return home_url("blog/{$category_slug}/{$post->post_name}/");
+		}
+	}
+	return $post_link;
+}
+
+add_action('init', 'customize_standard_taxonomy_labels');
+function customize_standard_taxonomy_labels()
+{
+	global $wp_taxonomies;
+
+
+	$labels = &$wp_taxonomies['category']->labels;
+	$labels->name = 'Категории статей';
+	$labels->singular_name = 'Категория статей';
+	$labels->add_new_item = 'Добавить новую категорию статей';
+	$labels->edit_item = 'Изменить категорию статей';
+	$labels->new_item_name = 'Название новой категории статей';
+	$labels->search_items = 'Искать категории статей';
+	$labels->all_items = 'Все категории статей';
+	$labels->menu_name = 'Категории статей';
+
+	register_taxonomy('post_tag', array());
+}
+
+
 
 // FORM SUBMIT CONFIG

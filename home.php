@@ -7,7 +7,7 @@
 
 <?php get_header(); ?>
 
-
+Блог
 
 
 <?php get_footer(); ?>
