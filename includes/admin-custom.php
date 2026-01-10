@@ -56,7 +56,7 @@ class Wptuts_Simple_Admin
 		echo '
 				<style type="text/css">
 				    .login h1 a {
-				        background: url(' . get_bloginfo('template_directory') . '/assets/img/logo.svg) #fff center no-repeat !important;
+				        background: url(' . get_bloginfo('template_directory') . '/assets/img/logo.svg) rgba(24, 29, 39, 0.86) center no-repeat !important;
 				        background-size: 67% !important;
 				        width: 312px!important;
 				        height: 110px!important;

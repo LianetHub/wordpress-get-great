@@ -7,4 +7,6 @@
 
 <?php get_header(); ?>
 
+Страница портфолио
+
 <?php get_footer(); ?>

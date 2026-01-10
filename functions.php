@@ -66,72 +66,9 @@ function allow_svg_uploads($mimes)
 add_filter('upload_mimes', 'allow_svg_uploads');
 
 
-// Register navigation menus
-add_action('after_setup_theme', 'theme_register_nav_menu');
 
-function theme_register_nav_menu()
-{
-	register_nav_menus([
-		'primary_menu' => 'Главное меню (в шапке)',
-		'footer_menu'  => 'Меню в подвале (политики)'
-	]);
-}
 
-add_filter('wp_get_nav_menu_items', 'append_dynamic_menu_items', 10, 3);
-function append_dynamic_menu_items($items, $menu, $args)
-{
-	if (is_admin()) return $items;
 
-	foreach ($items as $item) {
-
-		if ($item->title == 'Услуги') {
-			$terms = get_terms(['taxonomy' => 'service_cat', 'hide_empty' => false]);
-			foreach ($terms as $term) {
-				$term->menu_item_parent = $item->ID;
-				$term->db_id = 0;
-				$term->ID = 's-cat-' . $term->term_id;
-				$term->object_id = $term->term_id;
-				$term->object = 'service_cat';
-				$term->type = 'taxonomy';
-				$term->url = get_term_link($term);
-				$term->title = $term->name;
-				$items[] = $term;
-			}
-		}
-
-		if ($item->title == 'Портфолио') {
-			$terms = get_terms(['taxonomy' => 'portfolio_cat', 'hide_empty' => false]);
-			foreach ($terms as $term) {
-				$term->menu_item_parent = $item->ID;
-				$term->db_id = 0;
-				$term->ID = 'p-cat-' . $term->term_id;
-				$term->object_id = $term->term_id;
-				$term->object = 'portfolio_cat';
-				$term->type = 'taxonomy';
-				$term->url = get_term_link($term);
-				$term->title = $term->name;
-				$items[] = $term;
-			}
-		}
-
-		if ($item->title == 'Блог') {
-			$categories = get_categories(['hide_empty' => false]);
-			foreach ($categories as $cat) {
-				$cat->menu_item_parent = $item->ID;
-				$cat->db_id = 0;
-				$cat->ID = 'blog-cat-' . $cat->term_id;
-				$cat->object_id = $cat->term_id;
-				$cat->object = 'category';
-				$cat->type = 'taxonomy';
-				$cat->url = get_category_link($cat->term_id);
-				$cat->title = $cat->name;
-				$items[] = $cat;
-			}
-		}
-	}
-
-	return $items;
-}
 
 // убираем с фронта ненужную инфу в хедере
 remove_action('wp_head', 'wp_generator');
@@ -177,12 +114,61 @@ function currentYear()
 	return date('Y');
 }
 
+// Register navigation menus
+add_action('after_setup_theme', 'theme_register_nav_menu');
+function theme_register_nav_menu()
+{
+	register_nav_menus([
+		'primary_menu' => 'Главное меню (в шапке)',
+		'footer_menu'  => 'Меню в подвале (политики)'
+	]);
+}
 
+class Menu_Nav_Walker extends Walker_Nav_Menu
+{
+	function start_el(&$output, $item, $depth = 0, $args = [], $id = 0)
+	{
+		$classes = empty($item->classes) ? [] : (array) $item->classes;
+		$class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
+		$class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+
+		$output .= '<li' . $class_names . '>';
+
+		$atts = [];
+		$atts['title']  = !empty($item->attr_title) ? $item->attr_title : '';
+		$atts['target'] = !empty($item->target)     ? $item->target     : '';
+		$atts['rel']    = !empty($item->xfn)        ? $item->xfn        : '';
+		$atts['href']   = !empty($item->url)        ? $item->url        : '';
+		$atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args);
+
+		$attributes = '';
+		foreach ($atts as $attr => $value) {
+			if (!empty($value)) {
+				$value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
+				$attributes .= ' ' . $attr . '="' . $value . '"';
+			}
+		}
+
+		$item_output = $args->before;
+		$item_output .= '<a' . $attributes . '>';
+		$item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
+		$item_output .= '</a>';
+
+		if (in_array('menu-item-has-children', $classes)) {
+			$item_output .= '<button type="button" class="menu__arrow" aria-label="Открыть подменю"></button>';
+		}
+
+		$item_output .= $args->after;
+		$output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+	}
+}
 
 // Custom Posts
+
 add_action('init', 'register_custom_entities');
 function register_custom_entities()
 {
+
 	register_taxonomy('service_cat', 'services', [
 		'labels' => [
 			'name'              => 'Категории услуг',
@@ -245,6 +231,7 @@ function register_custom_entities()
 		'rewrite'           => ['slug' => 'portfolio', 'with_front' => false],
 	]);
 
+
 	register_post_type('portfolio', [
 		'labels' => [
 			'name'               => 'Портфолио',
@@ -268,21 +255,22 @@ function register_custom_entities()
 	]);
 }
 
+
 add_filter('post_type_link', 'custom_taxonomy_permalinks', 10, 2);
 function custom_taxonomy_permalinks($post_link, $post)
 {
-	if ($post->post_type === 'services') {
+	if ($post->post_type === 'services' && strpos($post_link, '%service_cat%') !== false) {
 		$terms = get_the_terms($post->ID, 'service_cat');
-		if (!empty($terms)) {
+		if (!empty($terms) && !is_wp_error($terms)) {
 			return str_replace('%service_cat%', $terms[0]->slug, $post_link);
 		} else {
 			return str_replace('%service_cat%', 'general', $post_link);
 		}
 	}
 
-	if ($post->post_type === 'portfolio') {
+	if ($post->post_type === 'portfolio' && strpos($post_link, '%portfolio_cat%') !== false) {
 		$terms = get_the_terms($post->ID, 'portfolio_cat');
-		if (!empty($terms)) {
+		if (!empty($terms) && !is_wp_error($terms)) {
 			return str_replace('%portfolio_cat%', $terms[0]->slug, $post_link);
 		} else {
 			return str_replace('%portfolio_cat%', 'uncategorized', $post_link);
@@ -292,19 +280,66 @@ function custom_taxonomy_permalinks($post_link, $post)
 	return $post_link;
 }
 
-
-// Article Blog fix
-add_action('init', 'modify_base_post_settings');
-function modify_base_post_settings()
+add_filter('nav_menu_link_attributes', 'fix_custom_menu_links', 10, 2);
+function fix_custom_menu_links($atts, $item)
 {
-	global $wp_rewrite;
+	if (strpos($atts['href'], '%service_cat%') !== false) {
+		$terms = get_the_terms($item->object_id, 'service_cat');
+		if (!empty($terms) && !is_wp_error($terms)) {
+			$atts['href'] = str_replace('%service_cat%', $terms[0]->slug, $atts['href']);
+		} else {
+			$atts['href'] = str_replace('%service_cat%/', '', $atts['href']);
+		}
+	}
 
-	$wp_rewrite->extra_permastructs['category']['struct'] = 'blog/%category%';
+	if (strpos($atts['href'], '%portfolio_cat%') !== false) {
+		$terms = get_the_terms($item->object_id, 'portfolio_cat');
+		if (!empty($terms) && !is_wp_error($terms)) {
+			$atts['href'] = str_replace('%portfolio_cat%', $terms[0]->slug, $atts['href']);
+		} else {
+			$atts['href'] = str_replace('%portfolio_cat%/', '', $atts['href']);
+		}
+	}
+
+	return $atts;
 }
 
-add_action('init', 'fix_blog_single_rewrite_rules');
-function fix_blog_single_rewrite_rules()
+add_filter('post_type_archive_link', 'fix_cpt_archive_links', 10, 2);
+function fix_cpt_archive_links($link, $post_type)
 {
+	if ($post_type === 'services') {
+		return str_replace('%service_cat%/', '', $link);
+	}
+
+	if ($post_type === 'portfolio') {
+		return str_replace('%portfolio_cat%/', '', $link);
+	}
+
+	return $link;
+}
+
+add_action('init', 'register_custom_archive_rules');
+function register_custom_archive_rules()
+{
+	add_rewrite_rule(
+		'^services/?$',
+		'index.php?post_type=services',
+		'top'
+	);
+
+	add_rewrite_rule(
+		'^portfolio/?$',
+		'index.php?post_type=portfolio',
+		'top'
+	);
+}
+
+add_action('init', 'modify_blog_settings');
+function modify_blog_settings()
+{
+	global $wp_rewrite;
+	$wp_rewrite->extra_permastructs['category']['struct'] = 'blog/%category%';
+
 	add_rewrite_rule(
 		'^blog/([^/]+)/([^/]+)/?$',
 		'index.php?name=$matches[2]',
@@ -329,21 +364,19 @@ add_action('init', 'customize_standard_taxonomy_labels');
 function customize_standard_taxonomy_labels()
 {
 	global $wp_taxonomies;
-
-
-	$labels = &$wp_taxonomies['category']->labels;
-	$labels->name = 'Категории статей';
-	$labels->singular_name = 'Категория статей';
-	$labels->add_new_item = 'Добавить новую категорию статей';
-	$labels->edit_item = 'Изменить категорию статей';
-	$labels->new_item_name = 'Название новой категории статей';
-	$labels->search_items = 'Искать категории статей';
-	$labels->all_items = 'Все категории статей';
-	$labels->menu_name = 'Категории статей';
-
+	if (isset($wp_taxonomies['category'])) {
+		$labels = &$wp_taxonomies['category']->labels;
+		$labels->name = 'Категории статей';
+		$labels->singular_name = 'Категория статей';
+		$labels->add_new_item = 'Добавить новую категорию статей';
+		$labels->edit_item = 'Изменить категорию статей';
+		$labels->new_item_name = 'Название новой категории статей';
+		$labels->search_items = 'Искать категории статей';
+		$labels->all_items = 'Все категории статей';
+		$labels->menu_name = 'Категории статей';
+	}
 	register_taxonomy('post_tag', array());
 }
-
 
 
 // FORM SUBMIT CONFIG

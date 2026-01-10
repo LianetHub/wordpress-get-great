@@ -7,7 +7,7 @@
 
 <?php get_header(); ?>
 
-
+Категория портфолио
 
 
 <?php get_footer(); ?>

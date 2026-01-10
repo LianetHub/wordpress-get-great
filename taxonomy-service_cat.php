@@ -7,7 +7,7 @@
 
 <?php get_header(); ?>
 
-
+Категория услуги
 
 
 <?php get_footer(); ?>

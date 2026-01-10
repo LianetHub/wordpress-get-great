@@ -6,4 +6,6 @@
 ?>
 <?php get_header(); ?>
 
+Cтраница услуг
+
 <?php get_footer(); ?>
