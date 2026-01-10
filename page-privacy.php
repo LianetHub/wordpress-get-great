@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template for the main landing page (Home)
+ * Template Name: Privacy Policy Page
  */
 ?>
 

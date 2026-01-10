@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template for the main landing page (Home)
+ * The template for displaying specific service portfolio pages 
  */
 ?>
 

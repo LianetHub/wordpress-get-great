@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * The main template file. Used as a fallback if no other template matches.
+ */
+?>
+
 <?php get_header(); ?>
 <?php if (trim(get_the_content())) : ?>
     <section class="article">

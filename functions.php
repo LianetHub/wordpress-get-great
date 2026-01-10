@@ -67,65 +67,71 @@ add_filter('upload_mimes', 'allow_svg_uploads');
 
 
 // Register navigation menus
-// function register_custom_menus()
-// {
-// 	register_nav_menus(array(
-// 		'general_menu' => ' Меню'
-// 	));
-// }
-// add_action('after_setup_theme', 'register_custom_menus');
+add_action('after_setup_theme', 'theme_register_nav_menu');
 
-// class Dornott_Menu_Walker extends Walker_Nav_Menu
-// {
+function theme_register_nav_menu()
+{
+	register_nav_menus([
+		'primary_menu' => 'Главное меню (в шапке)',
+		'footer_menu'  => 'Меню в подвале (политики)'
+	]);
+}
 
-// 	public function start_lvl(&$output, $depth = 0, $args = null)
-// 	{
-// 		$indent = str_repeat("\t", $depth);
-// 		$output .= "\n$indent<ul class=\"submenu__list\">\n";
-// 	}
+add_filter('wp_get_nav_menu_items', 'append_dynamic_menu_items', 10, 3);
+function append_dynamic_menu_items($items, $menu, $args)
+{
+	if (is_admin()) return $items;
 
-// 	public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
-// 	{
-// 		$indent = ($depth) ? str_repeat("\t", $depth) : '';
+	foreach ($items as $item) {
 
-// 		$classes = empty($item->classes) ? array() : (array) $item->classes;
-// 		$classes[] = 'menu__item';
+		if ($item->title == 'Услуги') {
+			$terms = get_terms(['taxonomy' => 'service_cat', 'hide_empty' => false]);
+			foreach ($terms as $term) {
+				$term->menu_item_parent = $item->ID;
+				$term->db_id = 0;
+				$term->ID = 's-cat-' . $term->term_id;
+				$term->object_id = $term->term_id;
+				$term->object = 'service_cat';
+				$term->type = 'taxonomy';
+				$term->url = get_term_link($term);
+				$term->title = $term->name;
+				$items[] = $term;
+			}
+		}
 
-// 		$class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
-// 		$class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+		if ($item->title == 'Портфолио') {
+			$terms = get_terms(['taxonomy' => 'portfolio_cat', 'hide_empty' => false]);
+			foreach ($terms as $term) {
+				$term->menu_item_parent = $item->ID;
+				$term->db_id = 0;
+				$term->ID = 'p-cat-' . $term->term_id;
+				$term->object_id = $term->term_id;
+				$term->object = 'portfolio_cat';
+				$term->type = 'taxonomy';
+				$term->url = get_term_link($term);
+				$term->title = $term->name;
+				$items[] = $term;
+			}
+		}
 
-// 		$output .= $indent . '<li' . $class_names . '>';
+		if ($item->title == 'Блог') {
+			$categories = get_categories();
+			foreach ($categories as $cat) {
+				$cat->menu_item_parent = $item->ID;
+				$cat->db_id = 0;
+				$cat->ID = 'cat-' . $cat->term_id;
+				$cat->object_id = $cat->term_id;
+				$cat->object = 'category';
+				$cat->type = 'taxonomy';
+				$cat->url = get_category_link($cat->term_id);
+				$cat->title = $cat->name;
+				$items[] = $cat;
+			}
+		}
+	}
 
-// 		$atts = array();
-// 		$atts['title']  = ! empty($item->attr_title) ? $item->attr_title : '';
-// 		$atts['target'] = ! empty($item->target)     ? $item->target     : '';
-// 		$atts['rel']    = ! empty($item->xfn)        ? $item->xfn        : '';
-// 		$atts['href']   = ! empty($item->url)        ? $item->url        : '';
-// 		$atts['class']  = 'menu__link';
-
-// 		$atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
-
-// 		$attributes = '';
-// 		foreach ($atts as $attr => $value) {
-// 			if (! empty($value)) {
-// 				$value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
-// 				$attributes .= ' ' . $attr . '="' . $value . '"';
-// 			}
-// 		}
-
-// 		$title = apply_filters('the_title', $item->title, $item->ID);
-// 		$title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
-
-// 		$item_output = $args->before;
-// 		$item_output .= '<a' . $attributes . '>';
-// 		$item_output .= $args->link_before . $title . $args->link_after;
-// 		$item_output .= '</a>';
-// 		$item_output .= $args->after;
-
-// 		$output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
-// 	}
-// }
-
+	return $items;
+}
 
 // убираем с фронта ненужную инфу в хедере
 remove_action('wp_head', 'wp_generator');
@@ -169,6 +175,121 @@ add_filter('body_class', 'add_preloading_body_class');
 function currentYear()
 {
 	return date('Y');
+}
+
+
+
+// Custom Posts
+add_action('init', 'register_custom_entities');
+function register_custom_entities()
+{
+	register_taxonomy('service_cat', 'services', [
+		'labels' => [
+			'name'              => 'Категории услуг',
+			'singular_name'     => 'Категория услуги',
+			'search_items'      => 'Искать категории услуг',
+			'all_items'         => 'Все категории услуг',
+			'parent_item'       => 'Родительская категория услуги',
+			'parent_item_colon' => 'Родительская категория услуги:',
+			'edit_item'         => 'Изменить категорию услуги',
+			'update_item'       => 'Обновить категорию услуги',
+			'add_new_item'      => 'Добавить новую категорию услуг',
+			'new_item_name'     => 'Название новой категории услуг',
+			'menu_name'         => 'Категории услуг',
+			'back_to_items'     => '← Назад к категориям услуг',
+		],
+		'hierarchical'      => true,
+		'show_in_rest'      => true,
+		'rewrite'           => ['slug' => 'services', 'with_front' => false],
+	]);
+
+	register_post_type('services', [
+		'labels' => [
+			'name'               => 'Услуги',
+			'singular_name'      => 'Услуга',
+			'add_new'            => 'Добавить услугу',
+			'add_new_item'       => 'Добавить новую услугу',
+			'edit_item'          => 'Редактировать услугу',
+			'new_item'           => 'Новая услуга',
+			'view_item'          => 'Посмотреть услугу',
+			'search_items'       => 'Искать услуги',
+			'not_found'          => 'Услуг не найдено',
+			'not_found_in_trash' => 'В корзине услуг не найдено',
+			'menu_name'          => 'Услуги',
+		],
+		'public'             => true,
+		'has_archive'        => true,
+		'menu_icon'          => 'dashicons-admin-tools',
+		'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+		'rewrite'            => ['slug' => 'services/%service_cat%', 'with_front' => false],
+		'show_in_rest'       => true,
+	]);
+
+	register_taxonomy('portfolio_cat', 'portfolio', [
+		'labels' => [
+			'name'              => 'Категории портфолио',
+			'singular_name'     => 'Категория портфолио',
+			'search_items'      => 'Искать категории портфолио',
+			'all_items'         => 'Все категории портфолио',
+			'parent_item'       => 'Родительская категория портфолио',
+			'parent_item_colon' => 'Родительская категория портфолио:',
+			'edit_item'         => 'Изменить категорию портфолио',
+			'update_item'       => 'Обновить категорию портфолио',
+			'add_new_item'      => 'Добавить новую категорию портфолио',
+			'new_item_name'     => 'Название новой категории портфолио',
+			'menu_name'         => 'Категории портфолио',
+			'back_to_items'     => '← Назад к категориям портфолио',
+		],
+		'hierarchical'      => true,
+		'show_in_rest'      => true,
+		'rewrite'           => ['slug' => 'portfolio', 'with_front' => false],
+	]);
+
+	register_post_type('portfolio', [
+		'labels' => [
+			'name'               => 'Портфолио',
+			'singular_name'      => 'Проект',
+			'add_new'            => 'Добавить проект',
+			'add_new_item'       => 'Добавить новый проект',
+			'edit_item'          => 'Редактировать проект',
+			'new_item'           => 'Новый проект',
+			'view_item'          => 'Посмотреть проект',
+			'search_items'       => 'Искать в портфолио',
+			'not_found'          => 'Проектов не найдено',
+			'not_found_in_trash' => 'В корзине проектов не найдено',
+			'menu_name'          => 'Портфолио',
+		],
+		'public'             => true,
+		'has_archive'        => true,
+		'menu_icon'          => 'dashicons-format-gallery',
+		'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+		'rewrite'            => ['slug' => 'portfolio/%portfolio_cat%', 'with_front' => false],
+		'show_in_rest'       => true,
+	]);
+}
+
+add_filter('post_type_link', 'custom_taxonomy_permalinks', 10, 2);
+function custom_taxonomy_permalinks($post_link, $post)
+{
+	if ($post->post_type === 'services') {
+		$terms = get_the_terms($post->ID, 'service_cat');
+		if (!empty($terms)) {
+			return str_replace('%service_cat%', $terms[0]->slug, $post_link);
+		} else {
+			return str_replace('%service_cat%', 'general', $post_link);
+		}
+	}
+
+	if ($post->post_type === 'portfolio') {
+		$terms = get_the_terms($post->ID, 'portfolio_cat');
+		if (!empty($terms)) {
+			return str_replace('%portfolio_cat%', $terms[0]->slug, $post_link);
+		} else {
+			return str_replace('%portfolio_cat%', 'uncategorized', $post_link);
+		}
+	}
+
+	return $post_link;
 }
 
 // FORM SUBMIT CONFIG

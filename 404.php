@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * The template for displaying 404 pages (Not Found)
+ */
+?>
+
 <?php get_header(); ?>
 <section class="hero">
     <div class="hero__main">

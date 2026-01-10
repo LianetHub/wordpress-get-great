@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template for the main landing page (Home)
+ * The template for the blog posts index (Blog)
  */
 ?>
 

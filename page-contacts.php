@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template for the main landing page (Home)
+ * Template Name: Contacts Page
  */
 ?>
 
