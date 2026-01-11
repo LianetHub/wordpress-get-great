@@ -3,14 +3,14 @@
 <footer class="footer">
     <div class="container">
         <?php if (have_rows('social_links', 'option')): ?>
-            <div class="social-block">
+            <div class="socials">
                 <?php while (have_rows('social_links', 'option')): the_row();
                     $icon = get_sub_field('icon');
                     $link = get_sub_field('link');
                     $hover_color = get_sub_field('hover_color');
                 ?>
                     <a href="<?php echo esc_url($link); ?>"
-                        class="social-item"
+                        class="socials__item"
                         style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
                         target="_blank"
                         rel="nofollow">

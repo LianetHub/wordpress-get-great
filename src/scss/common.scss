@@ -80,7 +80,7 @@ body {
 		box-sizing: border-box;
 		padding: 0 1rem;
 		@media (min-width: $md2) {
-			padding: 0 3rem;
+			padding: 0 rem(42);
 		}
 	}
 	@media (min-width: $md5) {
