@@ -1,29 +1,9 @@
-.promo {
-	// .promo__side
-	&__side {
-	}
-	// .promo__form
-	&__form {
-	}
-	// .promo__form-header
-	&__form-header {
-	}
-	// .promo__form-caption
-	&__form-caption {
-	}
-	// .promo__form-text
-	&__form-text {
-	}
-	// .promo__form-fields
-	&__form-fields {
-	}
-	// .promo__form-field
-	&__form-field {
-	}
-	// .promo__form-footer
-	&__form-footer {
-	}
-}
+@use "sass:color";
+@use "sass:math";
+@use "mixins" as *;
+@use "variables" as *;
+@use "fonts";
+@use "icons";
 
 .promo {
 	background: rgba($color: #000000, $alpha: 0.4);
@@ -147,10 +127,11 @@
 					}
 				}
 			}
-			.promo__tab-border {
-				opacity: 1;
-			}
+
 			&.counting {
+				.promo__tab-border {
+					opacity: 1;
+				}
 				.promo__tab-border rect {
 					stroke-dashoffset: 0 !important;
 					transition: stroke-dashoffset var(--counting-speed) linear;
@@ -189,7 +170,7 @@
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity 0.3s ease;
-		display: none;
+
 		rect {
 			width: 100%;
 			height: 100%;

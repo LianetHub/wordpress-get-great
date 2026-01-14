@@ -39,7 +39,7 @@ $has_h1 = false;
                         $bg_style = ' style="background-image: url(' . esc_url($poster_url) . '); background-size: cover; background-position: center;"';
                     }
                     ?>
-                    <div class="promo__slide swiper-slide" <?php echo $bg_style; ?>>
+                    <div class="promo__slide swiper-slide" <?php echo $bg_style; ?> data-title="<?php echo esc_attr($slide['tab_text']); ?>">
                         <?php if (!empty($slide_video)) : ?>
                             <video class="promo__video" playsinline autoplay muted loop poster="<?php echo esc_url($poster_url); ?>">
                                 <source src="<?php echo esc_url($slide_video['url']); ?>" type="video/mp4">
@@ -109,6 +109,7 @@ $has_h1 = false;
 
                 <form action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" method="POST" class="promo__form form">
                     <input type="hidden" name="action" value="send_contact_form">
+                    <input type="hidden" name="promo_slide_source" class="js-slide-source" value="">
                     <div class="promo__form-header">
                         <?php if ($promo_form_title): ?>
                             <div class="promo__form-caption title-sm"><?php echo esc_html($promo_form_title); ?></div>

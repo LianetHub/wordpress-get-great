@@ -493,7 +493,14 @@ $(function () {
     if ($('.promo__slider').length) {
         const $tabs = $('.promo__tab-btn');
         const $promoSection = $('.promo');
+        const $slideSourceInput = $('.js-slide-source');
         const startSlide = $promoSection.data('initial') || 0;
+
+        const updateSourceInput = (swiper) => {
+            const activeSlide = swiper.slides[swiper.realIndex];
+            const title = $(activeSlide).attr('data-title') || ('Слайд ' + (swiper.realIndex + 1));
+            $slideSourceInput.val(title);
+        };
 
         const promoSlider = new Swiper('.promo__slider', {
             initialSlide: startSlide,
@@ -508,8 +515,8 @@ $(function () {
             },
             on: {
                 init: function (swiper) {
-                    let time = (swiper.params.autoplay.delay) / 1000 + 's';
-                    $tabs.css('--counting-speed', time);
+                    let delay = swiper.params.autoplay.delay;
+                    $tabs.css('--counting-speed', delay / 1000 + 's');
 
                     $tabs.each(function () {
                         const rect = $(this).find('rect')[0];
@@ -517,15 +524,38 @@ $(function () {
                             const length = rect.getTotalLength();
                             rect.style.strokeDasharray = length;
                             rect.style.strokeDashoffset = length;
+                            rect.style.transition = 'none';
                         }
                     });
 
-                    const activeIndex = swiper.realIndex;
-                    $tabs.eq(activeIndex).addClass('active counting');
+                    $tabs.removeClass('active counting');
+
+                    updateSourceInput(swiper);
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            const activeIndex = swiper.realIndex;
+                            const $activeTab = $tabs.eq(activeIndex);
+                            const activeRect = $activeTab.find('rect')[0];
+
+                            if (activeRect) {
+                                void $activeTab[0].offsetWidth;
+                                activeRect.style.transition = '';
+                            }
+
+                            $activeTab.addClass('active counting');
+                        });
+                    });
                 },
+
                 slideChangeTransitionStart: function (swiper) {
                     const activeIndex = swiper.realIndex;
+                    let delay = swiper.params.autoplay.delay;
+                    let speed = swiper.params.speed;
 
+                    $tabs.css('--counting-speed', (delay + speed) / 1000 + 's');
+
+                    updateSourceInput(swiper);
 
                     $tabs.each(function () {
                         const rect = $(this).find('rect')[0];
@@ -537,34 +567,29 @@ $(function () {
                         }
                     });
 
-
-                    void $tabs[activeIndex].offsetWidth;
-
-
-                    const activeRect = $tabs.eq(activeIndex).find('rect')[0];
-                    if (activeRect) {
-                        activeRect.style.transition = '';
+                    if (swiper.autoplay.running) {
+                        void $tabs[activeIndex].offsetWidth;
+                        const activeRect = $tabs.eq(activeIndex).find('rect')[0];
+                        if (activeRect) {
+                            activeRect.style.transition = '';
+                        }
+                        $tabs.eq(activeIndex).addClass('active counting');
+                    } else {
+                        $tabs.eq(activeIndex).addClass('active');
                     }
-
-                    $tabs.eq(activeIndex).addClass('active counting');
-                },
-                autoplayStop: function () {
-                    $tabs.removeClass('counting');
-                },
-                autoplayStart: function () {
-                    $tabs.filter('.active').addClass('counting');
                 }
             },
         });
 
         $tabs.on('click', function (e) {
             e.preventDefault();
-            promoSlider.slideTo($(this).index());
-            if (promoSlider.autoplay.running) {
-                promoSlider.autoplay.start();
-            }
+            promoSlider.autoplay.stop();
+            $tabs.removeClass('counting');
+            const index = $(this).index();
+            promoSlider.slideTo(index);
         });
     }
+
 
     // header observer
     const headerElement = $('.header');
