@@ -132,8 +132,6 @@ body {
 }
 // ========================================================
 
-@import "pages/home";
-
 .hero {
 	@media (min-width: $md3) {
 		display: flex;
@@ -1698,3 +1696,5 @@ body {
 		}
 	}
 }
+
+@import "pages/home";

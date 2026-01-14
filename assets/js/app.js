@@ -1,5 +1,6 @@
 "use strict";
 
+
 // preloader
 if ($('.preloader').length > 0) {
     let counting = setInterval(function () {
@@ -297,289 +298,273 @@ $(function () {
 
 
     // sliders
-    const swiperPaginationConfig = {
-        type: 'fraction',
-        formatFractionCurrent: (number) => {
-            return number < 10 ? '0' + number : number;
-        },
-        formatFractionTotal: (number) => {
-            return number < 10 ? '0' + number : number;
-        },
-        renderFraction: (currentClass, totalClass) => {
-            return '<span class="' + currentClass + '"></span>' +
-                '/' +
-                '<span class="' + totalClass + '"></span>';
-        }
-    };
+    // const swiperPaginationConfig = {
+    //     type: 'fraction',
+    //     formatFractionCurrent: (number) => {
+    //         return number < 10 ? '0' + number : number;
+    //     },
+    //     formatFractionTotal: (number) => {
+    //         return number < 10 ? '0' + number : number;
+    //     },
+    //     renderFraction: (currentClass, totalClass) => {
+    //         return '<span class="' + currentClass + '"></span>' +
+    //             '/' +
+    //             '<span class="' + totalClass + '"></span>';
+    //     }
+    // };
 
-    if ($('.hero').length) {
+    // if ($('.hero').length) {
 
-        const heroImages = $('.hero__images');
-        const heroOffer = $('.hero__offer-slider');
+    //     const heroImages = $('.hero__images');
+    //     const heroOffer = $('.hero__offer-slider');
 
-        if (heroImages.length && heroOffer.length) {
+    //     if (heroImages.length && heroOffer.length) {
 
-            const heroImagesSlider = new Swiper(heroImages.get(0), {
-                loop: true,
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
-                speed: 600,
-                allowTouchMove: false,
+    //         const heroImagesSlider = new Swiper(heroImages.get(0), {
+    //             loop: true,
+    //             effect: 'fade',
+    //             fadeEffect: {
+    //                 crossFade: true
+    //             },
+    //             speed: 600,
+    //             allowTouchMove: false,
 
-                navigation: {
-                    nextEl: '.hero__next',
-                    prevEl: '.hero__prev',
-                },
+    //             navigation: {
+    //                 nextEl: '.hero__next',
+    //                 prevEl: '.hero__prev',
+    //             },
 
-                pagination: {
-                    el: '.hero__pagination',
-                    ...swiperPaginationConfig
-                },
-            });
+    //             pagination: {
+    //                 el: '.hero__pagination',
+    //                 ...swiperPaginationConfig
+    //             },
+    //         });
 
-            const heroOfferSlider = new Swiper(heroOffer.get(0), {
-                loop: true,
-                autoHeight: true,
-                speed: 600,
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
-                controller: {
-                    control: heroImagesSlider
-                },
-                breakpoints: {
-                    991.98: {
-                        autoHeight: false
+    //         const heroOfferSlider = new Swiper(heroOffer.get(0), {
+    //             loop: true,
+    //             autoHeight: true,
+    //             speed: 600,
+    //             effect: 'fade',
+    //             fadeEffect: {
+    //                 crossFade: true
+    //             },
+    //             controller: {
+    //                 control: heroImagesSlider
+    //             },
+    //             breakpoints: {
+    //                 991.98: {
+    //                     autoHeight: false
 
-                    }
-                }
-            });
+    //                 }
+    //             }
+    //         });
 
 
-            heroImagesSlider.controller.control = heroOfferSlider;
-        }
-    }
+    //         heroImagesSlider.controller.control = heroOfferSlider;
+    //     }
+    // }
 
-    if ($('.product-card').length) {
-        const hasCursor = window.matchMedia('(hover: hover)').matches;
+    // if ($('.reviews').length) {
 
-        $('.product-card').each(function (index, element) {
-            const $slider = $(element).find('.product-card__slider');
-            if (!$slider.length) return;
 
-            const pagination = $(element).find('.product-card__pagination')[0];
+    //     let reviewsTextSwiper;
+    //     const initTextSwiper = () => {
+    //         if ($('.reviews__text .reviews__slider').length && !reviewsTextSwiper) {
+    //             reviewsTextSwiper = new Swiper('.reviews__text .reviews__slider', {
+    //                 slidesPerView: "auto",
+    //                 spaceBetween: 12,
+    //                 watchOverflow: true,
+    //                 navigation: {
+    //                     nextEl: '.reviews__controls--text .reviews__next',
+    //                     prevEl: '.reviews__controls--text .reviews__prev',
+    //                 },
+    //                 pagination: {
+    //                     el: '.reviews__controls--text .reviews__pagination',
+    //                     ...swiperPaginationConfig
+    //                 },
+    //                 breakpoints: {
+    //                     991.98: {
+    //                         slidesPerView: 3,
+    //                         spaceBetween: 18,
+    //                     },
+    //                     1399.98: {
+    //                         slidesPerView: 4,
+    //                         spaceBetween: 24,
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     };
 
-            const swiper = new Swiper($slider[0], {
-                slidesPerView: 1,
-                speed: hasCursor ? 0 : 400,
-                lazy: true,
-                watchOverflow: true,
-                pagination: {
-                    el: pagination,
-                    clickable: true
-                }
-            });
+    //     let reviewsScreenshotsSwiper;
+    //     const initScreenshotsSwiper = () => {
+    //         if ($('.reviews__screenshots .reviews__slider').length && !reviewsScreenshotsSwiper) {
+    //             reviewsScreenshotsSwiper = new Swiper('.reviews__screenshots .reviews__slider', {
+    //                 slidesPerView: "auto",
+    //                 spaceBetween: 12,
+    //                 watchOverflow: true,
+    //                 navigation: {
+    //                     nextEl: '.reviews__controls--screenshots .reviews__next',
+    //                     prevEl: '.reviews__controls--screenshots .reviews__prev',
+    //                 },
+    //                 pagination: {
+    //                     el: '.reviews__controls--screenshots .reviews__pagination',
+    //                     ...swiperPaginationConfig
+    //                 },
+    //                 breakpoints: {
+    //                     991.98: {
+    //                         slidesPerView: 4,
+    //                         spaceBetween: 18,
+    //                     },
+    //                     1399.98: {
+    //                         slidesPerView: 5,
+    //                         spaceBetween: 24,
+    //                     }
+    //                 },
+    //             });
+    //         }
+    //     };
 
-            const slidesCount = swiper.slides.length;
 
-            if (slidesCount > 1) {
-                const $areasWrapper = $('<div class="product-card__hover-areas"></div>');
-                $areasWrapper.css({
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    display: 'flex',
-                    zIndex: 10
-                });
+    //     const $reviewsSection = $('#reviews');
+    //     const $switcherInputs = $reviewsSection.find('.reviews__switcher input[name="reviews-type"]');
+    //     const $reviewsTextContainer = $reviewsSection.find('.reviews__text');
+    //     const $reviewsScreenshotsContainer = $reviewsSection.find('.reviews__screenshots');
+    //     const $controlsText = $reviewsSection.find('.reviews__controls--text');
+    //     const $controlsScreenshots = $reviewsSection.find('.reviews__controls--screenshots');
 
-                if (!hasCursor) {
-                    $areasWrapper[0].style.setProperty('pointer-events', 'none', 'important');
-                }
 
-                for (let i = 0; i < slidesCount; i++) {
-                    const $area = $('<div class="product-card__hover-area"></div>');
-                    $area.css({
-                        flex: '1 1 0',
+    //     if ($switcherInputs.filter(':checked').val() === 'text') {
+    //         initTextSwiper();
+    //     } else {
+    //         initScreenshotsSwiper();
+    //     }
+
+    //     $switcherInputs.on('change', function () {
+    //         const type = $(this).val();
+
+    //         if (type === 'text') {
+    //             $reviewsTextContainer.show();
+    //             $reviewsScreenshotsContainer.hide();
+    //             $controlsText.show();
+    //             $controlsScreenshots.hide();
+    //             initTextSwiper();
+    //         } else if (type === 'screenshots') {
+    //             $reviewsTextContainer.hide();
+    //             $reviewsScreenshotsContainer.show();
+    //             $controlsText.hide();
+    //             $controlsScreenshots.show();
+    //             initScreenshotsSwiper();
+    //         }
+
+    //         if (reviewsTextSwiper) {
+    //             reviewsTextSwiper.update();
+    //         }
+    //         if (reviewsScreenshotsSwiper) {
+    //             reviewsScreenshotsSwiper.update();
+    //         }
+    //     });
+    // }
+
+    // if ($('.nav-slider').length) {
+
+    //     let policiesSlider = new Swiper('.nav-slider', {
+    //         slidesPerView: "auto",
+    //         spaceBetween: 4,
+    //         slideToClickedSlide: true,
+    //         initialSlide: $('.nav-slider__item .nav-slider__link.active').parent().index()
+    //     })
+
+    //     $(document).on('change', '#policies input[name="policy-type"]', function () {
+    //         const $this = $(this);
+    //         const $popup = $this.closest('#policies');
+    //         const $items = $popup.find('.switcher__item');
+    //         const currentIndex = $items.index($this.closest('.switcher__item'));
+    //         const $textBlocks = $popup.find('.popup__text');
+
+    //         $textBlocks.hide().eq(currentIndex).show();
+
+    //         if (policiesSlider) {
+    //             policiesSlider.slideTo(currentIndex);
+    //         }
+    //     });
+    // }
+
+    if ($('.promo__slider').length) {
+        const $tabs = $('.promo__tab-btn');
+        const $promoSection = $('.promo');
+        const startSlide = $promoSection.data('initial') || 0;
+
+        const promoSlider = new Swiper('.promo__slider', {
+            initialSlide: startSlide,
+            slidesPerView: 1,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            speed: 800,
+            autoplay: {
+                delay: 15000,
+                disableOnInteraction: false,
+                stopOnLastSlide: false
+            },
+            on: {
+                init: function (swiper) {
+                    let time = (swiper.params.autoplay.delay) / 1000 + 's';
+                    $tabs.css('--counting-speed', time);
+
+                    $tabs.each(function () {
+                        const rect = $(this).find('rect')[0];
+                        if (rect) {
+                            const length = rect.getTotalLength();
+                            rect.style.strokeDasharray = length;
+                            rect.style.strokeDashoffset = length;
+                        }
                     });
 
-                    $area.on('mouseenter', () => {
-                        swiper.slideTo(i);
+                    const activeIndex = swiper.realIndex;
+                    $tabs.eq(activeIndex).addClass('active counting');
+                },
+                slideChangeTransitionStart: function (swiper) {
+                    const activeIndex = swiper.realIndex;
+
+
+                    $tabs.each(function () {
+                        const rect = $(this).find('rect')[0];
+                        if (rect) {
+                            const length = rect.getTotalLength();
+                            $(this).removeClass('active counting');
+                            rect.style.transition = 'none';
+                            rect.style.strokeDashoffset = length;
+                        }
                     });
 
-                    $areasWrapper.append($area);
-                }
 
-                $slider.css('position', 'relative').append($areasWrapper);
-            }
-        });
-    }
-
-    if ($('.reviews').length) {
+                    void $tabs[activeIndex].offsetWidth;
 
 
-        let reviewsTextSwiper;
-        const initTextSwiper = () => {
-            if ($('.reviews__text .reviews__slider').length && !reviewsTextSwiper) {
-                reviewsTextSwiper = new Swiper('.reviews__text .reviews__slider', {
-                    slidesPerView: "auto",
-                    spaceBetween: 12,
-                    watchOverflow: true,
-                    navigation: {
-                        nextEl: '.reviews__controls--text .reviews__next',
-                        prevEl: '.reviews__controls--text .reviews__prev',
-                    },
-                    pagination: {
-                        el: '.reviews__controls--text .reviews__pagination',
-                        ...swiperPaginationConfig
-                    },
-                    breakpoints: {
-                        991.98: {
-                            slidesPerView: 3,
-                            spaceBetween: 18,
-                        },
-                        1399.98: {
-                            slidesPerView: 4,
-                            spaceBetween: 24,
-                        }
+                    const activeRect = $tabs.eq(activeIndex).find('rect')[0];
+                    if (activeRect) {
+                        activeRect.style.transition = '';
                     }
-                });
-            }
-        };
 
-        let reviewsScreenshotsSwiper;
-        const initScreenshotsSwiper = () => {
-            if ($('.reviews__screenshots .reviews__slider').length && !reviewsScreenshotsSwiper) {
-                reviewsScreenshotsSwiper = new Swiper('.reviews__screenshots .reviews__slider', {
-                    slidesPerView: "auto",
-                    spaceBetween: 12,
-                    watchOverflow: true,
-                    navigation: {
-                        nextEl: '.reviews__controls--screenshots .reviews__next',
-                        prevEl: '.reviews__controls--screenshots .reviews__prev',
-                    },
-                    pagination: {
-                        el: '.reviews__controls--screenshots .reviews__pagination',
-                        ...swiperPaginationConfig
-                    },
-                    breakpoints: {
-                        991.98: {
-                            slidesPerView: 4,
-                            spaceBetween: 18,
-                        },
-                        1399.98: {
-                            slidesPerView: 5,
-                            spaceBetween: 24,
-                        }
-                    },
-                });
-            }
-        };
+                    $tabs.eq(activeIndex).addClass('active counting');
+                },
+                autoplayStop: function () {
+                    $tabs.removeClass('counting');
+                },
+                autoplayStart: function () {
+                    $tabs.filter('.active').addClass('counting');
+                }
+            },
+        });
 
-
-        const $reviewsSection = $('#reviews');
-        const $switcherInputs = $reviewsSection.find('.reviews__switcher input[name="reviews-type"]');
-        const $reviewsTextContainer = $reviewsSection.find('.reviews__text');
-        const $reviewsScreenshotsContainer = $reviewsSection.find('.reviews__screenshots');
-        const $controlsText = $reviewsSection.find('.reviews__controls--text');
-        const $controlsScreenshots = $reviewsSection.find('.reviews__controls--screenshots');
-
-
-        if ($switcherInputs.filter(':checked').val() === 'text') {
-            initTextSwiper();
-        } else {
-            initScreenshotsSwiper();
-        }
-
-        $switcherInputs.on('change', function () {
-            const type = $(this).val();
-
-            if (type === 'text') {
-                $reviewsTextContainer.show();
-                $reviewsScreenshotsContainer.hide();
-                $controlsText.show();
-                $controlsScreenshots.hide();
-                initTextSwiper();
-            } else if (type === 'screenshots') {
-                $reviewsTextContainer.hide();
-                $reviewsScreenshotsContainer.show();
-                $controlsText.hide();
-                $controlsScreenshots.show();
-                initScreenshotsSwiper();
-            }
-
-            if (reviewsTextSwiper) {
-                reviewsTextSwiper.update();
-            }
-            if (reviewsScreenshotsSwiper) {
-                reviewsScreenshotsSwiper.update();
+        $tabs.on('click', function (e) {
+            e.preventDefault();
+            promoSlider.slideTo($(this).index());
+            if (promoSlider.autoplay.running) {
+                promoSlider.autoplay.start();
             }
         });
     }
-
-
-    if ($('.nav-slider').length) {
-
-        let policiesSlider = new Swiper('.nav-slider', {
-            slidesPerView: "auto",
-            spaceBetween: 4,
-            slideToClickedSlide: true,
-            initialSlide: $('.nav-slider__item .nav-slider__link.active').parent().index()
-        })
-
-        $(document).on('change', '#policies input[name="policy-type"]', function () {
-            const $this = $(this);
-            const $popup = $this.closest('#policies');
-            const $items = $popup.find('.switcher__item');
-            const currentIndex = $items.index($this.closest('.switcher__item'));
-            const $textBlocks = $popup.find('.popup__text');
-
-            $textBlocks.hide().eq(currentIndex).show();
-
-            if (policiesSlider) {
-                policiesSlider.slideTo(currentIndex);
-            }
-        });
-    }
-    // product variation change price
-
-    $(document).on('change', '.product-card .product-card__variations-input', function () {
-        var $card = $(this).closest('.product-card');
-        var selectedVariationId = $(this).val();
-        var newPriceHtml = $(this).data('price-html');
-        var newRegularPriceHtml = $(this).data('regular-price-html');
-        var isInStock = !$(this).is(':disabled');
-
-        var $currentPriceElement = $card.find('[data-price-role="current-price"]');
-        var $regularPriceElement = $card.find('[data-price-role="regular-price"]');
-        var $addToCartButton = $card.find('.ajax_add_to_cart');
-
-        $currentPriceElement.html(newPriceHtml);
-        $regularPriceElement.html(newRegularPriceHtml);
-
-        $addToCartButton.data('variation-id', selectedVariationId);
-
-        if (isInStock) {
-            $addToCartButton.removeAttr('disabled');
-        } else {
-            $addToCartButton.attr('disabled', 'disabled');
-        }
-    });
-
-    $('.product-card').each(function () {
-        var $card = $(this);
-        var $firstRadio = $card.find('.product-card__variations-input:checked');
-
-        if ($firstRadio.length) {
-            $firstRadio.trigger('change');
-        }
-    });
-
-
 
     // header observer
     const headerElement = $('.header');
@@ -1015,499 +1000,6 @@ $(function () {
 
     window.formController = new FormController();
 
-    class DornottCart {
-        constructor() {
-            this.$cartModal = $("#cart");
-            this.storageKey = 'dornott_cart';
-            this.$form = $('#cart-form');
-            this.$cartBody = $('.cart__body');
-            this.$container = $('#cart-items-container');
-            this.$cartToggler = $('[data-cart-toggler]');
-            this.$addressStep = this.$form.find('.order__step').eq(2);
-            this.$checkoutBtn = $('#checkout-button');
-            this.$paymentContainer = $("#payment-container");
-            this.$cartTitle = $('.cart__title');
-
-            this.init();
-        }
-
-        init() {
-            this.bindEvents();
-            this.updateInterface();
-            this.toggleAddressStep();
-        }
-
-        getData() {
-            return JSON.parse(localStorage.getItem(this.storageKey)) || [];
-        }
-
-        saveData(data) {
-            localStorage.setItem(this.storageKey, JSON.stringify(data));
-            this.updateInterface();
-        }
-
-        showTooltip($target, text, type = 'success') {
-            $('.tooltip').remove();
-
-            const $tooltip = $(`<div class="tooltip ${type}"></div>`).text(text);
-            $('body').append($tooltip);
-
-            const offset = $target.offset();
-            const tooltipWidth = $tooltip.outerWidth();
-            const tooltipHeight = $tooltip.outerHeight();
-            const elementWidth = $target.outerWidth();
-            const elementHeight = $target.outerHeight();
-
-            let top = offset.top - tooltipHeight - 10;
-            let left = offset.left + elementWidth - tooltipWidth;
-
-            if (top < $(window).scrollTop()) {
-                top = offset.top + elementHeight + 10;
-                $tooltip.addClass('open-bottom');
-            } else {
-                $tooltip.addClass('open-top');
-            }
-
-            if (left < 5) {
-                left = 5;
-            }
-
-            $tooltip.css({
-                top: top,
-                left: left,
-                position: 'absolute',
-                opacity: 0,
-                display: 'block'
-            }).animate({ opacity: 1 }, 200);
-
-            setTimeout(() => {
-                $tooltip.fadeOut(300, function () {
-                    $(this).remove();
-                });
-            }, 2000);
-        }
-
-        bindEvents() {
-            $(document).on('click', '.toggle-to-cart-button', (e) => this.handleAddToCart(e));
-            $(document).on('click', '.quantity-block__up', (e) => this.changeQty(e, 1));
-            $(document).on('click', '.quantity-block__down', (e) => this.changeQty(e, -1));
-            $(document).on('change', '.quantity-block__input', (e) => this.handleQtyInput(e));
-            $(document).on('click', '.cart__item-remove', (e) => {
-                const $btn = $(e.target);
-                const id = $btn.closest('.cart__item').data('id');
-                this.removeItem(id);
-                this.showTooltip($btn, 'Товар удален', '');
-            });
-
-            $(document).on('change', 'input[name="delivery"]', () => {
-                this.updateInterface();
-                this.toggleAddressStep()
-            });
-            $(document).on('change', 'input[name="select_all"]', (e) => this.toggleAllCheckboxes(e));
-            $(document).on('change', '.cart__item-checkbox .checkbox__input', () => this.updateSelectAllState());
-            $(document).on('click', '.cart__clear', (e) => {
-                this.removeSelected();
-                this.showTooltip($(e.currentTarget), 'Выбранные товары удалены', '');
-            });
-            $(document).on('change', '.product-card__variations-input', (e) => this.handleVariationChange(e));
-
-            this.$form.on('submit', (e) => this.handleSubmit(e));
-            this.$form.on('input change', '[data-required]', () => this.validateForm());
-        }
-
-        handleAddToCart(e) {
-            const $btn = $(e.currentTarget);
-            const $card = $btn.closest('.product-card');
-            const productId = $btn.data('variation-id') || $btn.data('product-id');
-
-            if ($btn.hasClass('active')) {
-                this.removeItem(productId);
-                $btn.removeClass('active');
-                this.showTooltip($btn, 'Удалено из корзины', '');
-            } else {
-                const price = parseInt($card.find('[data-price-role="current-price"]').text().replace(/\D/g, ''));
-                const regPrice = parseInt($card.find('[data-price-role="regular-price"]').text().replace(/\D/g, '')) || price;
-                const saleText = $card.find('.price-block__sale').text().trim();
-
-                const product = {
-                    id: productId,
-                    name: $card.find('.product-card__title').text().trim(),
-                    sku: $card.find('.product-card__sku').text().trim(),
-                    price: price,
-                    regular_price: regPrice,
-                    sale_label: saleText,
-                    image: $card.find('.product-card__image').first().attr('src'),
-                    quantity: 1
-                };
-
-                this.addItem(product);
-                $btn.addClass('active');
-                this.showTooltip($btn, 'Товар добавлен в корзину', 'success');
-            }
-        }
-
-        addItem(product) {
-            let data = this.getData();
-            const index = data.findIndex(item => item.id === product.id);
-            if (index === -1) data.push(product);
-            this.saveData(data);
-        }
-
-        removeItem(id) {
-            let data = this.getData();
-            data = data.filter(item => item.id !== id);
-            this.saveData(data);
-            $(`.toggle-to-cart-button[data-product-id="${id}"], .toggle-to-cart-button[data-variation-id="${id}"]`).removeClass('active');
-        }
-
-        changeQty(e, delta) {
-            const $input = $(e.currentTarget).siblings('.quantity-block__input');
-            const id = $(e.currentTarget).closest('.cart__item').data('id');
-            let val = parseInt($input.val()) || 1;
-            val = Math.min(999, Math.max(1, val + delta));
-            $input.val(val);
-            this.updateQuantity(id, val);
-        }
-
-        handleQtyInput(e) {
-            const $input = $(e.currentTarget);
-            const id = $input.closest('.cart__item').data('id');
-            let val = parseInt($input.val().replace(/\D/g, '')) || 1;
-            val = Math.min(999, Math.max(1, val));
-            $input.val(val);
-            this.updateQuantity(id, val);
-        }
-
-        updateQuantity(id, qty) {
-            let data = this.getData();
-            const index = data.findIndex(item => item.id === id);
-            if (index > -1) {
-                data[index].quantity = qty;
-                this.saveData(data);
-            }
-        }
-
-        validateForm() {
-            let isAllValid = true;
-            this.$form.find('[data-required]').each((_, el) => {
-                if (window.formController && !window.formController.validateField($(el))) {
-                    isAllValid = false;
-                }
-            });
-
-            $('#cart-validation-warning').toggleClass('hidden', isAllValid);
-            return isAllValid;
-        }
-
-        toggleAllCheckboxes(e) {
-            const isChecked = $(e.currentTarget).is(':checked');
-            $('.cart__item-checkbox .checkbox__input').prop('checked', isChecked);
-        }
-
-        updateSelectAllState() {
-            const totalItems = $('.cart__item-checkbox .checkbox__input').length;
-            const checkedItems = $('.cart__item-checkbox .checkbox__input:checked').length;
-            $('input[name="select_all"]').prop('checked', totalItems === checkedItems && totalItems > 0);
-        }
-
-        removeSelected() {
-            $('.cart__item-checkbox .checkbox__input:checked').each((_, el) => {
-                this.removeItem($(el).closest('.cart__item').data('id'));
-            });
-        }
-
-        handleVariationChange(e) {
-            const $input = $(e.currentTarget);
-            const $card = $input.closest('.product-card');
-            const $btn = $card.find('.toggle-to-cart-button');
-
-            $card.find('[data-price-role="current-price"]').html($input.data('price-html'));
-            $card.find('[data-price-role="regular-price"]').html($input.data('regular-price-html'));
-
-            const newId = $input.val();
-            $btn.data('variation-id', newId);
-
-            const data = this.getData();
-            $btn.toggleClass('active', data.some(item => item.id == newId));
-        }
-
-        calculateTotals() {
-            const data = this.getData();
-            const deliveryPrice = parseInt($('input[name="delivery"]:checked').data('price')) || 0;
-            let subtotal = 0, discount = 0, totalQty = 0;
-
-            data.forEach(item => {
-                subtotal += item.regular_price * item.quantity;
-                discount += (item.regular_price - item.price) * item.quantity;
-                totalQty += item.quantity;
-            });
-
-            return { subtotal, discount, totalQty, deliveryPrice, finalPrice: subtotal - discount + deliveryPrice };
-        }
-
-        updateInterface() {
-            const data = this.getData();
-            const totals = this.calculateTotals();
-
-            if (data.length > 0) {
-                this.$cartBody.show();
-                $('#cart-empty-state').hide();
-                if (!this.$cartToggler.find('.cart-quantity').length) {
-                    this.$cartToggler.append('<span class="cart-quantity"></span>');
-                }
-                this.$cartToggler.find('.cart-quantity').text(totals.totalQty);
-            } else {
-                this.$cartBody.hide();
-                $('#cart-empty-state').show();
-                this.$cartToggler.find('.cart-quantity').remove();
-            }
-
-            $('#total-qty').text(`${totals.totalQty} шт.`);
-            $('#subtotal-price').text(`${totals.subtotal.toLocaleString()} ₽`);
-            $('#total-discount').text(`${totals.discount.toLocaleString()} ₽`);
-            $('#delivery-price').text(`${totals.deliveryPrice.toLocaleString()} ₽`);
-            $('#final-price').text(`${totals.finalPrice.toLocaleString()} ₽`);
-
-            this.$form.find('input[name="delivery_price"]').val(totals.deliveryPrice);
-
-            this.renderItems(data);
-            this.syncButtons(data);
-        }
-
-        toggleAddressStep() {
-            const deliveryMethod = $('input[name="delivery"]:checked').val();
-            if (this.$addressStep.length) {
-                if (deliveryMethod === 'pickup') {
-                    this.$addressStep.hide();
-                    if (window.formController) {
-                        this.$addressStep.find('.' + window.formController.selectors.errorClass).removeClass(window.formController.selectors.errorClass);
-                    }
-                } else {
-                    this.$addressStep.show();
-                }
-            }
-        }
-
-        syncButtons(data) {
-            $('.toggle-to-cart-button').each((_, el) => {
-                const $btn = $(el);
-                const id = $btn.data('variation-id') || $btn.data('product-id');
-                $btn.toggleClass('active', data.some(item => item.id == id));
-            });
-        }
-
-        renderItems(data) {
-            this.$container.empty();
-            data.forEach(item => {
-                this.$container.append(`
-                <div class="cart__item" data-id="${item.id}">
-                    <div class="cart__item-block cart__item-block--details">
-                        <label class="cart__item-checkbox checkbox">
-                            <input type="checkbox" class="checkbox__input hidden" hidden checked>
-                            <span class="checkbox__text"></span>
-                        </label>
-                        <div class="cart__item-thumb"><img src="${item.image}"></div>
-                        <div class="cart__item-info">
-                            <div class="cart__item-sku">${item.sku}</div>
-                            <div class="cart__item-name">${item.name}</div>
-                        </div>
-                    </div>
-                    <div class="cart__item-block cart__item-block--quantity">
-                        <div class="quantity-block">
-                            <button type="button" class="quantity-block__down icon-minus"></button>
-                            <input type="number" class="quantity-block__input" value="${item.quantity}">
-                            <button type="button" class="quantity-block__up icon-plus"></button>
-                        </div>
-                    </div>
-                    <div class="cart__item-block cart__item-block--price">
-                        <div class="cart__item-price price-block">
-                            <div class="price-block__header">
-                                <div class="price-block__old">${item.regular_price > item.price ? item.regular_price.toLocaleString() + ' ₽' : ''}</div>
-                                <div class="price-block__sale">${item.sale_label || ''}</div>
-                            </div>
-                            <div class="price-block__current">${item.price.toLocaleString()} ₽</div>
-                        </div>
-                        <button type="button" class="cart__item-remove icon-cross"></button>
-                    </div>
-                </div>
-            `);
-            });
-            this.updateSelectAllState();
-        }
-
-        async handleSubmit(e) {
-            e.preventDefault();
-            if (this.validateForm()) {
-                this.$checkoutBtn.addClass('_loading');
-
-                const formData = this.$form.serializeArray().filter(item => item.name !== 'select_all');
-                const payload = {
-                    order_info: formData,
-                    items: this.getData(),
-                    totals: this.calculateTotals()
-                };
-
-                try {
-                    const response = await fetch('/wp-admin/admin-ajax.php?action=init_tbank_payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-
-                    if (result.success && result.data.paymentUrl) {
-                        this.openPaymentIframe(result.data.paymentUrl, result.data.orderId);
-                    } else {
-
-                        console.error('Ошибка инициализации платежа', result.data.message);
-                        this.$checkoutBtn.removeClass("_loading");
-                    }
-                } catch (error) {
-                    console.error('Произошла сетевая ошибка:', error);
-                    this.$checkoutBtn.removeClass("_loading");
-                }
-            }
-        }
-
-        async openPaymentIframe(paymentUrl, OrderId) {
-            if (!window.tbankSDK) {
-                console.error("SDK не инициализирован");
-                return;
-            }
-
-            this.$cartModal.addClass('open-payment');
-            this.$paymentContainer.show();
-            this.$form.hide();
-            this.$cartTitle.text('Оплата заказа');
-
-
-            if (OrderId) {
-                this.$form.find('input[name="order_id"]').val(OrderId);
-            }
-
-            try {
-                const MAIN_INTEGRATION_NAME = 'dornott-checkout-frame';
-
-                const statusMessages = {
-                    'REJECTED': 'Платеж отклонен банком. Проверьте данные карты, баланс или попробуйте другую карту.',
-                    'CANCELED': 'Оплата была отменена. Если это произошло случайно, вы можете попробовать еще раз.',
-                    'EXPIRED': 'Время на оплату истекло. Пожалуйста, создайте новый заказ.',
-                    'PROCESSING_ERROR': 'Произошла техническая ошибка при обработке данных. Пожалуйста, попробуйте позже.',
-                    'default': 'Произошла непредвиденная ошибка при оплате. Попробуйте еще раз или свяжитесь с поддержкой.'
-                };
-
-                const iframeConfig = {
-                    status: {
-                        changedCallback: async (status) => {
-                            console.log("T-Bank Payment Status:", status);
-
-                            if (status === 'SUCCESS') {
-
-
-                                if (typeof ym === 'function') {
-                                    ym(105964434, 'reachGoal', 'payment_ok')
-                                }
-
-                                let cartDataForEmail = [];
-                                try {
-                                    const storageRaw = localStorage.getItem(this.storageKey);
-                                    if (storageRaw) {
-                                        const storageData = JSON.parse(storageRaw);
-                                        if (Array.isArray(storageData)) {
-                                            cartDataForEmail = storageData;
-                                        } else if (storageData && storageData.items) {
-                                            cartDataForEmail = storageData.items;
-                                        }
-                                    }
-                                } catch (e) { console.error('Error reading cart for email', e); }
-
-                                this.$form.find('input[name="cart_items"]').val(JSON.stringify(cartDataForEmail));
-
-                                if (window.formController) {
-                                    await window.formController.sendForm(this.$form, true);
-                                }
-
-
-                                localStorage.removeItem(this.storageKey);
-
-                                await this.resetInterface();
-
-                                const instance = Fancybox.getInstance();
-                                if (instance) {
-                                    instance.destroy();
-                                }
-
-                                const $successPopup = $('#success-order');
-                                if (OrderId) {
-                                    $successPopup.find('.order-number').text(`№ ${OrderId}`);
-                                }
-
-                                Fancybox.show([{
-                                    src: "#success-order",
-                                    type: "inline",
-                                    autoFocus: false
-                                }]);
-
-                            } else if (['REJECTED', 'CANCELED', 'EXPIRED', 'PROCESSING_ERROR'].includes(status)) {
-
-                                const message = statusMessages[status] || statusMessages['default'];
-
-                                await this.resetInterface();
-
-                                const instance = Fancybox.getInstance();
-                                if (instance) {
-                                    instance.destroy();
-                                }
-
-                                const $errorPopup = $('#error-order');
-                                $errorPopup.find('.popup__subtitle').text(message);
-
-                                setTimeout(() => {
-                                    Fancybox.show([{
-                                        src: "#error-order",
-                                        type: "inline",
-                                        autoFocus: false,
-                                        trapFocus: false,
-                                        placeFocusBack: false
-                                    }]);
-                                }, 100);
-                            }
-                        }
-                    }
-                };
-
-                this.currentPaymentWidget = await window.tbankSDK.iframe.create(MAIN_INTEGRATION_NAME, iframeConfig);
-                const container = this.$paymentContainer[0];
-                await this.currentPaymentWidget.mount(container, paymentUrl);
-
-            } catch (error) {
-                console.error('Iframe mount error:', error);
-                this.resetInterface();
-            }
-        }
-
-        async resetInterface() {
-            if (this.currentPaymentWidget) {
-                try {
-                    await this.currentPaymentWidget.unmount();
-                    this.currentPaymentWidget = null;
-                } catch (e) {
-                    console.warn("Ошибка при unmount:", e);
-                }
-            }
-
-            this.$paymentContainer.hide().html('');
-            this.$form.show();
-            this.$cartTitle.text('Корзина');
-            this.$checkoutBtn.removeClass("_loading");
-            this.$cartModal.removeClass('open-payment');
-        }
-    }
-
-    window.dornottCart = new DornottCart();
 
 
 

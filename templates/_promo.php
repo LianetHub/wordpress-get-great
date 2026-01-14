@@ -57,21 +57,20 @@ $has_h1 = false;
 
                                 <div class="promo__btns">
                                     <?php
-                                    if (!empty($slide['btn_primary'])) {
-                                        get_template_part('templates/components/button', null, [
-                                            'data'  => $slide['btn_primary'],
-                                            'class' => 'promo__btn',
-                                            'type'  => 'primary',
-                                        ]);
-                                    }
+                                    $slide_btns = $slide['btns'];
+                                    if ($slide_btns) :
+                                        foreach ($slide_btns as $btn_item) :
 
-                                    if (!empty($slide['btn_secondary'])) {
-                                        get_template_part('templates/components/button', null, [
-                                            'data'  => $slide['btn_secondary'],
-                                            'class' => 'promo__btn',
-                                            'type'  => 'secondary',
-                                        ]);
-                                    }
+                                            $btn_data = $btn_item['btn'];
+
+                                            if (!empty($btn_data)) {
+                                                get_template_part('templates/components/button', null, [
+                                                    'data'  => $btn_data,
+                                                    'class' => 'promo__btn',
+                                                ]);
+                                            }
+                                        endforeach;
+                                    endif;
                                     ?>
                                 </div>
                             </div>
@@ -100,6 +99,9 @@ $has_h1 = false;
                                     }
                                     ?>
                                 </span>
+                                <svg class="promo__tab-border" width="100%" height="100%">
+                                    <rect x="0" y="0" fill="none" rx="0" ry="0" />
+                                </svg>
                             </button>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -118,11 +120,11 @@ $has_h1 = false;
                     <div class="promo__form-fields">
                         <label class="promo__form-field form__field">
                             <span class="form__field-label form__field-label--required">Ваше имя</span>
-                            <input type="text" name="username" data-required class="form__control" placeholder="Ваше имя">
+                            <input type="text" name="username" data-required class="form__control" placeholder="Введите имя">
                         </label>
                         <label class="promo__form-field form__field">
                             <span class="form__field-label form__field-label--required">Ваш телефон</span>
-                            <input type="tel" name="phone" data-required class="form__control" placeholder="Телефон">
+                            <input type="tel" name="phone" data-required class="form__control" placeholder="+7 (___) ___-__-__">
                         </label>
                     </div>
                     <div class="promo__form-footer">

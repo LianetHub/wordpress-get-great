@@ -19,12 +19,13 @@
 <?php
 $data = $args['data'] ?? [];
 $custom_class = $args['class'] ?? '';
-$type = $args['type'] ?? 'primary';
 $icon = $args['icon'] ?? false;
 
 if (empty($data) || empty($data['btn_txt'])) {
     return;
 }
+
+$type = $data['btn_style'] ?? 'primary';
 
 $classes = ['btn'];
 $classes[] = 'btn-' . $type;
@@ -62,12 +63,8 @@ $is_link = $data['is_link'];
     <?php
     $btn_popup = $data['btn_popup'];
     $class_string = implode(' ', $classes);
-
-    $policy_ids = ['#privacy-policy', '#data-protection', '#payment-and-delivery'];
-    $data_src = in_array($btn_popup, $policy_ids) ? ' data-src="#policies"' : '';
     ?>
     <a href="<?php echo esc_attr($btn_popup); ?>"
-        <?php echo $data_src; ?>
         data-fancybox
         class="<?php echo esc_attr($class_string); ?>">
         <?php echo esc_html($btn_txt); ?>
