@@ -592,6 +592,9 @@ $(function () {
 
     document.querySelectorAll('.marquee__slider').forEach(function (el) {
         var isReverse = el.getAttribute('data-direction') === 'reverse';
+        var hasImages = $(el).hasClass('marquee__slider--images');
+
+
 
         new Swiper(el, {
             loop: true,
@@ -600,7 +603,7 @@ $(function () {
             observeParents: true,
             freeMode: true,
             allowTouchMove: false,
-            spaceBetween: 12,
+            spaceBetween: hasImages ? 64 : 12,
             speed: 24000,
             autoplay: {
                 delay: 1,

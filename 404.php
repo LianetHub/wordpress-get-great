@@ -54,7 +54,7 @@ $marquee_text = get_field('marquee_404', $option_page) ?: "Идёт застро
             </div>
         </div>
 
-        <div class="error__marquee marquee">
+        <div class="error__marquee marquee marquee--dark">
             <div class="marquee__slider swiper" data-direction="reverse">
                 <div class="swiper-wrapper">
                     <?php for ($i = 0; $i < 12; $i++): ?>

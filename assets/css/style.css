@@ -2072,6 +2072,17 @@ body.preloading {
   font-size: 0.8em;
 }
 
+.homepage-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2.1875rem;
+}
+
 .promo {
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
@@ -2551,20 +2562,21 @@ body.preloading {
 }
 
 .marquee {
+  padding: 0.75rem 0;
+}
+
+.marquee--dark {
   background: #000;
   color: #ff4405;
   -webkit-box-shadow: 0 0.375rem 1rem 0 rgba(0, 0, 0, 0.5);
           box-shadow: 0 0.375rem 1rem 0 rgba(0, 0, 0, 0.5);
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 133.333%;
-  text-transform: uppercase;
-  padding: 0.75rem 0;
 }
 
 .marquee--yellow {
   background: #fec84b;
   color: #000;
+  -webkit-box-shadow: 0 0.375rem 1rem 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0.375rem 1rem 0 rgba(0, 0, 0, 0.5);
 }
 
 .marquee__slider .swiper-wrapper {
@@ -2584,6 +2596,10 @@ body.preloading {
       -ms-flex-align: center;
           align-items: center;
   gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 133.333%;
+  text-transform: uppercase;
 }
 
 .marquee__slide::after {
@@ -2602,9 +2618,29 @@ body.preloading {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 5rem;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 11.25rem;
-          flex: 0 0 11.25rem;
+      -ms-flex: 0 0 7.5rem;
+          flex: 0 0 7.5rem;
+  -webkit-transition: -webkit-filter 0.3s ease;
+  transition: -webkit-filter 0.3s ease;
+  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, -webkit-filter 0.3s ease;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.marquee__image img {
+  max-height: 100%;
+  width: auto;
+}
+
+.nojq {
+  display: none;
+}
+
+html {
+  margin-top: 0 !important;
 }
 
 .preloader {
@@ -2870,12 +2906,6 @@ body.preloading {
 
   .container {
     max-width: 60rem;
-  }
-
-  .marquee__image {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 17.5rem;
-            flex: 0 0 17.5rem;
   }
 }
 
@@ -3332,5 +3362,10 @@ body.preloading {
 
   .article-text figure figcaption a:hover {
     text-decoration: none;
+  }
+
+  .marquee__image:hover {
+    -webkit-filter: grayscale(0);
+            filter: grayscale(0);
   }
 }
