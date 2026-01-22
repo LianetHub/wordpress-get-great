@@ -18,18 +18,30 @@
 	}
 }
 
+.icon-chevron-right:before {
+	content: "\e905";
+}
+
+.icon-home:before {
+	content: "\e906";
+}
+
 .icon-minus:before {
 	content: "\e903";
 }
+
 .icon-plus:before {
 	content: "\e904";
 }
+
 .icon-arrow-up-right:before {
 	content: "\e902";
 }
+
 .icon-chevron-down:before {
 	content: "\e900";
 }
+
 .icon-phone-incoming:before {
 	content: "\e901";
 }

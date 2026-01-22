@@ -155,3 +155,6 @@ add_filter('the_title', 'fix_widows_after_prepositions', 99);
 add_filter('the_excerpt', 'fix_widows_after_prepositions', 99);
 add_filter('widget_text_content', 'fix_widows_after_prepositions', 99);
 add_filter('acf/format_value', 'fix_widows_after_prepositions', 99, 3);
+
+
+add_filter('wpseo_breadcrumb_separator', '__return_empty_string');

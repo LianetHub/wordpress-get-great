@@ -7,7 +7,7 @@
 
 <?php get_header(); ?>
 
-категория статьи
+<?php require_once(TEMPLATE_PATH . '_hero.php'); ?>
 
 
 <?php get_footer(); ?>

@@ -210,3 +210,22 @@ function customize_standard_taxonomy_labels()
     }
     register_taxonomy('post_tag', array());
 }
+
+
+add_filter('get_the_archive_title', 'custom_archive_title');
+function custom_archive_title($title)
+{
+    if (is_home()) {
+        $title = 'Полезные статьи';
+    } elseif (is_category()) {
+        $title = single_cat_title('', false);
+    } elseif (is_tag()) {
+        $title = single_tag_title('', false);
+    } elseif (is_post_type_archive()) {
+        $title = post_type_archive_title('', false);
+    } elseif (is_tax()) {
+        $title = single_term_title('', false);
+    }
+
+    return $title;
+}
