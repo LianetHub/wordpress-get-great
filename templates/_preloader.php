@@ -1,4 +1,8 @@
-<!-- <div class="preloader">
+<?php
+$is_error_404 = is_404();
+?>
+<?php if (!$is_error_404): ?>
+    <!-- <div class="preloader">
     <noscript>
         <style>
             .preloader {
@@ -20,3 +24,4 @@
         <span class="preloader__text">Пожалуйста, подождите, идёт&nbsp;загрузка...</span>
     </div>
 </div> -->
+<?php endif; ?>

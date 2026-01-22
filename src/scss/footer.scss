@@ -9,6 +9,14 @@
 	background: #181d27;
 	color: #d5d7da;
 	padding: rem(43) 0 rem(24);
+	&.footer--error-404 {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: transparent;
+		z-index: 2;
+	}
 	// .footer__top
 	&__top {
 		display: flex;
@@ -300,9 +308,6 @@
 	}
 	// .footer__bottom
 	&__bottom {
-		margin-top: 2.5rem;
-		padding-top: 1.5rem;
-		border-top: rem(1) solid #414651;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -310,6 +315,11 @@
 		line-height: 137.5%;
 		flex-wrap: wrap;
 		gap: rem(12);
+		&:not(:first-child) {
+			margin-top: 2.5rem;
+			padding-top: 1.5rem;
+			border-top: rem(1) solid #414651;
+		}
 	}
 	// .footer__copyright
 	&__copyright {

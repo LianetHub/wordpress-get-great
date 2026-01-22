@@ -590,6 +590,26 @@ $(function () {
         });
     }
 
+    document.querySelectorAll('.marquee__slider').forEach(function (el) {
+        var isReverse = el.getAttribute('data-direction') === 'reverse';
+
+        new Swiper(el, {
+            loop: true,
+            slidesPerView: 'auto',
+            observer: true,
+            observeParents: true,
+            freeMode: true,
+            allowTouchMove: false,
+            spaceBetween: 12,
+            speed: 24000,
+            autoplay: {
+                delay: 1,
+                disableOnInteraction: false,
+                reverseDirection: isReverse
+            },
+        });
+    });
+
 
     // header observer
     const headerElement = $('.header');

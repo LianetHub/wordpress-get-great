@@ -121,6 +121,7 @@ function fix_widows_after_prepositions($text)
 	$prepositions = [
 		'в',
 		'и',
+		'или',
 		'к',
 		'с',
 		'на',

@@ -1,0 +1,116 @@
+@use "sass:color";
+@use "sass:math";
+@use "mixins" as *;
+@use "variables" as *;
+@use "fonts";
+@use "icons";
+
+.error {
+	background:
+		url("@img/error-decor.svg") 100% 0 / 50% auto no-repeat,
+		url("@img/error-decor-2.svg") 0 100% / 50% auto no-repeat,
+		#181d27;
+	color: #fff;
+	min-height: 100svh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	// .error__content
+	&__content {
+		position: relative;
+		z-index: 2;
+		padding-top: 4.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+	// .error__image
+	&__image {
+	}
+	// .error__title
+	&__title {
+		margin-top: 1rem;
+	}
+	// .error__subtitle
+	&__subtitle {
+		margin-top: 1rem;
+		max-width: rem(562);
+		letter-spacing: normal;
+		line-height: 140%;
+		font-weight: 400;
+	}
+	// .error__btn
+	&__btn {
+		margin-top: 2.25rem;
+	}
+	// .error__marquees
+	&__marquees {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		user-select: none;
+		pointer-events: none;
+		padding-bottom: 19rem;
+	}
+	// .error__marquee
+	&__marquee {
+		transform-origin: center center;
+		&:nth-child(1) {
+			transform: rotate(-4deg);
+		}
+		&:nth-child(2) {
+			transform: rotate(5deg);
+		}
+	}
+}
+
+.marquee {
+	background: #000;
+	color: #ff4405;
+	box-shadow: 0 rem(6) 1rem 0 rgba(0, 0, 0, 0.5);
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 133.333%;
+	text-transform: uppercase;
+	padding: 0.75rem 0;
+	&--yellow {
+		background: #fec84b;
+		color: #000;
+	}
+	// .marquee__slider
+	&__slider {
+		.swiper-wrapper {
+			transition-timing-function: linear;
+			align-items: center;
+		}
+	}
+	// .marquee__slide
+	&__slide {
+		width: auto;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		&::after {
+			content: "•";
+			flex-shrink: 0;
+		}
+	}
+	// .marquee__image
+	&__image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex: 0 0 rem(180);
+		@media (min-width: $md3) {
+			flex: 0 0 rem(280);
+		}
+	}
+}
