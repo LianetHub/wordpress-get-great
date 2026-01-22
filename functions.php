@@ -110,3 +110,41 @@ function currentYear()
 {
 	return date('Y');
 }
+
+function fix_widows_after_prepositions($text)
+{
+
+	$prepositions = [
+		'в',
+		'и',
+		'к',
+		'с',
+		'на',
+		'у',
+		'о',
+		'от',
+		'для',
+		'за',
+		'по',
+		'без',
+		'из',
+		'над',
+		'под',
+		'при',
+		'про',
+		'через',
+		'об',
+		'со'
+	];
+
+	$pattern = implode('|', array_map('preg_quote', $prepositions));
+
+	$regex = '/\b(' . $pattern . ')\s+/iu';
+
+
+	$text = preg_replace_callback($regex, function ($matches) {
+		return $matches[1] . "\xC2\xA0";
+	}, $text);
+
+	return $text;
+}

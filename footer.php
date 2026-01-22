@@ -9,16 +9,18 @@ $copyright = get_field('copyright', $option_page);
 <footer class="footer">
     <div class="container">
         <div class="footer__top">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="footer__logo">
-                <img
-                    src="<?php echo esc_url($logo['url']); ?>"
-                    alt="<?php echo esc_attr($logo['alt']) ?: 'Логотип '; ?>">
-            </a>
-            <?php if ($requisites): ?>
-                <div class="footer__reqs">
-                    <?php echo $requisites; ?>
-                </div>
-            <?php endif; ?>
+            <div class="footer__side">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="footer__logo">
+                    <img
+                        src="<?php echo esc_url($logo['url']); ?>"
+                        alt="<?php echo esc_attr($logo['alt']) ?: 'Логотип '; ?>">
+                </a>
+                <?php if ($requisites): ?>
+                    <div class="footer__reqs">
+                        <?php echo $requisites; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
             <?php if (have_rows('social_links', 'option')): ?>
                 <div class="footer__socials socials">
                     <?php while (have_rows('social_links', 'option')): the_row();
@@ -46,7 +48,7 @@ $copyright = get_field('copyright', $option_page);
                     'theme_location' => 'footer_menu',
                     'container'      => false,
                     'menu_class'     => 'footer__menu-list',
-                    'items_wrap'     => '<ul id="%1$s" class="%2$s" data-spollers="575.98, max">%3$s</ul>',
+                    'items_wrap'     => '<ul id="%1$s" class="%2$s" data-spollers="767.98, max">%3$s</ul>',
                     'walker'         => new Footer_Menu_Walker(),
                 ]);
                 ?>

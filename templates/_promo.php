@@ -112,7 +112,7 @@ $has_h1 = false;
                     <input type="hidden" name="promo_slide_source" class="js-slide-source" value="">
                     <div class="promo__form-header">
                         <?php if ($promo_form_title): ?>
-                            <div class="promo__form-caption title-sm"><?php echo esc_html($promo_form_title); ?></div>
+                            <div class="promo__form-caption title-xs"><?php echo esc_html($promo_form_title); ?></div>
                         <?php endif; ?>
                         <?php if ($promo_form_subtitle): ?>
                             <div class="promo__form-text"><?php echo esc_html($promo_form_subtitle); ?></div>
