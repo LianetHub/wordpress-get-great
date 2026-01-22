@@ -9,23 +9,15 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
-    font-weight: 400;
-    font-style: normal
-}
-
-@font-face {
-    font-family: Gilroy;
-    font-display: swap;
     src: url(../fonts/Gilroy-SemiBold.woff2) format("woff2"), url(../fonts/Gilroy-SemiBold.woff) format("woff");
     font-weight: 600;
     font-style: normal
 }
 
 @font-face {
-    font-family: icons;
+    font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
+    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
     font-weight: 400;
     font-style: normal
 }
@@ -39,7 +31,15 @@
     font-display: swap
 }
 
-.btn.btn-primary::before, [class*=" icon-"]:before, [class^=icon-]:before {
+@font-face {
+    font-family: icons;
+    font-display: swap;
+    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
+    font-weight: 400;
+    font-style: normal
+}
+
+.btn.btn-primary::before, .faq__item-question::before, [class*=" icon-"]:before, [class^=icon-]:before {
     font-family: icons;
     font-style: normal;
     font-weight: 400;
@@ -53,6 +53,14 @@
 
 [class*=" icon-"]:before, [class^=icon-]:before {
     display: block
+}
+
+.faq__item-question._active:before, .icon-minus:before {
+    content: "\e903"
+}
+
+.faq__item-question:before, .icon-plus:before {
+    content: "\e904"
 }
 
 .btn.btn-primary:before, .icon-arrow-up-right:before {
@@ -342,6 +350,13 @@ body.is-loaded .preloader {
     line-height: 150%
 }
 
+.title {
+    font-family: Gilroy;
+    font-weight: 700;
+    line-height: 100%;
+    font-size: 2rem
+}
+
 .title-sm {
     font-family: Gilroy;
     font-size: 3rem;
@@ -382,6 +397,12 @@ body.is-loaded .preloader {
     background-repeat: no-repeat;
     background-size: auto;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='19' viewBox='0 0 17 19' fill='none'%3E%3Cpath d='M7.22723 0.26778C7.84604 -0.0894857 8.60843 -0.0894856 9.22723 0.26778L15.4545 3.86308C16.0733 4.22035 16.4545 4.8806 16.4545 5.59513V12.7857C16.4545 13.5003 16.0733 14.1605 15.4545 14.5178L9.22723 18.1131C8.60843 18.4703 7.84604 18.4703 7.22723 18.1131L0.999992 14.5178C0.38119 14.1605 -7.62939e-06 13.5003 -7.62939e-06 12.7857V5.59513C-7.62939e-06 4.8806 0.38119 4.22035 0.999992 3.86308L7.22723 0.26778Z' fill='%23FF4405'/%3E%3C/svg%3E")
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    line-height: 130%;
+    letter-spacing: -.0125rem
 }
 
 .text-center {
@@ -1587,6 +1608,103 @@ body.preloading {
     padding-bottom: 5rem
 }
 
+.faq__header {
+    max-width: 32rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 0 auto
+}
+
+.faq__content {
+    margin-top: 4rem;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem
+}
+
+.faq__item {
+    border-bottom: .0625rem solid #d5d7da;
+    -webkit-transition: border-color .3s ease;
+    transition: border-color .3s ease
+}
+
+.faq__item._spoller-open {
+    border-color: #181d27
+}
+
+.faq__item:not(:last-child) {
+    margin-bottom: .375rem
+}
+
+.faq__item-question {
+    font-family: Gilroy;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 120%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.125rem 1.5rem;
+    cursor: pointer;
+    width: 100%
+}
+
+.faq__item-question::before {
+    margin-left: auto;
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transition: color .3s ease, -webkit-transform .3s ease;
+    transition: color .3s ease, -webkit-transform .3s ease;
+    transition: transform .3s ease, color .3s ease;
+    transition: transform .3s ease, color .3s ease, -webkit-transform .3s ease
+}
+
+.faq__item-question._active {
+    color: #ff4405
+}
+
+.faq__item-question._active::before {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    font-size: 1.5rem;
+    color: #ff4405
+}
+
+.faq__item-answer {
+    padding: 0 1.125rem 1.5rem;
+    display: none
+}
+
 .presentation__content {
     border: .0625rem solid #ff4405;
     background: #f5f5f5;
@@ -2064,6 +2182,114 @@ body.preloading {
     text-align: center
 }
 
+.typography-block {
+    font-size: 1.125rem;
+    line-height: 1.55
+}
+
+.typography-block h2, .typography-block h3, .typography-block h4, .typography-block h5, .typography-block h6 {
+    font-family: Gilroy;
+    font-weight: 600
+}
+
+.typography-block h2 {
+    margin: 6.4rem 0 2rem;
+    font-size: 3rem;
+    line-height: 1.25
+}
+
+.typography-block h2:first-child {
+    margin-top: 0;
+    margin-bottom: 2.4rem;
+    font-size: 3.6rem;
+    font-weight: 500;
+    line-height: 1.25
+}
+
+.typography-block h1 {
+    margin-top: 0;
+    margin-bottom: 2.4rem;
+    font-size: 3.6rem;
+    font-family: Gilroy;
+    font-weight: 500;
+    line-height: 1.25
+}
+
+.typography-block h3 {
+    font-size: 2.4rem;
+    margin: 3.2rem 0 1.6rem
+}
+
+.typography-block h3:first-child {
+    margin-top: 0
+}
+
+.typography-block h4 {
+    font-size: 1.8rem;
+    line-height: 1.45
+}
+
+.typography-block p a {
+    color: #ff4405
+}
+
+.typography-block ol, .typography-block ul {
+    margin: 0 0 1.5em
+}
+
+.typography-block ol:last-child, .typography-block ul:last-child {
+    margin-bottom: 0
+}
+
+.typography-block ol li, .typography-block ul li {
+    position: relative;
+    padding-left: 2.2rem
+}
+
+.typography-block ol li::before, .typography-block ul li::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: .3em
+}
+
+.typography-block ul li::before {
+    width: 4px;
+    height: 4px;
+    top: .7em;
+    background: currentColor;
+    border-radius: 50%
+}
+
+.typography-block ol {
+    counter-reset: i
+}
+
+.typography-block ol li::before {
+    counter-increment: i;
+    content: counter(i) ".";
+    top: 0
+}
+
+.typography-block .subtxt {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #ff4405
+}
+
+.typography-block .subtxt a {
+    text-decoration: underline;
+    color: inherit
+}
+
+.typography-block .subtxt a:hover {
+    text-decoration: none
+}
+
+.typography-block a {
+    color: #ff4405
+}
+
 .nojq {
     display: none
 }
@@ -2119,6 +2345,10 @@ body.preloading {
         margin-top: 2.125rem
     }
 
+    .title {
+        font-size: 2.25rem
+    }
+
     .form__control:is(textarea) {
         font-size: 1.125rem;
         height: 8.5rem
@@ -2144,6 +2374,10 @@ body.preloading {
 
     .popup.popup--large {
         max-width: 46.875rem
+    }
+
+    .title {
+        font-size: 2.5rem
     }
 
     .btn {
@@ -2284,6 +2518,10 @@ body.preloading {
 }
 
 @media (min-width:991.98px) {
+    .title {
+        font-size: 2.75rem
+    }
+
     .footer__top {
         -webkit-box-align: center;
         -ms-flex-align: center;
@@ -2325,6 +2563,10 @@ body.preloading {
         max-width: 80rem
     }
 
+    .title {
+        font-size: 3rem
+    }
+
     .btn {
         padding: .9375rem 1.5rem;
         font-size: 1.125rem
@@ -2350,6 +2592,12 @@ body.preloading {
 
     .main>:last-child {
         padding-bottom: 6.25rem
+    }
+}
+
+@media screen and (min-width:1199.98px) {
+    .typography-block a:hover {
+        color: #ff4405
     }
 }
 
@@ -2416,6 +2664,10 @@ body.preloading {
 }
 
 @media (min-width:1399.98px) {
+    .title {
+        font-size: 3.25rem
+    }
+
     .footer__menu-list {
         -webkit-columns: 5;
         -moz-columns: 5;
@@ -2447,6 +2699,10 @@ body.preloading {
 }
 
 @media (min-width:1709.98px) {
+    .title {
+        font-size: 4rem
+    }
+
     .menu__list {
         gap: 1.125rem
     }
@@ -2570,6 +2826,57 @@ body.preloading {
 
     .footer__subsubmenu-item:not(:last-child) {
         border-bottom: .0625rem solid #414651
+    }
+}
+
+@media screen and (max-width:767.98px) {
+    .typography-block {
+        font-size: 14px
+    }
+
+    .typography-block h2, .typography-block h3, .typography-block h4, .typography-block h5, .typography-block h6 {
+        line-height: 1.5
+    }
+
+    .typography-block h2 {
+        margin-top: 3.2rem;
+        font-size: 2rem
+    }
+
+    .typography-block h2:first-child {
+        font-size: 2.4rem;
+        margin-bottom: 1em
+    }
+
+    .typography-block h1 {
+        font-size: 2.4rem;
+        margin-bottom: 1em
+    }
+
+    .typography-block h3 {
+        font-size: 1.6rem
+    }
+
+    .content h2+.typography-block h3 {
+        margin-top: 2rem
+    }
+
+    .typography-block h4 {
+        font-size: 1.6rem;
+        line-height: 1.5
+    }
+
+    .typography-block ol, .typography-block ul {
+        margin-bottom: 1.2em
+    }
+
+    .typography-block .subtxt {
+        font-size: 1.6rem
+    }
+
+    .typography-block .fz-24 {
+        font-size: 1.8rem;
+        line-height: 1.45
     }
 }
 

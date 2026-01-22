@@ -10,6 +10,6 @@
 
 страница услуги
 <?php require_once(TEMPLATE_PATH . '_presentation.php'); ?>
-
+<?php require_once(TEMPLATE_PATH . '_faq.php'); ?>
 
 <?php get_footer(); ?>

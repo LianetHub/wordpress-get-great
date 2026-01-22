@@ -12,6 +12,13 @@ if (function_exists('acf_add_options_page')) {
 	));
 }
 
+acf_add_options_page(array(
+	'page_title' 	=> 'Глобальные секции',
+	'menu_title'	=> 'Глобальные секции',
+	'menu_slug' 	=> 'theme-general-settings2',
+	'capability'	=> 'edit_posts',
+	'redirect'		=> false
+));
 
 function my_acf_admin_head()
 {
