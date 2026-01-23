@@ -1,10 +1,19 @@
-<?php if (get_field('show_pres', 'option')):
+<?php
+
+if (is_admin()) {
+    if (function_exists('render_global_block_notice')) {
+        render_global_block_notice('Презентация');
+    }
+    return;
+}
+
+if (get_field('show_pres', 'option')):
     $title = get_field('pres_title', 'option');
     $desc = get_field('pres_desc', 'option');
     $btn_text = get_field('pres_btn_text', 'option') ?: 'Получить презентацию';
     $image = get_field('pres_image', 'option');
-
     $file_data = get_field('pres_file', 'option');
+
     $format = '';
     $size = '';
 
@@ -20,17 +29,17 @@
                     <div class="presentation__hint hint">презентация</div>
 
                     <?php if ($title): ?>
-                        <h2 class="presentation__title title-sm"><?php echo $title; ?></h2>
+                        <h2 class="presentation__title title-sm"><?php echo esc_html($title); ?></h2>
                     <?php endif; ?>
 
                     <?php if ($desc): ?>
                         <div class="presentation__desc">
-                            <?php echo $desc; ?>
+                            <?php echo wp_kses_post($desc); ?>
                         </div>
                     <?php endif; ?>
 
                     <a href="#download-presentation" data-fancybox class="presentation__btn btn btn-primary">
-                        <?php echo $btn_text; ?>
+                        <?php echo esc_html($btn_text); ?>
                     </a>
                 </div>
 

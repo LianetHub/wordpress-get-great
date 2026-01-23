@@ -17,10 +17,10 @@
 }
 
 @font-face {
-  font-family: "icons";
+  font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
-  font-weight: 400;
+  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -34,10 +34,10 @@
 }
 
 @font-face {
-  font-family: "Gilroy";
+  font-family: "icons";
   font-display: swap;
-  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
-  font-weight: 600;
+  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -1836,7 +1836,7 @@ body.preloading {
   -webkit-transform: rotate(360deg);
       -ms-transform: rotate(360deg);
           transform: rotate(360deg);
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   color: #ff4405;
 }
 
@@ -2633,14 +2633,6 @@ body.preloading {
 .marquee__image img {
   max-height: 100%;
   width: auto;
-}
-
-.nojq {
-  display: none;
-}
-
-html {
-  margin-top: 0 !important;
 }
 
 .preloader {
