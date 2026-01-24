@@ -29,7 +29,7 @@ if (get_field('show_pres', 'option')):
                     <div class="presentation__hint hint">презентация</div>
 
                     <?php if ($title): ?>
-                        <h2 class="presentation__title title-sm"><?php echo esc_html($title); ?></h2>
+                        <h2 class="presentation__title title-md"><?php echo esc_html($title); ?></h2>
                     <?php endif; ?>
 
                     <?php if ($desc): ?>

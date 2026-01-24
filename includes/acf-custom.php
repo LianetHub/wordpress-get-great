@@ -53,8 +53,7 @@ function my_register_blocks()
 		'contacts' => [
 			'title' => 'Контакты',
 			'desc'  => 'Контактная информация',
-			'icon'  => 'location-alt',
-			'is_global_only' => true
+			'icon'  => 'location-alt'
 		],
 		'faq' => [
 			'title' => 'Частые вопросы',

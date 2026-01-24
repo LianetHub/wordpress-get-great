@@ -41,7 +41,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
         </div>
     <?php endif; ?>
     <?php if ($callback_form_title): ?>
-        <h3 class="popup__title color-accent title-sm">
+        <h3 class="popup__title color-accent title-md">
             <?php echo esc_html($callback_form_title) ?>
         </h3>
     <?php endif; ?>
@@ -77,7 +77,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
         </div>
     <?php endif; ?>
     <?php if ($order_form_title): ?>
-        <h3 class="popup__title color-accent title-sm">
+        <h3 class="popup__title color-accent title-md">
             <?php echo esc_html($order_form_title) ?>
         </h3>
     <?php endif; ?>
@@ -116,7 +116,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
         </div>
     <?php endif; ?>
     <?php if ($error_title): ?>
-        <h3 class="popup__title color-accent title-sm">
+        <h3 class="popup__title color-accent title-md">
             <?php echo esc_html($error_title) ?>
         </h3>
     <?php endif; ?>
@@ -138,7 +138,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
         </div>
     <?php endif; ?>
     <?php if ($success_title): ?>
-        <h3 class="popup__title color-accent title-sm">
+        <h3 class="popup__title color-accent title-md">
             <?php echo esc_html($success_title) ?>
         </h3>
     <?php endif; ?>
@@ -159,7 +159,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
             <img src="<?php echo esc_url($success_icon['url']); ?>" alt="<?php echo esc_attr($success_icon['alt']) ?: 'Иконка'; ?>">
         </div>
     <?php endif; ?>
-    <h3 class="popup__title color-accent title-sm">
+    <h3 class="popup__title color-accent title-md">
         Готово!
     </h3>
     <p class="popup__subtitle">
@@ -177,7 +177,7 @@ $privacy_policy = get_field('privacy_policy', $option_page);
         </div>
     <?php endif; ?>
     <?php if ($error_order_title): ?>
-        <h3 class="popup__title color-accent title-sm">
+        <h3 class="popup__title color-accent title-md">
             <?php echo esc_html($error_order_title) ?>
         </h3>
     <?php endif; ?>

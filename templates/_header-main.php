@@ -1,9 +1,8 @@
 <?php
-$option_page = 'option';
-$logo = get_field('logo', $option_page);
-$logo_descriptor = get_field('logo_descriptor', $option_page);
-$phone = get_field('tel', $option_page);
-$email = get_field('email', $option_page);
+$logo = get_field('logo', 'option');
+$logo_descriptor = get_field('logo_descriptor', 'option');
+$phone = get_field('tel', 'option');
+$email = get_field('email', 'option');
 ?>
 
 
@@ -47,8 +46,8 @@ $email = get_field('email', $option_page);
         <?php endif; ?>
     </div>
     <div class="header__socials socials">
-        <?php if (have_rows('social_links', $option_page)): ?>
-            <?php while (have_rows('social_links', $option_page)): the_row();
+        <?php if (have_rows('social_links', 'option')): ?>
+            <?php while (have_rows('social_links', 'option')): the_row();
                 $icon = get_sub_field('icon');
                 $link = get_sub_field('link');
                 $hover_color = get_sub_field('hover_color');

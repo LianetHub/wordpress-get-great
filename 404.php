@@ -26,7 +26,7 @@ $marquee_text = get_field('marquee_404', $option_page) ?: "Идёт застро
             <?php endif; ?>
 
             <?php if ($title_404): ?>
-                <h1 class="error__title title-sm"><?php echo $title_404; ?></h1>
+                <h1 class="error__title title-md"><?php echo $title_404; ?></h1>
             <?php endif; ?>
 
             <?php if ($txt_404): ?>

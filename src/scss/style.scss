@@ -13,15 +13,16 @@
 
 @use "pages/home";
 @use "pages/article";
+@use "pages/contacts";
 @use "pages/error";
 
-// .nojq {
-// 	display: none;
-// }
+.nojq {
+	display: none;
+}
 
-// html {
-// 	margin-top: 0 !important;
-// }
+html {
+	margin-top: 0 !important;
+}
 
 .preloader {
 	display: none !important;

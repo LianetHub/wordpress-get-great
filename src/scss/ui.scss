@@ -42,9 +42,16 @@
 	}
 }
 
-.title-sm {
+.title-md {
 	font-family: $font-gilroy;
 	font-size: 3rem;
+	font-weight: 700;
+	line-height: 100%;
+}
+
+.title-sm {
+	font-family: $font-gilroy;
+	font-size: 2rem;
 	font-weight: 700;
 	line-height: 100%;
 }

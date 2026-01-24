@@ -5,7 +5,7 @@
             require_once(TEMPLATE_PATH . '/components/breadcrumbs.php');
             ?>
 
-            <h1 class="hero__title title-sm">
+            <h1 class="hero__title title-md">
                 <?php
                 if (is_singular()) {
                     the_title();

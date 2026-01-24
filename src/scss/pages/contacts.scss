@@ -1,0 +1,108 @@
+@use "sass:color";
+@use "sass:math";
+@use "mixins" as *;
+@use "variables" as *;
+@use "fonts";
+@use "icons";
+
+.contacts {
+	margin-top: rem(24);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #414651;
+	// .contacts__body
+	&__body {
+		max-width: rem(1028);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr rem(492);
+		border: rem(1) solid #fff;
+	}
+	// .contacts__main
+	&__main {
+		background: #fff;
+		padding: rem(42) rem(48) 1.5rem;
+	}
+	// .contacts__title
+	&__title {
+	}
+	// .contacts__list
+	&__list {
+		margin-top: 2rem;
+	}
+	// .contacts__item
+	&__item {
+		border-bottom: rem(1) solid #d5d7da;
+		padding: 1rem 0;
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.44rem;
+		font-size: 1rem;
+		line-height: 137.5%;
+	}
+	// .contacts__item-name
+	&__item-name {
+		color: #717680;
+		flex-shrink: 0;
+	}
+	// .contacts__item-value
+	&__item-value {
+	}
+	// .contacts__item-link
+	&__item-link {
+		transition: color 0.3s ease;
+		@media (any-hover: hover) {
+			&:hover {
+				color: $accent;
+			}
+		}
+	}
+	// .contacts__socials
+	&__socials {
+		justify-content: flex-end;
+		max-width: 15.75rem;
+	}
+	// .contacts__form
+	&__form {
+		padding: rem(42) rem(48) 1.5rem;
+		background: rgba(255, 255, 255, 0.4);
+		backdrop-filter: blur(21px);
+		-webkit-backdrop-filter: blur(21px);
+	}
+	// .contacts__form
+	&__form {
+	}
+	// .contacts__form-header
+	&__form-header {
+	}
+	// .contacts__form-caption
+	&__form-caption {
+	}
+	// .contacts__form-text
+	&__form-text {
+		margin-top: rem(14);
+		color: #000;
+		font-size: 1rem;
+		line-height: 150%;
+	}
+	// .contacts__form-fields
+	&__form-fields {
+		margin-top: rem(32);
+		display: flex;
+		flex-direction: column;
+		gap: rem(8);
+	}
+	// .contacts__form-field
+	&__form-field {
+	}
+	// .contacts__form-footer
+	&__form-footer {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+}
