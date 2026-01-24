@@ -2313,6 +2313,112 @@ body.preloading {
     transition: opacity .3s ease, visibility .3s ease
 }
 
+.why__header {
+    max-width: 46.75rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 0 auto
+}
+
+.why__content {
+    padding: 4rem 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='216' height='200' viewBox='0 0 216 200' fill='none'%3E%3Cpath d='M216 200C216 152.99 190.792 109.563 149.894 86.0901L0 0H216V200Z' fill='white'/%3E%3C/svg%3E") 100% -2px/8.9375rem auto no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='86' height='80' viewBox='0 0 86 80' fill='none'%3E%3Cpath d='M7.62939e-06 0C7.62939e-06 18.804 10.0366 36.1748 26.32 45.564L86 80H7.62939e-06V0Z' fill='white'/%3E%3C/svg%3E") 0 calc(100% + 2px)/8.9375rem auto no-repeat, #f6f8fa
+}
+
+.why__subtitle {
+    font-size: 1.25rem;
+    line-height: 130%;
+    letter-spacing: -.0125rem;
+    max-width: 46.25rem
+}
+
+.why__body {
+    margin-top: 3.56rem;
+    max-width: 93rem;
+    margin-inline: auto
+}
+
+.why__cards {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem
+}
+
+.why__card {
+    border-radius: 2.25rem 0;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding: 1.5rem;
+    -webkit-transition: background-color .3s ease, color .3s ease;
+    transition: background-color .3s ease, color .3s ease
+}
+
+.why__card-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 1.5rem 0;
+    background: #f5f5f5;
+    color: #ff4405;
+    padding: .75rem;
+    -webkit-transition: background-color .3s ease, color .3s ease;
+    transition: background-color .3s ease, color .3s ease
+}
+
+.why__card-icon svg path {
+    stroke: currentColor
+}
+
+.why__card-title {
+    margin-top: 3.25rem;
+    font-family: Gilroy;
+    font-size: 1.5rem;
+    font-weight: 700
+}
+
+.why__card-desc {
+    margin-top: 1.125rem;
+    font-size: 1rem;
+    line-height: 150%
+}
+
+.why__btn {
+    width: calc(33.33% - 1rem);
+    margin: 2rem auto 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
 .promo {
     background: rgba(0, 0, 0, .4);
     color: #fff;
@@ -2961,14 +3067,6 @@ body.preloading {
 .marquee__image img {
     max-height: 100%;
     width: auto
-}
-
-.nojq {
-    display: none
-}
-
-html {
-    margin-top: 0 !important
 }
 
 .preloader {
@@ -3701,6 +3799,16 @@ body.preloading {
     .gratitudes__slide:hover::before {
         opacity: 1;
         visibility: visible
+    }
+
+    .why__card:hover {
+        background-color: #181d27;
+        color: #fff
+    }
+
+    .why__card:hover .why__card-icon {
+        color: #fff;
+        background: #ff4405
     }
 
     .contacts__item-link:hover {

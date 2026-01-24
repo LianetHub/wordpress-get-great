@@ -612,3 +612,112 @@ body {
 		}
 	}
 }
+
+.why {
+	// .why__header
+	&__header {
+		max-width: 46.75rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1rem;
+		margin: 0 auto;
+	}
+	// .why__content
+	&__content {
+		padding: 4rem 0;
+		background:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='216' height='200' viewBox='0 0 216 200' fill='none'%3E%3Cpath d='M216 200C216 152.99 190.792 109.563 149.894 86.0901L0 0H216V200Z' fill='white'/%3E%3C/svg%3E")
+				100% -2px / 8.9375rem auto no-repeat,
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='86' height='80' viewBox='0 0 86 80' fill='none'%3E%3Cpath d='M7.62939e-06 0C7.62939e-06 18.804 10.0366 36.1748 26.32 45.564L86 80H7.62939e-06V0Z' fill='white'/%3E%3C/svg%3E")
+				0 calc(100% + 2px) / 8.9375rem auto no-repeat,
+			#f6f8fa;
+	}
+	// .why__hint
+	&__hint {
+	}
+	// .why__title
+	&__title {
+	}
+	// .why__subtitle
+	&__subtitle {
+		font-size: 1.25rem;
+		line-height: 130%;
+		letter-spacing: -0.0125rem;
+		max-width: rem(740);
+	}
+	// .why__body
+	&__body {
+		margin-top: 3.56rem;
+		max-width: rem(1488);
+		margin-inline: auto;
+	}
+	// .why__cards
+	&__cards {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	// .why__card
+	&__card {
+		border-radius: 2.25rem 0;
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 1.5rem;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: #181d27;
+				color: #fff;
+				.why__card-icon {
+					color: #fff;
+					background: #ff4405;
+				}
+			}
+		}
+	}
+	// .why__card-icon
+	&__card-icon {
+		width: 4.5rem;
+		height: 4.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 1.5rem 0;
+		background: #f5f5f5;
+		color: $accent;
+		padding: 0.75rem;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+		& svg {
+			& path {
+				stroke: currentColor;
+			}
+		}
+	}
+	// .why__card-title
+	&__card-title {
+		margin-top: 3.25rem;
+		font-family: $font-gilroy;
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+	// .why__card-desc
+	&__card-desc {
+		margin-top: rem(18);
+		font-size: 1rem;
+		line-height: 150%;
+	}
+	// .why__btn
+	&__btn {
+		width: calc(33.33% - 1rem);
+		margin: 2rem auto 0;
+		display: flex;
+	}
+}
