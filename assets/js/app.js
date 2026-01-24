@@ -1,6 +1,5 @@
 "use strict";
 
-
 // preloader
 if ($('.preloader').length > 0) {
     let counting = setInterval(function () {
@@ -587,6 +586,32 @@ $(function () {
             $tabs.removeClass('counting');
             const index = $(this).index();
             promoSlider.slideTo(index);
+        });
+    }
+
+    if ($('.gratitudes__slider').length) {
+        new Swiper('.gratitudes__slider', {
+            slidesPerView: 5,
+            spaceBetween: 32,
+            navigation: {
+                nextEl: '.gratitudes__next',
+                prevEl: '.gratitudes__prev',
+            },
+            pagination: {
+                el: '.gratitudes__pagination',
+                type: 'fraction',
+                formatFractionCurrent: function (number) {
+                    return number < 10 ? '0' + number : number;
+                },
+                formatFractionTotal: function (number) {
+                    return number < 10 ? '0' + number : number;
+                },
+                renderFraction: function (currentClass, totalClass) {
+                    return '<span class="' + currentClass + '"></span>' +
+                        ' / ' +
+                        '<span class="' + totalClass + '"></span>';
+                }
+            }
         });
     }
 

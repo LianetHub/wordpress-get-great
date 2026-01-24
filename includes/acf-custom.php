@@ -60,6 +60,12 @@ function my_register_blocks()
 			'desc'  => 'Список вопросов и ответов',
 			'icon'  => 'format-chat'
 		],
+		'gratitudes' => [
+			'title' => 'Благодарности',
+			'desc'  => 'Слайдер с письмами благодарности',
+			'icon'  => 'awards',
+			'is_global_only' => true
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
@@ -82,6 +88,20 @@ function my_register_blocks()
 	}
 }
 
+add_filter('acf/load_value', 'force_source_value_on_options_page', 10, 3);
+function force_source_value_on_options_page($value, $post_id, $field)
+{
+	if (strpos($field['name'], '_source') !== false && $post_id === 'options') {
+		if (is_admin() && function_exists('get_current_screen')) {
+			$screen = get_current_screen();
+			if ($screen && strpos($screen->id, 'theme-general-settings2') !== false) {
+				return 'local';
+			}
+		}
+	}
+	return $value;
+}
+
 add_filter('acf/prepare_field', 'fix_all_source_fields_on_options_page');
 function fix_all_source_fields_on_options_page($field)
 {
@@ -89,13 +109,26 @@ function fix_all_source_fields_on_options_page($field)
 		if (is_admin() && function_exists('get_current_screen')) {
 			$screen = get_current_screen();
 			if ($screen && strpos($screen->id, 'theme-general-settings2') !== false) {
-				$field['value'] = 'local';
-				$field['wrapper']['style'] = 'display:none !important;';
+				$field['wrapper']['class'] .= ' hide-source-field';
 			}
 		}
 	}
 	return $field;
 }
+
+add_action('acf/input/admin_head', function () {
+	$screen = get_current_screen();
+	if ($screen && strpos($screen->id, 'theme-general-settings2') !== false) {
+		echo '<style>
+            .hide-source-field {
+                display: none !important;
+            }
+            [data-name$="_source"] {
+                display: none !important;
+            }
+        </style>';
+	}
+});
 
 add_action('acf/input/admin_head', function () {
 ?>

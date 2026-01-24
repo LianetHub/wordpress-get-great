@@ -108,108 +108,107 @@
 	color: #717680;
 }
 
-// .swiper-button-next,
-// .swiper-button-prev {
-// 	& .swiper-navigation-icon {
-// 		display: none !important;
-// 	}
-// 	position: relative;
-// 	left: auto !important;
-// 	right: auto !important;
-// 	bottom: auto !important;
-// 	top: auto !important;
-// 	margin: 0 !important;
-// 	transform: none !important;
-// 	transition: background-color 0.3s ease 0s, color 0.3s ease 0s;
-// 	z-index: 2;
+.swiper-button-next,
+.swiper-button-prev {
+	& .swiper-navigation-icon {
+		display: none !important;
+	}
+	position: relative;
+	left: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	top: auto !important;
+	margin: 0 !important;
+	transform: none !important;
+	transition:
+		background-color 0.3s ease 0s,
+		color 0.3s ease 0s;
+	z-index: 2;
 
-// 	flex-shrink: 0;
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	background: #f3efe7;
-// 	color: #414651;
-// 	width: rem(44);
-// 	height: rem(32);
-// 	@media (min-width: $md4) {
-// 		width: 3.25rem;
-// 		height: 2.75rem;
-// 	}
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #d5d7da;
+	color: #181d27;
+	width: 3rem;
+	height: 3rem;
+	font-size: 1.5rem;
 
-// 	&.swiper-button-lock {
-// 		display: none;
-// 	}
+	&.swiper-button-lock {
+		display: none;
+	}
 
-// 	&:disabled,
-// 	&.swiper-button-disabled,
-// 	&[aria-disabled="true"] {
-// 		pointer-events: none;
-// 		opacity: 0.7;
-// 	}
+	&:disabled,
+	&.swiper-button-disabled,
+	&[aria-disabled="true"] {
+		pointer-events: none;
+		opacity: 0.7;
+	}
 
-// 	@media (any-hover: hover) {
-// 		&:hover {
-// 			background: #423931;
-// 			color: #fff;
-// 		}
-// 	}
-// }
+	@media (any-hover: hover) {
+		&:hover {
+			background: #ff4405;
+			color: #fff;
+		}
+	}
+}
 
-// .swiper-button-prev {
-// 	@extend %ic, .icon-arrow-left;
-// }
-// .swiper-button-next {
-// 	@extend %ic, .icon-arrow-right;
-// }
+.swiper-button-prev {
+	@extend %ic, .icon-arrow-left;
+}
+.swiper-button-next {
+	@extend %ic, .icon-arrow-right;
+}
 
-// .swiper-pagination {
-// 	&.swiper-pagination-fraction {
-// 		display: flex;
-// 		align-items: flex-start;
-// 		justify-content: center;
-// 		position: static;
-// 		inset: auto;
-// 		margin: 0;
-// 		width: auto;
-// 		color: #717680;
-// 		line-height: 140%;
-// 		font-size: rem(14);
-// 		@media (min-width: $md4) {
-// 			font-size: 1rem;
-// 		}
-// 		.swiper-pagination-current {
-// 			color: var(--swiper-pagination-fraction-color, #000);
-// 			font-weight: 700;
-// 			line-height: 140%;
-// 			margin-right: 0.75rem;
-// 			font-size: 1.5rem;
-// 			@media (min-width: $md4) {
-// 				font-size: 2rem;
-// 			}
-// 		}
-// 	}
-// 	&.swiper-pagination-lock {
-// 		display: none;
-// 	}
-// 	&.swiper-pagination-bullets {
-// 		position: static;
-// 		margin: auto;
-// 		width: auto;
+.swiper-pagination {
+	&.swiper-pagination-fraction {
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		position: static;
+		inset: auto;
+		margin: 0;
+		width: auto;
+		color: #414651;
+		line-height: 140%;
+		font-size: rem(14);
+		@media (min-width: $md4) {
+			font-size: 1rem;
+		}
+		.swiper-pagination-current {
+			color: var(--swiper-pagination-fraction-color, #000);
+			font-weight: 700;
+			line-height: 140%;
+			margin-right: 0.25rem;
+			font-size: 1.5rem;
+			@media (min-width: $md4) {
+				font-size: 2rem;
+			}
+		}
+	}
+	&.swiper-pagination-lock {
+		display: none;
+	}
+	&.swiper-pagination-bullets {
+		position: static;
+		margin: auto;
+		width: auto;
 
-// 		.swiper-pagination-bullet {
-// 			background: #a4a7ae;
-// 			opacity: 1;
-// 			&.swiper-pagination-bullet-active {
-// 				opacity: 1;
-// 				background: #414651;
-// 			}
-// 		}
-// 	}
-// }
+		.swiper-pagination-bullet {
+			background: #a4a7ae;
+			opacity: 1;
+			&.swiper-pagination-bullet-active {
+				opacity: 1;
+				background: #414651;
+			}
+		}
+	}
+}
 
-// .swiper-lazy-preloader {
-// 	--swiper-preloader-color: #{$accent};
-// }
+.swiper-lazy-preloader {
+	--swiper-preloader-color: #{$accent};
+}
 
 // .favorite-btn {
 // 	display: flex;
