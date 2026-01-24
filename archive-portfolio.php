@@ -9,15 +9,9 @@
 
 <?php require_once(TEMPLATE_PATH . '_hero.php'); ?>
 
-<?php
+<?php require_once(TEMPLATE_PATH . '_gratitudes.php'); ?>
+<?php require_once(TEMPLATE_PATH . '_presentation.php'); ?>
 
-$portfolio_page_id = 317;
-
-if ($portfolio_page_id) {
-    $content = get_post_field('post_content', $portfolio_page_id);
-    echo apply_filters('the_content', $content);
-}
-?>
 
 
 <?php get_footer(); ?>

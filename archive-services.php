@@ -9,14 +9,11 @@
 <?php require_once(TEMPLATE_PATH . '_hero.php'); ?>
 
 <?php
-
-$portfolio_page_id = 320;
-
-if ($portfolio_page_id) {
-    $content = get_post_field('post_content', $portfolio_page_id);
-    echo apply_filters('the_content', $content);
+$donor = get_page_by_path('uslugi-details');
+if ($donor) {
+    $content = apply_filters('the_content', $donor->post_content);
+    echo $content;
 }
 ?>
-
 
 <?php get_footer(); ?>

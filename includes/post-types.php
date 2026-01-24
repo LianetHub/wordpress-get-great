@@ -20,7 +20,7 @@ function register_custom_entities()
         ],
         'hierarchical'      => true,
         'show_in_rest'      => true,
-        'rewrite'           => ['slug' => 'services', 'with_front' => false],
+        'rewrite'           => ['slug' => 'uslugi', 'with_front' => false],
     ]);
 
     register_post_type('services', [
@@ -38,10 +38,10 @@ function register_custom_entities()
             'menu_name'          => 'Услуги',
         ],
         'public'             => true,
-        'has_archive'        => true,
+        'has_archive'        => 'uslugi',
         'menu_icon'          => 'dashicons-admin-tools',
         'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
-        'rewrite'            => ['slug' => 'services/%service_cat%', 'with_front' => false],
+        'rewrite'            => ['slug' => 'uslugi/%service_cat%', 'with_front' => false],
         'show_in_rest'       => true,
     ]);
 
@@ -70,7 +70,7 @@ function register_custom_entities()
             'name'               => 'Портфолио',
             'singular_name'      => 'Проект',
             'add_new'            => 'Добавить проект',
-            'add_new_item'       => 'Добавить новый проект',
+            'add_new_item'       => 'Добавить новую проект',
             'edit_item'          => 'Редактировать проект',
             'new_item'           => 'Новый проект',
             'view_item'          => 'Посмотреть проект',
@@ -115,7 +115,7 @@ function custom_taxonomy_permalinks($post_link, $post)
 add_filter('nav_menu_link_attributes', 'fix_custom_menu_links', 10, 2);
 function fix_custom_menu_links($atts, $item)
 {
-    if (strpos($atts['href'], '%service_cat%') !== false) {
+    if (isset($atts['href']) && strpos($atts['href'], '%service_cat%') !== false) {
         $terms = get_the_terms($item->object_id, 'service_cat');
         if (!empty($terms) && !is_wp_error($terms)) {
             $atts['href'] = str_replace('%service_cat%', $terms[0]->slug, $atts['href']);
@@ -124,7 +124,7 @@ function fix_custom_menu_links($atts, $item)
         }
     }
 
-    if (strpos($atts['href'], '%portfolio_cat%') !== false) {
+    if (isset($atts['href']) && strpos($atts['href'], '%portfolio_cat%') !== false) {
         $terms = get_the_terms($item->object_id, 'portfolio_cat');
         if (!empty($terms) && !is_wp_error($terms)) {
             $atts['href'] = str_replace('%portfolio_cat%', $terms[0]->slug, $atts['href']);
@@ -154,7 +154,7 @@ add_action('init', 'register_custom_archive_rules');
 function register_custom_archive_rules()
 {
     add_rewrite_rule(
-        '^services/?$',
+        '^uslugi/?$',
         'index.php?post_type=services',
         'top'
     );
@@ -165,7 +165,6 @@ function register_custom_archive_rules()
         'top'
     );
 }
-
 
 add_action('init', 'modify_blog_settings');
 function modify_blog_settings()
@@ -208,9 +207,10 @@ function customize_standard_taxonomy_labels()
         $labels->all_items = 'Все категории статей';
         $labels->menu_name = 'Категории статей';
     }
-    register_taxonomy('post_tag', array());
+    if (taxonomy_exists('post_tag')) {
+        register_taxonomy('post_tag', array());
+    }
 }
-
 
 add_filter('get_the_archive_title', 'custom_archive_title');
 function custom_archive_title($title)
@@ -228,4 +228,45 @@ function custom_archive_title($title)
     }
 
     return $title;
+}
+
+
+add_action('admin_bar_menu', 'add_edit_services_donor_link', 999);
+function add_edit_services_donor_link($wp_admin_bar)
+{
+    if (!is_admin() && is_post_type_archive('services')) {
+        $donor_page = get_page_by_path('uslugi-details');
+
+        if ($donor_page) {
+            $wp_admin_bar->add_node([
+                'id'    => 'edit',
+                'title' => 'Редактировать контент услуг',
+                'href'  => get_edit_post_link($donor_page->ID),
+                'meta'  => [
+                    'class' => 'ab-item',
+                ],
+            ]);
+        }
+    }
+}
+
+add_action('template_redirect', 'redirect_donor_page_to_archive');
+function redirect_donor_page_to_archive()
+{
+    if (is_single('uslugi-details') || is_page('uslugi-details')) {
+        wp_redirect(get_post_type_archive_link('services'), 301);
+        exit;
+    }
+}
+
+add_filter('pre_get_posts', 'exclude_donor_from_search');
+function exclude_donor_from_search($query)
+{
+    if (!is_admin() && $query->is_main_query() && $query->is_search()) {
+        $donor = get_page_by_path('uslugi-details');
+        if ($donor) {
+            $query->set('post__not_in', [$donor->ID]);
+        }
+    }
+    return $query;
 }
