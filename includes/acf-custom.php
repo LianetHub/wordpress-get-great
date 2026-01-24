@@ -16,17 +16,6 @@ if (function_exists('acf_add_options_page')) {
 		'capability'    => 'edit_posts',
 		'redirect'      => false
 	]);
-
-	if (function_exists('acf_add_options_page')) {
-		acf_add_options_page([
-			'page_title'  => 'Настройки страницы услуг',
-			'menu_title'  => 'Настройки страницы',
-			'menu_slug'   => 'services-settings',
-			'capability'  => 'edit_posts',
-			'parent_slug' => 'edit.php?post_type=services',
-			'redirect'    => false,
-		]);
-	}
 }
 
 function render_global_block_notice($title)

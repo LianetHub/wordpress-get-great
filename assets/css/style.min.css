@@ -2799,6 +2799,142 @@ body.preloading {
     color: #ff4405
 }
 
+.services {
+    padding-top: 3rem !important
+}
+
+.services__desc {
+    font-size: 1.375rem;
+    line-height: 136.364%;
+    max-width: 70rem;
+    letter-spacing: .0181818182em
+}
+
+.services__desc strong {
+    font-weight: 600
+}
+
+.services__grid {
+    margin-top: 2rem;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[5];
+    grid-template-columns: repeat(5, 1fr);
+    gap: .75rem
+}
+
+.service-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    border-radius: 0 2.25rem;
+    overflow: hidden;
+    height: 26.25rem;
+    background: #414651;
+    color: #fff
+}
+
+.service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 2.25rem;
+    -webkit-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    z-index: 1;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(71.84%, rgba(0, 0, 0, .4)), to(rgba(0, 0, 0, .6)));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .4) 71.84%, rgba(0, 0, 0, .6) 100%)
+}
+
+.service-card__image {
+    -webkit-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    height: 100%
+}
+
+.service-card__image img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+.service-card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1.5rem
+}
+
+.service-card__name {
+    font-family: Gilroy;
+    font-size: 1.625rem;
+    font-weight: 700;
+    line-height: 107.692%;
+    max-width: 16rem
+}
+
+.service-card__number {
+    font-family: Gilroy;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+    margin-bottom: auto
+}
+
+.service-card__desc {
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-transition: margin .3s cubic-bezier(.39, .58, .57, 1);
+    transition: margin .3s cubic-bezier(.39, .58, .57, 1)
+}
+
+.service-card__desc span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    margin-bottom: -100%
+}
+
+.service-card__footer {
+    margin-top: 0;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease
+}
+
+.service-card__btn {
+    margin-bottom: -100%;
+    width: 100%;
+    -webkit-transition: margin .3s ease;
+    transition: margin .3s ease
+}
+
 .contacts {
     margin-top: 1.5rem;
     background-size: cover;
@@ -3619,10 +3755,6 @@ body.preloading {
 }
 
 @media screen and (max-width:767.98px) {
-    .typography-block {
-        font-size: 14px
-    }
-
     .typography-block h2, .typography-block h3, .typography-block h4, .typography-block h5, .typography-block h6 {
         line-height: 1.5
     }
@@ -3809,6 +3941,39 @@ body.preloading {
     .why__card:hover .why__card-icon {
         color: #fff;
         background: #ff4405
+    }
+
+    .service-card:hover .service-card__image {
+        opacity: 0
+    }
+
+    .service-card:hover::before {
+        opacity: 0
+    }
+
+    .service-card:hover .service-card__number {
+        color: #ff4405
+    }
+
+    .service-card:hover .service-card__desc {
+        margin-top: 1rem;
+        opacity: 1;
+        visibility: visible
+    }
+
+    .service-card:hover .service-card__desc span {
+        margin-bottom: 0
+    }
+
+    .service-card:hover .service-card__footer {
+        margin-top: 1rem;
+        opacity: 1;
+        visibility: visible;
+        height: 2.75rem
+    }
+
+    .service-card:hover .service-card__btn {
+        margin-bottom: 0
     }
 
     .contacts__item-link:hover {
