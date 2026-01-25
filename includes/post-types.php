@@ -270,3 +270,32 @@ function exclude_donor_from_search($query)
     }
     return $query;
 }
+
+add_filter('wp_link_query_args', function ($query) {
+    return $query;
+});
+
+add_filter('wp_link_query', function ($results, $query) {
+    $taxonomies = ['service_cat', 'portfolio_cat', 'category'];
+
+    $args = [
+        'taxonomy'   => $taxonomies,
+        'hide_empty' => false,
+        'search'     => isset($query['s']) ? $query['s'] : '',
+        'number'     => 20
+    ];
+
+    $terms = get_terms($args);
+
+    if (!empty($terms) && !is_wp_error($terms)) {
+        foreach ($terms as $term) {
+            $results[] = [
+                'title'     => $term->name,
+                'permalink' => get_term_link($term),
+                'info'      => get_taxonomy($term->taxonomy)->labels->singular_name
+            ];
+        }
+    }
+
+    return $results;
+}, 10, 2);

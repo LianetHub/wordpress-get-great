@@ -15,27 +15,41 @@
  * }
  */
 ?>
-
 <?php
 $data = $args['data'] ?? [];
 $custom_class = $args['class'] ?? '';
 $icon = $args['icon'] ?? false;
 
-if (empty($data) || empty($data['btn_txt'])) {
+if (empty($data)) {
     return;
 }
 
-$btn_txt = $data['btn_txt'];
-$is_link = $data['is_link'];
-
+$is_link = $data['is_link'] ?? false;
+$btn_txt = $data['btn_txt'] ?? '';
+$btn_link = '';
+$btn_target = '_self';
 
 if ($is_link) {
-    $btn_link = $data['btn_link'];
+    $link_data = $data['btn_link'] ?? [];
 
-    $is_anchor = strpos($btn_link, '#') === 0;
+    if (is_array($link_data)) {
+        $btn_link = $link_data['url'] ?? '';
+        $btn_target = $link_data['target'] ?? '_self';
+        if (empty($btn_txt)) {
+            $btn_txt = $link_data['title'] ?? '';
+        }
+    } else {
+        $btn_link = $link_data;
+        $btn_target = !empty($data['btn_target']) ? '_blank' : '_self';
+    }
+
+    if (empty($btn_link) || empty($btn_txt)) {
+        return;
+    }
+
+    $is_anchor = strpos((string)$btn_link, '#') === 0;
 
     if (!$is_anchor) {
-
         global $wp;
         $current_url = home_url(add_query_arg([], $wp->request));
 
@@ -47,11 +61,14 @@ if ($is_link) {
             return;
         }
     }
+} else {
+    $btn_popup = $data['btn_popup'] ?? '';
+    if (empty($btn_popup) || empty($btn_txt)) {
+        return;
+    }
 }
-// ------------------------------------
 
 $type = $data['btn_style'] ?? 'primary';
-
 $classes = ['btn'];
 $classes[] = 'btn-' . $type;
 
@@ -66,14 +83,10 @@ if ($custom_class) {
 
 <?php if ($is_link) : ?>
     <?php
-
-    $btn_target = !empty($data['btn_target']) ? '_blank' : '_self';
-
-    if ($btn_target === '_self') {
+    if ($btn_target !== '_blank' && !in_array('anchor', $classes)) {
         $classes[] = 'anchor';
     }
-
-    $class_string = implode(' ', $classes);
+    $class_string = implode(' ', array_unique($classes));
     ?>
     <a href="<?php echo esc_url($btn_link); ?>"
         class="<?php echo esc_attr($class_string); ?>"
@@ -83,7 +96,6 @@ if ($custom_class) {
 
 <?php else : ?>
     <?php
-    $btn_popup = $data['btn_popup'];
     $class_string = implode(' ', $classes);
     ?>
     <a href="<?php echo esc_attr($btn_popup); ?>"

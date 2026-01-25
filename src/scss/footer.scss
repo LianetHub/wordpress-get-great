@@ -112,7 +112,7 @@
 	}
 	// .footer__menu-item
 	&__menu-item {
-		&.services-block {
+		&.menu-item-object-services {
 			.footer__submenu-item {
 				@media (min-width: $md4) {
 					margin-top: rem(32);
@@ -123,17 +123,7 @@
 				}
 			}
 		}
-		&.portfolio-block {
-			@media (min-width: $md4) {
-				break-inside: avoid;
-			}
-			@media (min-width: $md1) {
-				min-height: 17rem;
-			}
-			@media (min-width: $md0) {
-				min-height: rem(240);
-			}
-		}
+
 		&.blog-block {
 			@media (min-width: $md4) {
 				.footer__submenu {
@@ -225,6 +215,17 @@
 				@media (max-width: $md4) {
 					padding-right: 3rem;
 				}
+			}
+		}
+		&.menu-item-object-portfolio {
+			@media (min-width: $md4) {
+				break-inside: avoid;
+			}
+			@media (min-width: $md1) {
+				min-height: 17rem;
+			}
+			@media (min-width: $md0) {
+				min-height: rem(240);
 			}
 		}
 		&._spoller-open {
