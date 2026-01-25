@@ -47,7 +47,7 @@ $has_h1 = false;
                         <?php endif; ?>
                         <div class="container">
                             <div class="promo__offer">
-                                <<?php echo $title_tag; ?> class="promo__title">
+                                <<?php echo $title_tag; ?> class="promo__title title">
                                     <?php echo wp_kses($slide['title'], ['br' => []]); ?>
                                 </<?php echo $title_tag; ?>>
 

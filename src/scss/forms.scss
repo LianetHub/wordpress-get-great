@@ -163,7 +163,7 @@
 	&__file-remove {
 		width: 2rem;
 		height: 2rem;
-		font-size: 2rem;
+		font-size: 1rem;
 		flex-shrink: 0;
 		color: #a4a7ae;
 		transition: color 0.3s ease;
@@ -282,10 +282,9 @@
 	line-height: 133.333%;
 	letter-spacing: -0.01125rem;
 	padding: rem(9) rem(18);
-	font-size: 0.875rem;
+	font-size: 1rem;
 	@media (min-width: $md4) {
 		padding: rem(14) rem(18);
-		font-size: 1rem;
 	}
 	@media (min-width: $md2) {
 		padding: rem(15) rem(24);
@@ -330,14 +329,19 @@
 			transition: opacity 0.3s ease;
 		}
 		&::before {
-			width: 1.5rem;
-			height: 1.5rem;
-			font-size: 1.5rem;
+			font-size: 1.25rem;
+			width: 1.25rem;
+			height: 1.25rem;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-shrink: 0;
 			transition: transform 0.3s ease;
+			@media (min-width: $md4) {
+				width: 1.5rem;
+				height: 1.5rem;
+				font-size: 1.5rem;
+			}
 			@extend %ic, .icon-arrow-up-right;
 		}
 

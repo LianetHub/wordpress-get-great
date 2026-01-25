@@ -20,9 +20,13 @@ $email = get_field('email', 'option');
         <?php endif; ?>
     </a>
     <div class="header__menu menu">
-        <button type="button" class="menu__icon icon-menu">
-            <span></span>
-        </button>
+        <div class="menu__header">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="menu__logo">
+                <img
+                    src="<?php echo esc_url($logo['url']); ?>"
+                    alt="<?php echo esc_attr($logo['alt']) ?: 'Логотип '; ?>">
+            </a>
+        </div>
         <nav aria-label="Меню" class="menu__body">
             <?php
             wp_nav_menu([
@@ -34,19 +38,61 @@ $email = get_field('email', 'option');
             ]);
             ?>
         </nav>
-    </div>
-    <div class="header__contacts">
-        <?php if ($phone): ?>
-            <a href="tel:<?php echo esc_attr(preg_replace('/[^\d\+]/', '', $phone)); ?>" class="header__contacts-phone"><?php echo esc_html($phone); ?></a>
+        <?php if ($phone || $email || $socials): ?>
+            <div class="menu__footer">
+                <?php if ($phone || $email): ?>
+                    <div class="menu__contacts">
+                        <?php if ($phone): ?>
+                            <a href="tel:<?php echo esc_attr(preg_replace('/[^\d\+]/', '', $phone)); ?>" class="header__contacts-phone"><?php echo esc_html($phone); ?></a>
+                        <?php endif; ?>
+                        <?php if ($email): ?>
+                            <a href="mailto:<?php echo esc_attr($email); ?>" class="header__contacts-email">
+                                <?php echo esc_html($email); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (have_rows('social_links', 'option')): ?>
+                    <div class="menu__socials socials">
+                        <?php while (have_rows('social_links', 'option')): the_row();
+                            $icon = get_sub_field('icon');
+                            $link = get_sub_field('link');
+                            $hover_color = get_sub_field('hover_color');
+                            $is_whatsapp = strpos($link, 'whatsapp') !== false;
+                            $is_telegram = strpos($link, 'telegram') !== false || strpos($link, 't.me') !== false;
+                        ?>
+                            <?php if ($is_whatsapp || $is_telegram): ?>
+                                <a href="<?php echo esc_url($link); ?>"
+                                    class="socials__item"
+                                    style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
+                                    target="_blank"
+                                    rel="nofollow">
+                                    <?php if ($icon): ?>
+                                        <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
+                                    <?php endif; ?>
+                                </a>
+                            <?php endif; ?>
+                        <?php endwhile; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
-        <?php if ($email): ?>
-            <a href="mailto:<?php echo esc_attr($email); ?>" class="header__contacts-email">
-                <?php echo esc_html($email); ?>
-            </a>
-        <?php endif; ?>
     </div>
-    <div class="header__socials socials">
-        <?php if (have_rows('social_links', 'option')): ?>
+    <?php if ($phone || $email): ?>
+        <div class="header__contacts">
+            <?php if ($phone): ?>
+                <a href="tel:<?php echo esc_attr(preg_replace('/[^\d\+]/', '', $phone)); ?>" class="header__contacts-phone"><?php echo esc_html($phone); ?></a>
+            <?php endif; ?>
+            <?php if ($email): ?>
+                <a href="mailto:<?php echo esc_attr($email); ?>" class="header__contacts-email">
+                    <?php echo esc_html($email); ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    <?php if (have_rows('social_links', 'option')): ?>
+        <div class="header__socials socials">
             <?php while (have_rows('social_links', 'option')): the_row();
                 $icon = get_sub_field('icon');
                 $link = get_sub_field('link');
@@ -67,7 +113,10 @@ $email = get_field('email', 'option');
                     </a>
                 <?php endif; ?>
             <?php endwhile; ?>
-        <?php endif; ?>
-    </div>
-    <a href="#" data-fancybox aria-label="" class="header__callback icon-phone-incoming"></a>
+        </div>
+    <?php endif; ?>
+    <a href="#callback" data-fancybox aria-label="Заказать звонок" class="header__callback icon-phone-incoming"></a>
+    <button type="button" aria-label="Открыть мобильное меню" class="header__menu-toggler icon-menu">
+        <span></span><span></span><span></span>
+    </button>
 </div>

@@ -591,7 +591,7 @@ $(function () {
 
     if ($('.gratitudes__slider').length) {
         new Swiper('.gratitudes__slider', {
-            slidesPerView: 5,
+            slidesPerView: 3,
             spaceBetween: 32,
             navigation: {
                 nextEl: '.gratitudes__next',
@@ -610,6 +610,14 @@ $(function () {
                     return '<span class="' + currentClass + '"></span>' +
                         ' / ' +
                         '<span class="' + totalClass + '"></span>';
+                }
+            },
+            breakpoints: {
+                1199.98: {
+                    slidesPerView: 4,
+                },
+                1709.98: {
+                    slidesPerView: 5,
                 }
             }
         });

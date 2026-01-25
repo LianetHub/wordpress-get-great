@@ -24,9 +24,16 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	&.menu-lock {
-		@media (max-width: $md2) {
+		@media (max-width: 1359.98px) {
 			overflow: hidden;
 			.wrapper {
+				&::before {
+					opacity: 1;
+					visibility: visible;
+					pointer-events: all;
+				}
+			}
+			.header {
 				&::before {
 					opacity: 1;
 					visibility: visible;
@@ -352,10 +359,13 @@ body {
 	&__content {
 		margin-top: rem(64);
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem;
 		max-width: rem(1396);
 		margin-inline: auto;
+		gap: rem(6);
+		@media (min-width: $md3) {
+			gap: 1.5rem;
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 	// .faq__column
 	&__column {
@@ -442,9 +452,12 @@ body {
 	// .presentation__desc
 	&__desc {
 		margin-top: 2rem;
-		font-size: 1.75rem;
 		line-height: 128.571%;
 		letter-spacing: em(0.8, 32);
+		font-size: 1.25rem;
+		@media (min-width: $md2) {
+			font-size: 1.75rem;
+		}
 	}
 	// .presentation__btn
 	&__btn {
@@ -459,7 +472,7 @@ body {
 	// .presentation__stats
 	&__stats {
 		position: absolute;
-		top: rem(30);
+		top: 0;
 		left: 0;
 		display: flex;
 		flex-wrap: wrap;
@@ -467,6 +480,9 @@ body {
 		background: #fff;
 		padding: 0.5rem;
 		font-size: 1rem;
+		@media (min-width: $md2) {
+			top: rem(30);
+		}
 	}
 	// .presentation__stat
 	&__stat {
@@ -503,6 +519,10 @@ body {
 				100% calc(100% + 2px) / 5rem auto no-repeat,
 			url("@img/gratitudes-decor.svg") center bottom / 100% auto no-repeat,
 			linear-gradient(180deg, #fff 19.58%, #f3f3f3 100%);
+		padding-bottom: rem(90);
+		@media (min-width: $md3) {
+			padding-bottom: rem(157);
+		}
 	}
 	// .gratitudes__header
 	&__header {
@@ -518,10 +538,7 @@ body {
 	// .gratitudes__title
 	&__title {
 	}
-	// .gratitudes__body
-	&__body {
-		padding-bottom: rem(157);
-	}
+
 	// .gratitudes__content
 	&__content {
 		margin-top: 3.5rem;
@@ -656,8 +673,13 @@ body {
 	// .why__cards
 	&__cards {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
 		gap: 1.5rem;
+		@media (min-width: $md4) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (min-width: $md3) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 	// .why__card
 	&__card {
@@ -730,11 +752,25 @@ body {
 	&__content {
 		margin-top: 1.3rem;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
 		gap: 1.5rem;
+		@media (min-width: $md3) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (min-width: $md2) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 	// .mission__column
 	&__column {
+		@media (max-width: $md2) {
+			@media (min-width: $md3) {
+				&:last-child {
+					&:nth-child(odd) {
+						grid-column: span 2;
+					}
+				}
+			}
+		}
 	}
 	// .mission__text
 	&__text {
