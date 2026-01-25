@@ -71,6 +71,11 @@ function my_register_blocks()
 			'icon'  => 'awards',
 			'is_global_only' => true
 		],
+		'mission' => [
+			'title' => 'Наша миссия',
+			'desc'  => 'Секция миссии с колонками контента',
+			'icon'  => 'awards',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {

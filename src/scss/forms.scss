@@ -366,6 +366,18 @@
 		}
 	}
 
+	&.btn-secondary {
+		color: #535862;
+		border-color: #535862;
+		@media (any-hover: hover) {
+			&:hover {
+				border-color: #ff4405;
+				background: #ff4405;
+				color: #fff;
+			}
+		}
+	}
+
 	&.btn-sm {
 		padding: rem(6) rem(12);
 		@media (min-width: $md4) {

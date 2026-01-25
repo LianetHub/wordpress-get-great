@@ -54,9 +54,11 @@ $services_desc  = get_field('services_description', $donor_id);
                                 <span class="service-card__name">
                                     <?php echo esc_html($term->name); ?>
                                 </span>
-                                <span class="service-card__desc">
-                                    <span>Застройка экспозиции компании в 4 городах: Челябинск, Санкт-Петербург, Сочи, Казань. Изготовление декоративных элементов: ягоды из стеклопластика, огромный телефон, качели</span>
-                                </span>
+                                <?php if ($term->description): ?>
+                                    <span class="service-card__desc">
+                                        <span><?php echo esc_html($term->description); ?></span>
+                                    </span>
+                                <?php endif; ?>
                                 <span class="service-card__footer">
                                     <span class="service-card__btn btn btn-primary">Подробнее</span>
                                 </span>

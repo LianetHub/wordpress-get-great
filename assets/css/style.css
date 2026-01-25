@@ -17,14 +17,6 @@
 }
 
 @font-face {
-  font-family: "icons";
-  font-display: swap;
-  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Gilroy";
   font-display: swap;
   src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
@@ -39,6 +31,14 @@
   font-stretch: 75% 125%;
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: "icons";
+  font-display: swap;
+  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 
 .faq__item-question::before,
@@ -1139,6 +1139,11 @@ body.is-loaded .preloader {
 .btn.btn-white-border {
   color: #fff;
   border-color: #fff;
+}
+
+.btn.btn-secondary {
+  color: #535862;
+  border-color: #535862;
 }
 
 .btn.btn-sm {
@@ -2451,6 +2456,33 @@ body.preloading {
   display: flex;
 }
 
+.mission__content {
+  margin-top: 1.3rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.mission__text.typography-block {
+  line-height: 1.44;
+}
+
+.mission__text.typography-block p:first-child:last-child {
+  padding-top: 0.44rem;
+}
+
+.mission__quote {
+  font-family: "Gilroy";
+  font-size: 1.875rem;
+  line-height: 120%;
+}
+
+.mission__btn {
+  margin-top: 1.44rem;
+}
+
 .promo {
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
@@ -2776,6 +2808,10 @@ body.preloading {
 
 .typography-block p a {
   color: #ff4405;
+}
+
+.typography-block p:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .typography-block ul,
@@ -3904,6 +3940,12 @@ body.preloading {
   }
 
   .btn.btn-white-border:hover {
+    border-color: #ff4405;
+    background: #ff4405;
+    color: #fff;
+  }
+
+  .btn.btn-secondary:hover {
     border-color: #ff4405;
     background: #ff4405;
     color: #fff;

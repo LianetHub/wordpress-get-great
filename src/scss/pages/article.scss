@@ -88,8 +88,13 @@
 		}
 	}
 
-	p a {
-		color: $accent;
+	p {
+		a {
+			color: $accent;
+		}
+		&:not(:last-child) {
+			margin-bottom: 1rem;
+		}
 	}
 
 	ul,

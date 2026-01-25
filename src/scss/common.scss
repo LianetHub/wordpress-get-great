@@ -721,3 +721,38 @@ body {
 		display: flex;
 	}
 }
+
+.mission {
+	// .mission__title
+	&__title {
+	}
+	// .mission__content
+	&__content {
+		margin-top: 1.3rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	// .mission__column
+	&__column {
+	}
+	// .mission__text
+	&__text {
+		&.typography-block {
+			line-height: 1.44;
+			& p:first-child:last-child {
+				padding-top: 0.44rem;
+			}
+		}
+	}
+	// .mission__quote
+	&__quote {
+		font-family: $font-gilroy;
+		font-size: 1.875rem;
+		line-height: 120%;
+	}
+	// .mission__btn
+	&__btn {
+		margin-top: 1.44rem;
+	}
+}

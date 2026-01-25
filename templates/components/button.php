@@ -25,6 +25,31 @@ if (empty($data) || empty($data['btn_txt'])) {
     return;
 }
 
+$btn_txt = $data['btn_txt'];
+$is_link = $data['is_link'];
+
+
+if ($is_link) {
+    $btn_link = $data['btn_link'];
+
+    $is_anchor = strpos($btn_link, '#') === 0;
+
+    if (!$is_anchor) {
+
+        global $wp;
+        $current_url = home_url(add_query_arg([], $wp->request));
+
+        if (is_singular()) {
+            $current_url = get_permalink();
+        }
+
+        if (untrailingslashit($btn_link) === untrailingslashit($current_url)) {
+            return;
+        }
+    }
+}
+// ------------------------------------
+
 $type = $data['btn_style'] ?? 'primary';
 
 $classes = ['btn'];
@@ -37,14 +62,11 @@ if ($icon) {
 if ($custom_class) {
     $classes[] = $custom_class;
 }
-
-$btn_txt = $data['btn_txt'];
-$is_link = $data['is_link'];
 ?>
 
 <?php if ($is_link) : ?>
     <?php
-    $btn_link = $data['btn_link'];
+
     $btn_target = !empty($data['btn_target']) ? '_blank' : '_self';
 
     if ($btn_target === '_self') {
