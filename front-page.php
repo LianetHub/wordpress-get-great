@@ -44,29 +44,7 @@
         <a href="" class="cases__more btn btn-primary">Смотреть все 96 кейсов</a>
     </div>
 </section>
-<section class="about">
-    <div class="container">
-        <div class="about__body">
-            <div class="about__image">
-                <img src="https://developer.gektor-studio.com/backend4/get-great/wp-content/uploads/2026/01/brending-wrapper.jpg" class="cover-image" alt="Фото кейса">
-            </div>
-            <div class="about__content">
-                <div class="about__hint hint">О НАС</div>
-                <h2 class="about__title title">Организация мероприятий и&nbsp;застройка <span class="color-accent">выставочных стендов</span></h2>
-                <div class="about__tabs">
-                    <button class="about__tab btn btn-secondary active">О компании</button>
-                    <button class="about__tab btn btn-secondary">Наши принципы</button>
-                    <button class="about__tab btn btn-secondary">Аккредитация</button>
-                </div>
-                <div class="about__text typography-block">
-                    <p>Наша компания много лет работает в выставочной индустрии и неустанно следим за последними трендами и новинками отрасли. Всё самое лучшее, начиная от технологий и заканчивая дизайном, мы постепенно внедряем в свою деятельность.</p>
-                    <p>В нашем портфолио находятся десятки удачных мероприятий, которые произвели на гостей выставки неизгладимое впечатление. Мы осуществляем оформление интерьеров торговых площадей, уличных павильонов, кафе, кофеен и ресторанов. На каждом этапе проводится тщательная проверка, которая позволяет нам моментально нейтрализовать все нюансы в процессе работы.</p>
-                </div>
-                <a href="" data-fancybox class="about__btn btn btn-primary">Обсудить проект</a>
-            </div>
-        </div>
-    </div>
-</section>
+
 <?php
 while (have_posts()) :
     the_post();

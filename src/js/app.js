@@ -213,6 +213,20 @@ $(function () {
             $target.closest('.favorite-btn').toggleClass('active')
         }
 
+        // tabs on about section
+        if ($target.closest('.about__tab').length) {
+            const $tabsBtn = $target.closest('.about__tab');
+            const index = $tabsBtn.index();
+            const $parentSection = $tabsBtn.closest('.about');
+
+            $parentSection.find('.about__tab').removeClass('active');
+            $tabsBtn.addClass('active');
+
+            $parentSection.find('.about__tab-content').removeClass('active').eq(index).addClass('active');
+
+            $parentSection.find('.about__image').removeClass('active').eq(index).addClass('active');
+        }
+
 
     });
 

@@ -76,6 +76,11 @@ function my_register_blocks()
 			'desc'  => 'Секция миссии с колонками контента',
 			'icon'  => 'awards',
 		],
+		'about' => [
+			'title' => 'О компании',
+			'desc'  => 'Секция с табами и изображениями',
+			'icon'  => 'info'
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
