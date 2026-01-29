@@ -81,6 +81,11 @@ function my_register_blocks()
 			'desc'  => 'Секция с табами и изображениями',
 			'icon'  => 'info'
 		],
+		'special-offer' => [
+			'title' => 'Спецпредложение',
+			'desc'  => 'Блок с акцией, карточками и изображением',
+			'icon'  => 'star-filled',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {

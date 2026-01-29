@@ -44,7 +44,6 @@
         <a href="" class="cases__more btn btn-primary">Смотреть все 96 кейсов</a>
     </div>
 </section>
-
 <?php
 while (have_posts()) :
     the_post();
