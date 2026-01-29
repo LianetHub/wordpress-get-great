@@ -70,7 +70,7 @@ function register_custom_entities()
             'name'               => 'Портфолио',
             'singular_name'      => 'Проект',
             'add_new'            => 'Добавить проект',
-            'add_new_item'       => 'Добавить новую проект',
+            'add_new_item'       => 'Добавить новый проект',
             'edit_item'          => 'Редактировать проект',
             'new_item'           => 'Новый проект',
             'view_item'          => 'Посмотреть проект',

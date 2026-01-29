@@ -43,6 +43,9 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 // 3. THEME SUPPORT AND UTILITIES
 // =========================================================================
 
+add_action('after_setup_theme', function () {
+	add_theme_support('post-thumbnails');
+});
 
 function load_env_configs($path)
 {

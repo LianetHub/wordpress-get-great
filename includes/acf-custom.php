@@ -86,6 +86,11 @@ function my_register_blocks()
 			'desc'  => 'Блок с акцией, карточками и изображением',
 			'icon'  => 'star-filled',
 		],
+		'cases' => [
+			'title' => 'Наши кейсы',
+			'desc'  => 'Список проектов из портфолио',
+			'icon'  => 'grid-view',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {

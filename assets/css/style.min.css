@@ -2903,7 +2903,8 @@ body.preloading {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: (1fr)[3];
-    grid-template-columns: repeat(3, 1fr)
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem
 }
 
 .cases__more {
@@ -2918,6 +2919,19 @@ body.preloading {
     color: #fff
 }
 
+.case-card::after {
+    content: "";
+    position: absolute;
+    top: -.0625rem;
+    right: -.0625rem;
+    width: 14.7058823529%;
+    aspect-ratio: 1.0810810811;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='74' viewBox='0 0 80 74' fill='none'%3E%3Cpath d='M80 74C80 56.6063 70.6637 40.5383 55.5163 31.8533L0 0H80V74Z' fill='white'/%3E%3C/svg%3E")
+}
+
 .case-card::before {
     content: "";
     position: absolute;
@@ -2930,12 +2944,55 @@ body.preloading {
     opacity: 0;
     visibility: hidden;
     -webkit-transition: all .3s ease;
-    transition: all .3s ease
+    transition: all .3s ease;
+    z-index: 3
 }
 
 .case-card__image {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     aspect-ratio: 1.6585365854
+}
+
+.case-card__image.case-card__image--placeholder img {
+    width: 50%;
+    height: auto
+}
+
+.case-card__image::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6.25rem;
+    height: 6.25rem;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: url(../img/more-case.svg) center/contain no-repeat;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .3s ease, visibility .3s ease;
+    transition: opacity .3s ease, visibility .3s ease;
+    z-index: 2
+}
+
+.case-card__image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, .8)), to(rgba(0, 0, 0, 0)));
+    background: linear-gradient(0deg, rgba(0, 0, 0, .8) 0, rgba(0, 0, 0, 0) 100%)
 }
 
 .case-card__content {
@@ -2953,7 +3010,8 @@ body.preloading {
     flex-direction: column;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between
+    justify-content: space-between;
+    z-index: 4
 }
 
 .case-card__labels {
@@ -2963,7 +3021,8 @@ body.preloading {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 1rem
+    padding: 1rem;
+    padding-right: 14.7058823529%
 }
 
 .case-card__label {
@@ -2994,27 +3053,30 @@ body.preloading {
     letter-spacing: -.0125rem
 }
 
+.case-card__more {
+    margin: 0;
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-transition: all .3s cubic-bezier(.39, .58, .57, 1);
+    transition: all .3s cubic-bezier(.39, .58, .57, 1)
+}
+
 .case-card__client {
-    margin-top: .38rem;
     font-size: .875rem;
     line-height: 157.143%;
     letter-spacing: -.00875rem;
     display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    margin-bottom: -100%
 }
 
 .case-card__client-caption {
-    font-weight: 600
-}
-
-.case-card__client-details {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden
+    font-weight: 600;
+    margin-right: .125rem
 }
 
 .typography-block {
@@ -4560,6 +4622,22 @@ body.preloading {
     .case-card:hover::before {
         opacity: 1;
         visibility: visible
+    }
+
+    .case-card:hover .case-card__image::before {
+        opacity: 1;
+        visibility: visible
+    }
+
+    .case-card:hover .case-card__more {
+        margin-top: .38rem;
+        opacity: 1;
+        visibility: visible;
+        height: 1.375rem
+    }
+
+    .case-card:hover .case-card__client {
+        margin-bottom: 0
     }
 
     .service-card:hover .service-card__image {
