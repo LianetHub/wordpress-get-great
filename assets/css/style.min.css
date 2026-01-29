@@ -3,6 +3,14 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
+    src: url(../fonts/Gilroy-Bold.woff2) format("woff2"), url(../fonts/Gilroy-Bold.woff) format("woff");
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Gilroy;
+    font-display: swap;
     src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
     font-weight: 400;
     font-style: normal
@@ -17,10 +25,10 @@
 }
 
 @font-face {
-    font-family: Gilroy;
+    font-family: icons;
     font-display: swap;
-    src: url(../fonts/Gilroy-Bold.woff2) format("woff2"), url(../fonts/Gilroy-Bold.woff) format("woff");
-    font-weight: 700;
+    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
+    font-weight: 400;
     font-style: normal
 }
 
@@ -31,14 +39,6 @@
     font-stretch: 75% 125%;
     font-style: normal;
     font-display: swap
-}
-
-@font-face {
-    font-family: icons;
-    font-display: swap;
-    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
-    font-weight: 400;
-    font-style: normal
 }
 
 .breadcrumbs__item:not(:last-child)::before, .btn.btn-primary::before, .faq__item-question::before, .gratitudes__slide::before, .sub-menu__link::before, .swiper-button-next, .swiper-button-prev, [class*=" icon-"]:before, [class^=icon-]:before {
@@ -2709,6 +2709,199 @@ body.preloading {
     color: #36bffa
 }
 
+.cases__header {
+    max-width: 40rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 0 auto
+}
+
+.cases__list {
+    margin-top: 4rem;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr)
+}
+
+.cases__more {
+    margin-top: 1.5rem;
+    width: 100%
+}
+
+.case-card {
+    position: relative;
+    display: block;
+    background: rgba(24, 29, 39, .86);
+    color: #fff
+}
+
+.case-card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 9.375rem;
+    background: -webkit-gradient(linear, left bottom, left top, from(#ff4405), to(rgba(0, 0, 0, 0)));
+    background: linear-gradient(0deg, #ff4405 0, rgba(0, 0, 0, 0) 100%);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease
+}
+
+.case-card__image {
+    display: block;
+    aspect-ratio: 1.6585365854
+}
+
+.case-card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.case-card__labels {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem
+}
+
+.case-card__label {
+    background: #fff;
+    color: #181d27;
+    font-size: .875rem;
+    letter-spacing: -.00875rem;
+    text-transform: uppercase;
+    padding: .375rem .5rem;
+    border-radius: 2.5rem
+}
+
+.case-card__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: .75rem 1rem
+}
+
+.case-card__name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -.0125rem
+}
+
+.case-card__client {
+    margin-top: .38rem;
+    font-size: .875rem;
+    line-height: 157.143%;
+    letter-spacing: -.00875rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.case-card__client-caption {
+    font-weight: 600
+}
+
+.case-card__client-details {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden
+}
+
+.about__body {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem
+}
+
+.about__image {
+    max-width: 46.25rem
+}
+
+.about__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 3rem 0 1.69rem
+}
+
+.about__title {
+    margin-top: .875rem
+}
+
+.about__tabs {
+    margin-top: 2.5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: .625rem;
+    padding: .375rem 0
+}
+
+.about__tab.active {
+    background: #535862;
+    color: #fff
+}
+
+.about__text {
+    margin-top: 2.25rem
+}
+
+.about__text.typography-block {
+    font-size: 1.25rem
+}
+
+.about__btn {
+    margin-top: 2.5rem;
+    -ms-flex-item-align: start;
+    align-self: flex-start
+}
+
 .typography-block {
     font-size: 1.125rem;
     line-height: 1.55
@@ -3892,6 +4085,10 @@ body.preloading {
     .main>:not(.hero, .promo, .clients):last-child {
         padding-bottom: 6.875rem
     }
+
+    .about__title.title {
+        font-size: 3.25rem
+    }
 }
 
 @media (min-width:1550px) {
@@ -4233,6 +4430,11 @@ body.preloading {
     .why__card:hover .why__card-icon {
         color: #fff;
         background: #ff4405
+    }
+
+    .case-card:hover::before {
+        opacity: 1;
+        visibility: visible
     }
 
     .service-card:hover .service-card__image {
