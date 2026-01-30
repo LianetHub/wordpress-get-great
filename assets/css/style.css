@@ -1966,10 +1966,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.preloading {
-  overflow: hidden;
-}
-
 .wrapper {
   position: relative;
   width: 100%;
@@ -2361,9 +2357,9 @@ body.preloading {
   margin-top: 3rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  -ms-grid-columns: (1fr)[2];
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .special-offer__card {
@@ -2476,7 +2472,6 @@ body.preloading {
 }
 
 .about__tabs {
-  margin-top: 2.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2484,6 +2479,7 @@ body.preloading {
       flex-wrap: wrap;
   gap: 0.625rem;
   padding: 0.375rem 0;
+  margin-top: 1.5rem;
 }
 
 .about__tab.active {
@@ -2504,7 +2500,7 @@ body.preloading {
 }
 
 .about__text.typography-block {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .about__btn {
@@ -3092,9 +3088,9 @@ body.preloading {
   margin-top: 4rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  -ms-grid-columns: (1fr)[2];
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .cases__more {
@@ -3541,10 +3537,6 @@ body.preloading {
   margin-left: 1.5rem;
 }
 
-.services__projects {
-  aspect-ratio: 0.8242424242;
-}
-
 .services__project {
   position: relative;
   display: none;
@@ -3594,15 +3586,14 @@ body.preloading {
 
 .services__project-name {
   font-family: "Gilroy";
-  font-size: 1.5rem;
   font-weight: 700;
   line-height: 120%;
   letter-spacing: -0.045rem;
+  font-size: 1.25rem;
 }
 
 .services__project-desc {
   line-height: 136.364%;
-  font-size: 1.25rem;
 }
 
 .services__project-btn {
@@ -3927,10 +3918,6 @@ html {
 
 .preloader {
   display: none !important;
-}
-
-body.preloading {
-  overflow: visible !important;
 }
 
 @media (min-width: 575.98px) {
@@ -4278,6 +4265,10 @@ body.preloading {
             columns: 3;
   }
 
+  .container.container--fluid {
+    padding: 0 1.5rem;
+  }
+
   .container {
     max-width: 60rem;
   }
@@ -4391,10 +4382,6 @@ body.preloading {
     -webkit-columns: 4;
        -moz-columns: 4;
             columns: 4;
-  }
-
-  .container.container--fluid {
-    padding: 0 2.625rem;
   }
 
   .container {
@@ -4601,6 +4588,10 @@ body.preloading {
     min-height: 17rem;
   }
 
+  .container.container--fluid {
+    padding: 0 2.625rem;
+  }
+
   .container {
     max-width: 82.5rem;
   }
@@ -4613,8 +4604,34 @@ body.preloading {
     padding-bottom: 6.875rem;
   }
 
+  .special-offer__cards {
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .about__title.title {
     font-size: 3.25rem;
+  }
+
+  .about__tabs {
+    margin-top: 2.5rem;
+  }
+
+  .about__text.typography-block {
+    font-size: 1.25rem;
+  }
+
+  .cases__list {
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .services__project-name {
+    font-size: 1.5rem;
+  }
+
+  .services__project-desc {
+    font-size: 1.25rem;
   }
 }
 

@@ -335,8 +335,11 @@
 	&__list {
 		margin-top: 4rem;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
 		gap: 1.5rem;
+		grid-template-columns: repeat(2, 1fr);
+		@media (min-width: $md1) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 	// .cases__item
 	&__item {

@@ -143,7 +143,6 @@
 	}
 	// .services__projects
 	&__projects {
-		aspect-ratio: math.div(34, 41.25);
 	}
 	// .services__project
 	&__project {
@@ -182,15 +181,20 @@
 	// .services__project-name
 	&__project-name {
 		font-family: $font-gilroy;
-		font-size: 1.5rem;
 		font-weight: 700;
 		line-height: 120%;
 		letter-spacing: -0.045rem;
+		font-size: 1.25rem;
+		@media (min-width: $md1) {
+			font-size: 1.5rem;
+		}
 	}
 	// .services__project-desc
 	&__project-desc {
 		line-height: 136.364%;
-		font-size: 1.25rem;
+		@media (min-width: $md1) {
+			font-size: 1.25rem;
+		}
 		@media (min-width: $md0) {
 			font-size: 1.375rem;
 		}
