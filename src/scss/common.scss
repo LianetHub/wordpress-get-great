@@ -614,17 +614,21 @@ body {
 	// .about__body
 	&__body {
 		display: grid;
+		align-items: center;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1.25rem;
 	}
 	// .about__visual
 	&__visual {
 		max-width: rem(740);
+		width: 100%;
 	}
 	// .about__images
 	&__images {
 		aspect-ratio: math.div(740, 772);
 		clip-path: url(#about-mask);
+		width: 100%;
+		height: auto;
 	}
 	// .about__image
 	&__image {

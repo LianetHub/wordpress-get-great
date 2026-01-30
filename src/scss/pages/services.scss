@@ -55,7 +55,11 @@
 		margin-top: 1.25rem;
 		display: grid;
 		justify-content: space-between;
-		grid-template-columns: 28.75rem 34rem 28.75rem;
+		grid-template-columns: 0.875fr 1fr 0.875fr;
+		gap: 1.5rem;
+		@media (min-width: $md0) {
+			grid-template-columns: 28.75rem 34rem 28.75rem;
+		}
 	}
 	// .services__column
 	&__column {
@@ -139,7 +143,7 @@
 	}
 	// .services__projects
 	&__projects {
-		width: 34rem;
+		aspect-ratio: math.div(34, 41.25);
 	}
 	// .services__project
 	&__project {
@@ -151,7 +155,8 @@
 	}
 	// .services__project-image
 	&__project-image {
-		height: rem(660);
+		max-height: rem(660);
+		aspect-ratio: math.div(34, 41.25);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -184,8 +189,11 @@
 	}
 	// .services__project-desc
 	&__project-desc {
-		font-size: 1.375rem;
 		line-height: 136.364%;
+		font-size: 1.25rem;
+		@media (min-width: $md0) {
+			font-size: 1.375rem;
+		}
 	}
 	// .services__project-btn
 	&__project-btn {
