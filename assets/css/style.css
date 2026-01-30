@@ -613,6 +613,11 @@ body.is-loaded .preloader {
   width: auto;
 }
 
+.marquee__image:active {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+}
+
 .title-lg {
   font-family: "Gilroy";
   font-weight: 700;

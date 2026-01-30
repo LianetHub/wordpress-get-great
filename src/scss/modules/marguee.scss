@@ -53,6 +53,9 @@
 			max-height: 100%;
 			width: auto;
 		}
+		&:active {
+			filter: grayscale(0);
+		}
 		@media (any-hover: hover) {
 			&:hover {
 				filter: grayscale(0);
