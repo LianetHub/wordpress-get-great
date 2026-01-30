@@ -208,11 +208,6 @@ $(function () {
             $('body').removeClass('menu-lock');
         }
 
-        // toggle active state favorite
-        if ($target.closest('.favorite-btn').length) {
-            $target.closest('.favorite-btn').toggleClass('active')
-        }
-
         // tabs on about section
         if ($target.closest('.about__tab').length) {
             const $tabsBtn = $target.closest('.about__tab');
@@ -641,25 +636,103 @@ $(function () {
         var isReverse = el.getAttribute('data-direction') === 'reverse';
         var hasImages = $(el).hasClass('marquee__slider--images');
 
-
-
-        new Swiper(el, {
+        var swiper = new Swiper(el, {
             loop: true,
             slidesPerView: 'auto',
             observer: true,
             observeParents: true,
             freeMode: true,
-            allowTouchMove: false,
+            allowTouchMove: true,
             spaceBetween: hasImages ? 64 : 12,
-            speed: 24000,
+            speed: 8000,
             autoplay: {
                 delay: 1,
                 disableOnInteraction: false,
                 reverseDirection: isReverse
             },
         });
-    });
 
+        const removeTooltips = () => {
+            document.querySelectorAll('.tooltip-marquee').forEach(t => t.remove());
+        };
+
+        const showTooltip = (slide, e) => {
+            const content = slide.getAttribute('data-tooltip-content');
+            if (!content) return;
+
+            removeTooltips();
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip tooltip-marquee';
+            tooltip.innerHTML = content;
+            document.body.appendChild(tooltip);
+
+            const rect = slide.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
+            const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+            let top = rect.bottom + scrollY + 16;
+            let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
+            let currentDir = 'open-bottom';
+
+            if (top + tooltipRect.height > scrollY + window.innerHeight) {
+                top = rect.top + scrollY - tooltipRect.height - 16;
+                currentDir = 'open-top';
+            }
+
+            tooltip.classList.add(currentDir);
+
+            if (left < 10) left = 10;
+            if (left + tooltipRect.width > window.innerWidth - 10) {
+                left = window.innerWidth - tooltipRect.width - 10;
+            }
+
+            tooltip.style.top = `${top}px`;
+            tooltip.style.left = `${left}px`;
+
+            e.stopPropagation();
+        };
+
+        el.addEventListener('pointerenter', () => {
+            swiper.autoplay.stop();
+        });
+
+        el.addEventListener('pointerleave', () => {
+            removeTooltips();
+            swiper.autoplay.start();
+        });
+
+        el.querySelectorAll('.marquee__image[data-tooltip-content]').forEach(slide => {
+            slide.addEventListener('pointerenter', (e) => {
+                if (e.pointerType === 'mouse') {
+                    showTooltip(slide, e);
+                }
+            });
+
+            slide.addEventListener('click', (e) => {
+                swiper.autoplay.stop();
+                showTooltip(slide, e);
+            });
+
+            slide.addEventListener('pointerleave', (e) => {
+                if (e.pointerType === 'mouse') {
+                    removeTooltips();
+                }
+            });
+        });
+
+        document.addEventListener('pointerdown', (e) => {
+            if (!e.target.closest('.marquee__image') && !e.target.closest('.tooltip-marquee')) {
+                removeTooltips();
+
+                const isHoveringSlider = e.target.closest('.marquee__slider');
+                if (!isHoveringSlider) {
+                    swiper.autoplay.start();
+                }
+            }
+        });
+    });
 
     // header observer
     const headerElement = $('.header');
