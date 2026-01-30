@@ -17,6 +17,29 @@
 
 //============ МОДУЛИ ====================
 
+.title-lg {
+	font-family: $font-gilroy;
+
+	font-weight: 700;
+	line-height: 100%;
+	font-size: 1.75rem;
+	@media (min-width: $md5) {
+		font-size: 2.25rem;
+	}
+	@media (min-width: $md4) {
+		font-size: 2.5rem;
+	}
+	@media (min-width: $md3) {
+		font-size: 2.75rem;
+	}
+	@media (min-width: $md2) {
+		font-size: 3rem;
+	}
+	@media (min-width: $md1) {
+		font-size: 4rem;
+	}
+}
+
 .title {
 	font-family: $font-gilroy;
 

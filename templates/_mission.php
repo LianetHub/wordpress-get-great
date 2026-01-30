@@ -20,7 +20,7 @@ $title = get_field('mission_title', $prefix) ?: "Наша миссия";
 <section class="mission">
     <div class="container">
         <?php if ($title): ?>
-            <h2 class="mission__title title"><?php echo esc_html($title); ?></h2>
+            <h2 class="mission__title title-lg"><?php echo esc_html($title); ?></h2>
         <?php endif; ?>
 
         <?php if (have_rows('mission_columns', $prefix)): ?>

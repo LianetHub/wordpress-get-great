@@ -29,11 +29,11 @@ $btn_data = $data['btn_data'];
                 <?php endif; ?>
 
                 <?php if ($title): ?>
-                    <h2 class="why__title title"><?php echo esc_html($title); ?></h2>
+                    <h2 class="why__title title-lg"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php if ($subtitle): ?>
-                    <p class="why__subtitle"><?php echo esc_html($subtitle); ?></p>
+                    <p class="why__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
                 <?php endif; ?>
             </div>
             <div class="why__body">

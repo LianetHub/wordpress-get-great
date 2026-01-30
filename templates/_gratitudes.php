@@ -24,7 +24,7 @@ $count = count($gallery);
         <div class="container">
             <div class="gratitudes__header">
                 <div class="gratitudes__hint hint"><?php echo esc_html($hint); ?></div>
-                <h2 class="gratitudes__title title"><?php echo esc_html($title); ?></h2>
+                <h2 class="gratitudes__title title-lg"><?php echo esc_html($title); ?></h2>
             </div>
             <div class="gratitudes__content">
                 <div class="gratitudes__caption">

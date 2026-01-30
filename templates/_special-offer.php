@@ -30,7 +30,7 @@ $image    = get_field('special_offer_image', $prefix);
                     <?php endif; ?>
 
                     <?php if ($title): ?>
-                        <h2 class="special-offer__title title"><?php echo $title; ?></h2>
+                        <h2 class="special-offer__title title-md"><?php echo $title; ?></h2>
                     <?php endif; ?>
 
                     <?php if ($subtitle): ?>

@@ -88,7 +88,7 @@ if (!empty($terms) && !is_wp_error($terms)) :
                         <div class="services__hint hint"><?php echo esc_html($hint); ?></div>
                     <?php endif; ?>
                     <?php if ($title): ?>
-                        <h2 class="services__title title"><?php echo esc_html($title); ?></h2>
+                        <h2 class="services__title title-lg"><?php echo esc_html($title); ?></h2>
                     <?php endif; ?>
                     <?php if ($subtitle): ?>
                         <p class="services__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>

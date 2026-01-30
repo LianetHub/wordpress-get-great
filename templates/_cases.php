@@ -47,7 +47,7 @@ $query = new WP_Query($args);
             <?php endif; ?>
 
             <?php if ($title): ?>
-                <h2 class="cases__title title"><?php echo esc_html($title); ?></h2>
+                <h2 class="cases__title title-lg"><?php echo esc_html($title); ?></h2>
             <?php endif; ?>
 
             <?php if ($subtitle): ?>
