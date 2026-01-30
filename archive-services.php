@@ -16,7 +16,7 @@ $services_desc  = get_field('services_description', $donor_id);
 ?>
 
 <?php if (is_post_type_archive('services')) : ?>
-    <div class="services">
+    <div class="services services-page">
         <div class="container">
             <?php if ($services_desc): ?>
                 <div class="services__desc">

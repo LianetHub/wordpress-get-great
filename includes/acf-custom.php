@@ -91,6 +91,11 @@ function my_register_blocks()
 			'desc'  => 'Список проектов из портфолио',
 			'icon'  => 'grid-view',
 		],
+		'services' => [
+			'title' => 'Наши услуги',
+			'desc'  => 'Секция услуг с выбором категорий и выводом проектов',
+			'icon'  => 'screenoptions',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {

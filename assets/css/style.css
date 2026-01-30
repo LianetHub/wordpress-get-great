@@ -3233,8 +3233,12 @@ body.preloading {
   color: #ff4405;
 }
 
-.services {
+.services.services-page {
   padding-top: 3rem !important;
+}
+
+.services__wrapper {
+  background: url("../img/services-bg.png") center/cover no-repeat;
 }
 
 .services__desc {
@@ -3255,6 +3259,170 @@ body.preloading {
   -ms-grid-columns: (1fr)[5];
   grid-template-columns: repeat(5, 1fr);
   gap: 0.75rem;
+}
+
+.services__header {
+  max-width: 32rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.services__content {
+  margin-top: 1.25rem;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-grid-columns: 28.75rem 34rem 28.75rem;
+  grid-template-columns: 28.75rem 34rem 28.75rem;
+}
+
+.services__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+  border: 0.0625rem solid transparent;
+  padding: 1.5rem;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.services__item.active .services__item-caption {
+  color: #ff4405;
+}
+
+.services__item.active .services__item-caption::before {
+  color: #ff4405;
+}
+
+.services__item-caption {
+  font-family: "Gilroy";
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 120%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.services__item-caption.icon-arrow-right {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.services__item-caption.icon-arrow-right::before {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+.services__item-caption.icon-arrow-left {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.services__item-caption::before {
+  width: 1.5rem;
+  height: 1.5rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #a4a7ae;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.services__item-desc {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 125%;
+}
+
+.services__btn {
+  margin-top: 1.9375rem;
+  margin-left: 1.5rem;
+}
+
+.services__projects {
+  width: 34rem;
+}
+
+.services__project {
+  position: relative;
+  display: none;
+}
+
+.services__project.active {
+  display: block;
+}
+
+.services__project-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  padding: 1.125rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(0.875rem);
+  gap: 0.75rem;
+}
+
+.services__project-name {
+  font-family: "Gilroy";
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: -0.045rem;
+}
+
+.services__project-desc {
+  font-size: 1.375rem;
+  line-height: 136.364%;
+}
+
+.services__project-btn {
+  margin-top: 0.75rem;
 }
 
 .service-card {
@@ -3637,6 +3805,14 @@ body.preloading {
 .marquee__image img {
   max-height: 100%;
   width: auto;
+}
+
+.nojq {
+  display: none;
+}
+
+html {
+  margin-top: 0 !important;
 }
 
 .preloader {
@@ -4689,6 +4865,21 @@ body.preloading {
 
   .case-card:hover .case-card__client {
     margin-bottom: 0;
+  }
+
+  .services__item:hover {
+    border: 0.0625rem solid #eee;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+  }
+
+  .services__item:hover .services__item-caption {
+    color: #ff4405;
+  }
+
+  .services__item:hover .services__item-caption::before {
+    color: #ff4405;
   }
 
   .service-card:hover .service-card__image {
