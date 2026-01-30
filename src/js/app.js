@@ -648,6 +648,7 @@ $(function () {
             autoplay: {
                 delay: 1,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
                 reverseDirection: isReverse
             },
         });
