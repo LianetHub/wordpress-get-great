@@ -151,7 +151,14 @@
 	}
 	// .services__project-image
 	&__project-image {
-		min-height: 41.25rem;
+		height: rem(660);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		& img {
+			width: auto;
+			max-height: 100%;
+		}
 	}
 	// .services__project-info
 	&__project-info {

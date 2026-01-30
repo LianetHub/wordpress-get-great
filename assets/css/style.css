@@ -3548,7 +3548,21 @@ body.preloading {
 }
 
 .services__project-image {
-  min-height: 41.25rem;
+  height: 41.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.services__project-image img {
+  width: auto;
+  max-height: 100%;
 }
 
 .services__project-info {

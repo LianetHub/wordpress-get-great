@@ -222,6 +222,19 @@ $(function () {
             $parentSection.find('.about__image').removeClass('active').eq(index).addClass('active');
         }
 
+        // tabs on services section
+        if ($target.closest('.services__item').length) {
+            const $btn = $target.closest('.services__item');
+            const projectId = $btn.data('project-id');
+            const $parentSection = $btn.closest('.services');
+
+            $parentSection.find('.services__item').removeClass('active');
+            $btn.addClass('active');
+
+            $parentSection.find('.services__project').removeClass('active');
+            $parentSection.find(`[data-project-target="${projectId}"]`).addClass('active');
+        }
+
 
     });
 
@@ -446,6 +459,7 @@ $(function () {
         var hasImages = $(el).hasClass('marquee__slider--images');
 
         let savedTranslate = 0;
+        let isPaused = false;
 
         var swiper = new Swiper(el, {
             loop: true,
@@ -469,6 +483,8 @@ $(function () {
         };
 
         const stopSwiper = () => {
+            if (isPaused) return;
+
             const style = window.getComputedStyle(swiper.wrapperEl);
             const matrix = new WebKitCSSMatrix(style.transform);
             savedTranslate = matrix.m41;
@@ -476,9 +492,12 @@ $(function () {
             swiper.autoplay.stop();
             swiper.wrapperEl.style.transition = 'none';
             swiper.setTranslate(savedTranslate);
+            isPaused = true;
         };
 
         const startSwiper = () => {
+            if (!isPaused) return;
+
             swiper.wrapperEl.style.transition = '';
 
             swiper.params.freeMode.enabled = false;
@@ -490,6 +509,7 @@ $(function () {
             swiper.setTranslate(savedTranslate);
 
             swiper.autoplay.start();
+            isPaused = false;
         };
 
         const showTooltip = (slide, e) => {
