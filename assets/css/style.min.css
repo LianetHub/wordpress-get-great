@@ -2161,7 +2161,7 @@ body {
 }
 
 .clients {
-    padding: 2.1875rem 0
+    padding: 1rem 0
 }
 
 .mission__content {
@@ -2197,8 +2197,6 @@ body {
 .special-offer__body {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (1fr)[2];
-    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem
 }
 
@@ -2294,9 +2292,7 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -ms-grid-columns: (1fr)[2];
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem
+    gap: 2rem
 }
 
 .about__visual {
@@ -2327,8 +2323,7 @@ body {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: column;
-    padding: 3rem 0 1.69rem
+    flex-direction: column
 }
 
 .about__title {
@@ -2697,13 +2692,12 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: 3.1875rem 3.5rem
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 2.625rem;
+    padding: 1.5625rem 1.5rem
 }
 
 .presentation__info {
@@ -3597,6 +3591,10 @@ body {
     margin-top: 1.125rem
 }
 
+.services__slider {
+    overflow: visible
+}
+
 .service-card {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -4272,9 +4270,28 @@ html {
         max-width: 60rem
     }
 
+    .clients {
+        padding: 2.1875rem 0
+    }
+
     .mission__content {
         -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr)
+    }
+
+    .special-offer__body {
+        -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .about__body {
+        gap: 1.25rem;
+        -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .about__content {
+        padding: 3rem 0 1.69rem
     }
 
     .why__cards {
@@ -4286,6 +4303,21 @@ html {
         gap: 1.5rem;
         -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr)
+    }
+
+    .presentation__content {
+        padding: 3.1875rem 3.5rem;
+        gap: 0;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center
     }
 
     .promo {
