@@ -99,21 +99,23 @@ if (!empty($terms) && !is_wp_error($terms)) :
                     <div class="services__column">
                         <div class="services__items">
                             <?php foreach ($left_column as $item) : ?>
-                                <button type="button" class="services__item <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
+                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
                                     <span class="services__item-caption icon-arrow-right"><?php echo esc_html($item['term']->name); ?></span>
                                     <span class="services__item-desc"><?php echo esc_html($item['term']->description); ?></span>
                                 </button>
                             <?php endforeach; ?>
                         </div>
-                        <?php
-                        $btn_field = get_field('services_button', $prefix);
-                        if ($btn_field && !empty($btn_field['btn'])):
-                            get_template_part('templates/components/button', null, [
-                                'data'  => $btn_field['btn'],
-                                'class' => 'services__btn',
-                            ]);
-                        endif;
-                        ?>
+                        <div class="services__column-bottom" data-da=".services__bottom, 1199.98">
+                            <?php
+                            $btn_field = get_field('services_button', $prefix);
+                            if ($btn_field && !empty($btn_field['btn'])):
+                                get_template_part('templates/components/button', null, [
+                                    'data'  => $btn_field['btn'],
+                                    'class' => 'services__btn',
+                                ]);
+                            endif;
+                            ?>
+                        </div>
                     </div>
 
                     <div class="services__projects">
@@ -144,12 +146,17 @@ if (!empty($terms) && !is_wp_error($terms)) :
                     <div class="services__column">
                         <div class="services__items">
                             <?php foreach ($right_column as $item) : ?>
-                                <button type="button" class="services__item <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
+                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
                                     <span class="services__item-caption icon-arrow-left"><?php echo esc_html($item['term']->name); ?></span>
                                     <span class="services__item-desc"><?php echo esc_html($item['term']->description); ?></span>
                                 </button>
                             <?php endforeach; ?>
                         </div>
+                    </div>
+                </div>
+                <div class="services__bottom">
+                    <div class="services__slider swiper">
+                        <div class="services__slider-wrapper swiper-wrapper"></div>
                     </div>
                 </div>
             </div>

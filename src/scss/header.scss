@@ -171,11 +171,10 @@
 		background:
 			url("@img/menu-bg-pattern.svg") center 100% / 100% auto no-repeat,
 			#181d27;
-
-		box-shadow: rem(-10) 0 rem(18) 0 rgba(0, 0, 0, 0.45);
+		will-change: transform;
 		overflow-y: auto;
 		&.menu--open {
-			box-shadow: rem(-16) rem(4) rem(32) 0 rgba(0, 0, 0, 0.28);
+			box-shadow: rem(-10) 0 rem(18) 0 rgba(0, 0, 0, 0.45);
 			transform: none;
 		}
 	}

@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 // preloader
 if ($('.preloader').length > 0) {
     let counting = setInterval(function () {
@@ -238,87 +240,36 @@ $(function () {
 
     });
 
-    // phone input mask
-
-    var phoneInputs = document.querySelectorAll('input[type="tel"]');
-
-    var getInputNumbersValue = function (input) {
-        // Return stripped input value — just numbers
-        return input.value.replace(/\D/g, '');
-    }
-
-    var onPhonePaste = function (e) {
-        var input = e.target,
-            inputNumbersValue = getInputNumbersValue(input);
-        var pasted = e.clipboardData || window.clipboardData;
-        if (pasted) {
-            var pastedText = pasted.getData('Text');
-            if (/\D/g.test(pastedText)) {
-                // Attempt to paste non-numeric symbol — remove all non-numeric symbols,
-                // formatting will be in onPhoneInput handler
-                input.value = inputNumbersValue;
-                return;
-            }
-        }
-    }
-
-    var onPhoneInput = function (e) {
-        var input = e.target,
-            inputNumbersValue = getInputNumbersValue(input),
-            selectionStart = input.selectionStart,
-            formattedInputValue = "";
-
-        if (!inputNumbersValue) {
-            return input.value = "";
-        }
-
-        if (input.value.length != selectionStart) {
-            // Editing in the middle of input, not last symbol
-            if (e.data && /\D/g.test(e.data)) {
-                // Attempt to input non-numeric symbol
-                input.value = inputNumbersValue;
-            }
-            return;
-        }
-
-        if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
-            if (inputNumbersValue[0] == "9") inputNumbersValue = "7" + inputNumbersValue;
-            var firstSymbols = (inputNumbersValue[0] == "8") ? "8" : "+7";
-            formattedInputValue = input.value = firstSymbols + " ";
-            if (inputNumbersValue.length > 1) {
-                formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
-            }
-            if (inputNumbersValue.length >= 5) {
-                formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
-            }
-            if (inputNumbersValue.length >= 8) {
-                formattedInputValue += '-' + inputNumbersValue.substring(7, 9);
-            }
-            if (inputNumbersValue.length >= 10) {
-                formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
-            }
-        } else {
-            formattedInputValue = '+' + inputNumbersValue.substring(0, 16);
-        }
-        input.value = formattedInputValue;
-    }
-
-    var onPhoneKeyDown = function (e) {
-        // Clear input after remove last symbol
-        var inputValue = e.target.value.replace(/\D/g, '');
-        if (e.keyCode == 8 && inputValue.length == 1) {
-            e.target.value = "";
-        }
-    }
-
-    for (var phoneInput of phoneInputs) {
-        phoneInput.addEventListener('keydown', onPhoneKeyDown);
-        phoneInput.addEventListener('input', onPhoneInput, false);
-        phoneInput.addEventListener('paste', onPhonePaste, false);
-    }
-
 
     // sliders
+    class MobileSwiper {
+        constructor(sliderName, options, condition = 767.98) {
+            this.$slider = $(sliderName);
+            this.options = options;
+            this.init = false;
+            this.swiper = null;
+            this.condition = condition;
+
+            if (this.$slider.length) {
+                this.handleResize();
+                $(window).on("resize", () => this.handleResize());
+            }
+        }
+
+        handleResize() {
+            if (window.innerWidth <= this.condition) {
+                if (!this.init) {
+                    this.init = true;
+                    this.swiper = new Swiper(this.$slider[0], this.options);
+                }
+            } else if (this.init) {
+                this.swiper.destroy();
+                this.swiper = null;
+                this.init = false;
+            }
+        }
+    }
+
 
     if ($('.promo__slider').length) {
         const $tabs = $('.promo__tab-btn');
@@ -586,154 +537,17 @@ $(function () {
         });
     });
 
-
-
-    // header observer
-    const headerElement = $('.header');
-
-    const callback = function (entries, observer) {
-        if (entries[0].isIntersecting) {
-            headerElement.removeClass('scroll');
-        } else {
-            headerElement.addClass('scroll');
-        }
-    };
-
-    const headerObserver = new IntersectionObserver(callback);
-    headerObserver.observe(headerElement[0]);
-
-
-    // switcher animation
-
-    $('.switcher').each(function () {
-        var $switcher = $(this);
-        var $slider = $('<div class="switcher__slider"></div>');
-        $switcher.prepend($slider);
-
-        function updateSliderPosition($checkedInput) {
-            if (!$switcher.is(':visible')) {
-                return;
-            }
-
-            var $button = $checkedInput.next('.switcher__btn');
-            if (!$button.length) return;
-
-            var width = $button.outerWidth();
-            var offsetLeft = $button.offset().left;
-            var parentOffsetLeft = $switcher.offset().left;
-            var parentPaddingLeft = parseFloat($switcher.css('padding-left'));
-            var offset = offsetLeft - parentOffsetLeft - parentPaddingLeft;
-
-            $switcher.css('--active-width', width + 'px');
-            $switcher.css('--active-offset', offset + 'px');
-        }
-
-        var observer = new ResizeObserver(function (entries) {
-            for (var entry of entries) {
-                if (entry.contentRect.width > 0 || entry.contentRect.height > 0) {
-                    var $initialChecked = $switcher.find('.switcher__input:checked');
-                    if ($initialChecked.length) {
-                        updateSliderPosition($initialChecked);
-                    }
-                }
-            }
-        });
-
-        observer.observe($switcher[0]);
-
-        $switcher.on('change', '.switcher__input', function () {
-            updateSliderPosition($(this));
-        });
-
-        var resizeTimeout;
-        $(window).on('resize', function () {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function () {
-                var $currentChecked = $switcher.find('.switcher__input:checked');
-                if ($currentChecked.length) {
-                    updateSliderPosition($currentChecked);
-                }
-            }, 150);
-        });
-    });
-
-
-    // Contacts Block Map
-    function createMap() {
-
-        const $map = $('#map');
-
-        var coordsAddress = $map.data('coords').split('; ');
-        var placemarkURL = $map.data('placemark-logo');
-
-        for (var i = 0; i < coordsAddress.length; i++) {
-            coordsAddress[i] = coordsAddress[i].split(', ');
-            for (var j = 0; j < coordsAddress[i].length; j++) {
-                coordsAddress[i][j] = parseFloat(coordsAddress[i][j]);
-            }
-        }
-
-        var mapCenter = coordsAddress[0].map(function (element) {
-            return element;
-        });
-
-        ymaps.ready(function () {
-
-            var myMap = new ymaps.Map('map', {
-                center: mapCenter,
-                zoom: 16,
-                controls: [],
-            });
-
-            var addressOne = new ymaps.Placemark(coordsAddress[0], {}, {
-                iconLayout: 'default#image',
-                iconImageHref: placemarkURL,
-                iconImageSize: [69, 78],
-                iconImageOffset: [-35, -78],
-            });
-
-
-            var zoomControl = new ymaps.control.ZoomControl({
-                options: {
-                    position: {
-                        right: 10,
-                        top: 200,
-                    },
-                },
-            });
-
-
-            myMap.behaviors.disable('scrollZoom');
-
-            myMap.controls.add(zoomControl);
-
-            myMap.geoObjects.add(addressOne);
-        });
-
-
+    if ($('.services__slider').length) {
+        new MobileSwiper('.services__slider', {
+            slidesPerView: "auto",
+            slideToClickedSlide: true,
+            spaceBetween: 12
+        }, 1199.98)
     }
 
-    var isMapShown = false;
-    $(window).scroll(function () {
-        let container = $('#map');
-        if (!isMapShown && (container.length > 0)) {
-            let script = document.createElement("script");
-            script.async = true;
-            script.defer = true;
-            script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
-            let container_pos = container.offset().top;
-            let winHeight = $(window).height();
-            let scrollToElem = container_pos - winHeight - 200;
-            if ($(this).scrollTop() > scrollToElem) {
-                document.head.append(script);
-                script.onload = function () {
-                    createMap();
-                };
-                isMapShown = true;
-            }
-        }
-    });
 
+
+    // Form Controller
 
     class FormController {
         constructor() {
@@ -1022,6 +836,7 @@ $(function () {
 
     window.formController = new FormController();
 
+    // Spollers
     class Spollers {
         constructor() {
             this.$spollersArray = $("[data-spollers]");
@@ -1154,6 +969,133 @@ $(function () {
     }
 
     window.spollers = new Spollers();
+
+    // DynamicAdapt
+    class DynamicAdapt {
+        constructor(type) {
+            this.type = type;
+            this.objects = [];
+            this.daClassname = "_dynamic_adapt_";
+            this.$nodes = $("[data-da]");
+
+            if (this.$nodes.length > 0) {
+                this.init();
+            }
+        }
+
+        init() {
+            this.$nodes.each((index, node) => {
+                const $node = $(node);
+                const data = $node.data("da").trim();
+                const dataArray = data.split(",");
+                const object = {};
+
+                object.element = $node;
+                object.parent = $node.parent();
+                object.destination = $(dataArray[0].trim());
+                object.breakpoint = dataArray[1] ? dataArray[1].trim() : "767";
+                object.place = dataArray[2] ? dataArray[2].trim() : "last";
+                object.index = this.indexInParent(object.parent, object.element);
+                this.objects.push(object);
+            });
+
+            this.arraySort(this.objects);
+
+            this.mediaQueries = this.objects
+                .map((item) => {
+                    return `(${this.type}-width: ${item.breakpoint}px),${item.breakpoint}`;
+                })
+                .filter((item, index, self) => {
+                    return self.indexOf(item) === index;
+                });
+
+            this.mediaQueries.forEach((media) => {
+                const mediaSplit = media.split(",");
+                const matchMedia = window.matchMedia(mediaSplit[0]);
+                const mediaBreakpoint = mediaSplit[1];
+
+                const objectsFilter = this.objects.filter((item) => {
+                    return item.breakpoint === mediaBreakpoint;
+                });
+
+                matchMedia.addEventListener("change", () => {
+                    this.mediaHandler(matchMedia, objectsFilter);
+                });
+                this.mediaHandler(matchMedia, objectsFilter);
+            });
+        }
+
+        mediaHandler(matchMedia, objects) {
+            if (matchMedia.matches) {
+                objects.forEach((object) => {
+                    object.index = this.indexInParent(object.parent, object.element);
+                    this.moveTo(object.place, object.element, object.destination);
+                });
+            } else {
+                objects.forEach((object) => {
+                    if (object.element.hasClass(this.daClassname)) {
+                        this.moveBack(object.parent, object.element, object.index);
+                    }
+                });
+            }
+        }
+
+        moveTo(place, $element, $destination) {
+            $element.addClass(this.daClassname);
+            const $children = $destination.children();
+
+            if (place === "last" || place >= $children.length) {
+                $destination.append($element);
+                return;
+            }
+            if (place === "first") {
+                $destination.prepend($element);
+                return;
+            }
+            $children.eq(place).before($element);
+        }
+
+        moveBack($parent, $element, index) {
+            $element.removeClass(this.daClassname);
+            const $children = $parent.children();
+
+            if ($children.eq(index).length > 0) {
+                $children.eq(index).before($element);
+            } else {
+                $parent.append($element);
+            }
+        }
+
+        indexInParent($parent, $element) {
+            return $parent.children().index($element);
+        }
+
+        arraySort(arr) {
+            if (this.type === "min") {
+                arr.sort((a, b) => {
+                    if (a.breakpoint === b.breakpoint) {
+                        if (a.place === b.place) return 0;
+                        if (a.place === "first" || b.place === "last") return -1;
+                        if (a.place === "last" || b.place === "first") return 1;
+                        return a.place - b.place;
+                    }
+                    return a.breakpoint - b.breakpoint;
+                });
+            } else {
+                arr.sort((a, b) => {
+                    if (a.breakpoint === b.breakpoint) {
+                        if (a.place === b.place) return 0;
+                        if (a.place === "first" || b.place === "last") return 1;
+                        if (a.place === "last" || b.place === "first") return -1;
+                        return b.place - a.place;
+                    }
+                    return b.breakpoint - a.breakpoint;
+                });
+            }
+        }
+    }
+
+    window.dynamicAdapt = new DynamicAdapt("max");
 
 
 })
