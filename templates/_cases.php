@@ -19,7 +19,13 @@ $title        = get_field('cases_title', $prefix) ?: "Наши кейсы";
 $subtitle     = get_field('cases_subtitle', $prefix) ?: "Мы знаем, что такое брендбук, стиль, первые лица, «надо вчера»";
 $manual_cases = get_field('selected_cases', $prefix);
 
+$posts_per_page = wp_is_mobile() ? 5 : 9;
+
 if ($manual_cases) {
+    if (wp_is_mobile() && count($manual_cases) > 5) {
+        $manual_cases = array_slice($manual_cases, 0, 5);
+    }
+
     $args = [
         'post_type'      => 'portfolio',
         'post__in'       => $manual_cases,
@@ -29,7 +35,7 @@ if ($manual_cases) {
 } else {
     $args = [
         'post_type'      => 'portfolio',
-        'posts_per_page' => 9,
+        'posts_per_page' => $posts_per_page,
         'post_status'    => 'publish',
         'orderby'        => 'date',
         'order'          => 'DESC',

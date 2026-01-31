@@ -32,13 +32,16 @@
 	}
 	// .services__header
 	&__header {
-		max-width: 45rem;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		gap: 0.875rem;
-		margin: 0 auto;
+		gap: 0.5rem;
+		@media (min-width: $md4) {
+			max-width: 45rem;
+			align-items: center;
+			text-align: center;
+			gap: 0.875rem;
+			margin: 0 auto;
+		}
 	}
 	// .services__hint
 	&__hint {
@@ -192,6 +195,7 @@
 	// .services__column-bottom
 	&__column-bottom {
 		margin-top: rem(24);
+
 		@media (min-width: $md2) {
 			margin-top: rem(31);
 			padding: 0 rem(24);
@@ -199,6 +203,10 @@
 	}
 	// .services__btn
 	&__btn {
+		width: 100%;
+		@media (min-width: $md5) {
+			width: auto;
+		}
 	}
 	// .services__projects
 	&__projects {
@@ -232,25 +240,38 @@
 	}
 	// .services__project-info
 	&__project-info {
-		position: absolute;
-		bottom: 0;
-		left: rem(-1);
-		right: rem(-1);
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		padding: rem(18);
 		background: rgba(255, 255, 255, 0.5);
 		backdrop-filter: blur(rem(14));
 		gap: 0.75rem;
+		padding: 0.875rem;
+		margin-top: -5.5rem;
+		margin-left: -1rem;
+		margin-right: -1rem;
+		@media (min-width: $md4) {
+			margin-top: 0;
+			margin-left: 0;
+			margin-right: 0;
+			position: absolute;
+			bottom: 0;
+			left: rem(-1);
+			right: rem(-1);
+			padding: rem(18);
+		}
 	}
 	// .services__project-name
 	&__project-name {
 		font-family: $font-gilroy;
 		font-weight: 700;
 		line-height: 120%;
-		letter-spacing: -0.045rem;
-		font-size: 1.25rem;
+		font-size: 1.125rem;
+		letter-spacing: -0.03375rem;
+		@media (min-width: $md4) {
+			letter-spacing: -0.045rem;
+			font-size: 1.25rem;
+		}
 		@media (min-width: $md1) {
 			font-size: 1.5rem;
 		}
@@ -258,6 +279,10 @@
 	// .services__project-desc
 	&__project-desc {
 		line-height: 136.364%;
+		font-size: 0.75rem;
+		@media (min-width: $md4) {
+			font-size: 1rem;
+		}
 		@media (min-width: $md1) {
 			font-size: 1.25rem;
 		}
@@ -267,7 +292,6 @@
 	}
 	// .services__project-btn
 	&__project-btn {
-		margin-top: 0.75rem;
 	}
 	// .services__bottom
 	&__bottom {

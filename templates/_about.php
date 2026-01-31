@@ -84,7 +84,7 @@ $title = get_field('about_title', $prefix);
                     <?php endif; ?>
 
                     <?php
-                    $btn_field = get_field('about_button', $prefix);
+                    $btn_field = get_field('about_btn', $prefix);
 
                     if ($btn_field):
                         get_template_part('templates/components/button', null, [

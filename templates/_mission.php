@@ -25,17 +25,22 @@ $title = get_field('mission_title', $prefix) ?: "Наша миссия";
 
         <?php if (have_rows('mission_columns', $prefix)): ?>
             <div class="mission__content">
-                <?php while (have_rows('mission_columns', $prefix)): the_row(); ?>
-                    <div class="mission__column">
+                <?php while (have_rows('mission_columns', $prefix)): the_row();
+                    $is_hidden_mobile = get_sub_field('column_hidden_mobile');
+                    $column_class = 'mission__column' . ($is_hidden_mobile ? ' mobile-hidden' : '');
+                ?>
+                    <div class="<?php echo esc_attr($column_class); ?>">
                         <?php if (have_rows('column_elements')): ?>
                             <?php while (have_rows('column_elements')): the_row();
                                 $layout = get_row_layout(); ?>
 
                                 <?php if ($layout === 'text'): ?>
                                     <?php
-                                    $font_size = get_sub_field('text_content_size') ?: '16px';
+                                    $font_size_desktop = get_sub_field('text_content_size') ?: '16px';
+                                    $font_size_mobile = get_sub_field('text_content_size_mobile') ?: '14px';
                                     ?>
-                                    <div class="mission__text typography-block" style="font-size: <?php echo esc_attr($font_size); ?>;">
+                                    <div class="mission__text typography-block"
+                                        style="--fs-desktop: <?php echo esc_attr($font_size_desktop); ?>; --fs-mobile: <?php echo esc_attr($font_size_mobile); ?>;">
                                         <?php the_sub_field('text_content'); ?>
                                     </div>
                                 <?php endif; ?>

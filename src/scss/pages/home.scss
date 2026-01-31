@@ -313,13 +313,16 @@
 .cases {
 	// .cases__header
 	&__header {
-		max-width: 40rem;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		gap: 0.875rem;
-		margin: 0 auto;
+		gap: 0.5rem;
+		@media (min-width: $md5) {
+			gap: 0.875rem;
+			align-items: center;
+			text-align: center;
+			margin: 0 auto;
+			max-width: 40rem;
+		}
 	}
 	// .cases__hint
 	&__hint {
@@ -352,8 +355,11 @@
 	}
 	// .cases__more
 	&__more {
-		margin-top: 1.5rem;
 		width: 100%;
+		margin-top: 1rem;
+		@media (min-width: $md3) {
+			margin-top: 1.5rem;
+		}
 	}
 }
 
@@ -362,17 +368,22 @@
 	display: block;
 	background: rgba(24, 29, 39, 0.86);
 	color: #fff;
+
 	&::after {
 		content: "";
 		position: absolute;
 		top: rem(-1.5);
 		right: rem(-1.5);
-		width: #{math.div(8000%, 544)};
-		aspect-ratio: math.div(80, 74);
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: 100% 0;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='74' viewBox='0 0 80 74' fill='none'%3E%3Cpath d='M80 74C80 56.6063 70.6637 40.5383 55.5163 31.8533L0 0H80V74Z' fill='white'/%3E%3C/svg%3E");
+		aspect-ratio: math.div(64, 59);
+		width: #{math.div(6400%, 328)};
+		@media (min-width: $md5) {
+			width: #{math.div(8000%, 544)};
+			aspect-ratio: math.div(80, 74);
+		}
 	}
 	&::before {
 		content: "";
@@ -416,7 +427,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		aspect-ratio: math.div(544, 328);
+		aspect-ratio: math.div(328, 260);
+		@media (min-width: $md5) {
+			aspect-ratio: math.div(544, 328);
+		}
 		&.case-card__image--placeholder {
 			& img {
 				width: 50%;
@@ -465,25 +479,37 @@
 	&__labels {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
-		padding: 1rem;
-		padding-right: #{math.div(8000%, 544)};
+		padding: rem(12);
+		gap: rem(12);
+		padding-right: #{math.div(6400%, 328)};
+		@media (min-width: $md5) {
+			gap: 1rem;
+			padding: 1rem;
+			padding-right: #{math.div(8000%, 544)};
+		}
 	}
 	// .case-card__label
 	&__label {
 		background: #fff;
 		color: #181d27;
-		font-size: 0.875rem;
 		letter-spacing: -0.00875rem;
 		text-transform: uppercase;
-		padding: rem(2) 0.5rem;
 		border-radius: 2.5rem;
+		font-size: 0.625rem;
+		padding: rem(4) 0.5rem;
+		@media (min-width: $md4) {
+			font-size: 0.875rem;
+			padding: rem(2) 0.5rem;
+		}
 	}
 	// .case-card__footer
 	&__footer {
 		display: flex;
 		flex-direction: column;
-		padding: 0.75rem 1rem;
+		padding: 0.75rem;
+		@media (min-width: $md4) {
+			padding: 0.75rem 1rem;
+		}
 	}
 	// .case-card__name
 	&__name {

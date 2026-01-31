@@ -373,8 +373,8 @@ $(function () {
 
     if ($('.gratitudes__slider').length) {
         new Swiper('.gratitudes__slider', {
-            slidesPerView: 2,
-            spaceBetween: 32,
+            slidesPerView: 1.05,
+            spaceBetween: 12,
             navigation: {
                 nextEl: '.gratitudes__next',
                 prevEl: '.gratitudes__prev',
@@ -395,45 +395,60 @@ $(function () {
                 }
             },
             breakpoints: {
+                575.98: {
+                    slidesPerView: 2,
+                    spaceBetween: 16,
+                },
                 767.98: {
                     slidesPerView: 3,
+                    spaceBetween: 20,
                 },
                 1199.98: {
                     slidesPerView: 4,
+                    spaceBetween: 24,
                 },
                 1709.98: {
                     slidesPerView: 5,
+                    spaceBetween: 32,
                 }
             }
         });
     }
 
-    document.querySelectorAll('.marquee__slider').forEach(function (el) {
-        var isReverse = el.getAttribute('data-direction') === 'reverse';
-        var hasImages = $(el).hasClass('marquee__slider--images');
+    $('.marquee__slider').each(function () {
+        var $el = $(this);
+        var isReverse = $el.attr('data-direction') === 'reverse';
+        var hasImages = $el.hasClass('marquee__slider--images');
 
         let savedTranslate = 0;
         let isPaused = false;
 
-        var swiper = new Swiper(el, {
+        var swiper = new Swiper(this, {
             loop: true,
             slidesPerView: 'auto',
             observer: true,
             observeParents: true,
             freeMode: true,
             allowTouchMove: true,
-            spaceBetween: hasImages ? 64 : 12,
+            spaceBetween: hasImages ? 32 : 12,
+            slideToClickedSlide: true,
             speed: 8000,
-            autoplay: {
-                delay: 0,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: false,
-                reverseDirection: isReverse
-            },
+            // autoplay: {
+            //     delay: 0,
+            //     disableOnInteraction: false,
+            //     pauseOnMouseEnter: false,
+            //     reverseDirection: isReverse
+            // },
+            breakpoints: {
+                767.98: {
+                    spaceBetween: hasImages ? 64 : 12,
+                }
+            }
         });
 
         const removeTooltips = () => {
-            document.querySelectorAll('.tooltip-marquee').forEach(t => t.remove());
+            $('.tooltip-marquee').remove();
+            $('.marquee__image').removeClass('active-tooltip');
         };
 
         const stopSwiper = () => {
@@ -444,7 +459,7 @@ $(function () {
             savedTranslate = matrix.m41;
 
             swiper.autoplay.stop();
-            swiper.wrapperEl.style.transition = 'none';
+            $(swiper.wrapperEl).css('transition', 'none');
             swiper.setTranslate(savedTranslate);
             isPaused = true;
         };
@@ -452,7 +467,7 @@ $(function () {
         const startSwiper = () => {
             if (!isPaused) return;
 
-            swiper.wrapperEl.style.transition = '';
+            $(swiper.wrapperEl).css('transition', '');
 
             swiper.params.freeMode.enabled = false;
             swiper.update();
@@ -466,73 +481,78 @@ $(function () {
             isPaused = false;
         };
 
-        const showTooltip = (slide, e) => {
-            const content = slide.getAttribute('data-tooltip-content');
+        const showTooltip = ($slide, e) => {
+            const content = $slide.attr('data-tooltip-content');
             if (!content) return;
 
             removeTooltips();
             stopSwiper();
 
-            const tooltip = document.createElement('div');
-            tooltip.className = 'tooltip tooltip-marquee';
-            tooltip.innerHTML = content;
-            document.body.appendChild(tooltip);
+            $slide.addClass('active-tooltip');
 
-            const rect = slide.getBoundingClientRect();
-            const tooltipRect = tooltip.getBoundingClientRect();
-            const scrollY = window.scrollY || document.documentElement.scrollTop;
-            const scrollX = window.scrollX || document.documentElement.scrollLeft;
+            const $tooltip = $('<div class="tooltip tooltip-marquee"></div>').html(content);
+            $('body').append($tooltip);
+
+            const rect = $slide[0].getBoundingClientRect();
+            const tooltipRect = $tooltip[0].getBoundingClientRect();
+            const scrollY = $(window).scrollTop();
+            const scrollX = $(window).scrollLeft();
 
             let top = rect.bottom + scrollY + 16;
             let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
             let currentDir = 'open-bottom';
 
-            if (top + tooltipRect.height > scrollY + window.innerHeight) {
+            if (top + tooltipRect.height > scrollY + $(window).height()) {
                 top = rect.top + scrollY - tooltipRect.height - 16;
                 currentDir = 'open-top';
             }
 
-            tooltip.classList.add(currentDir);
+            $tooltip.addClass(currentDir);
 
             if (left < 10) left = 10;
-            if (left + tooltipRect.width > window.innerWidth - 10) {
-                left = window.innerWidth - tooltipRect.width - 10;
+            if (left + tooltipRect.width > $(window).width() - 10) {
+                left = $(window).width() - tooltipRect.width - 10;
             }
 
-            tooltip.style.top = `${top}px`;
-            tooltip.style.left = `${left}px`;
+            $tooltip.css({
+                top: top + 'px',
+                left: left + 'px'
+            });
 
             e.stopPropagation();
         };
 
-        el.addEventListener('pointerenter', (e) => {
-            if (e.pointerType === 'mouse') stopSwiper();
+        $el.on('pointerenter', function (e) {
+            if (e.originalEvent.pointerType === 'mouse') stopSwiper();
         });
 
-        el.addEventListener('pointerleave', (e) => {
-            if (e.pointerType === 'mouse') {
+        $el.on('pointerleave', function (e) {
+            if (e.originalEvent.pointerType === 'mouse') {
                 removeTooltips();
                 startSwiper();
             }
         });
 
-        el.querySelectorAll('.marquee__image[data-tooltip-content]').forEach(slide => {
-            slide.addEventListener('pointerenter', (e) => {
-                if (e.pointerType === 'mouse') {
-                    showTooltip(slide, e);
+        $el.find('.marquee__image[data-tooltip-content]').each(function () {
+            const $slide = $(this);
+
+            $slide.on('pointerenter', function (e) {
+                if (e.originalEvent.pointerType === 'mouse') {
+                    showTooltip($slide, e);
                 }
             });
 
-            slide.addEventListener('click', (e) => {
+            $slide.on('click', function (e) {
                 stopSwiper();
-                showTooltip(slide, e);
+                showTooltip($slide, e);
             });
         });
 
-        document.addEventListener('pointerdown', (e) => {
-            if (!e.target.closest('.marquee__image') && !e.target.closest('.tooltip-marquee')) {
+        $(document).on('pointerdown', function (e) {
+            const $target = $(e.target);
+            if (!$target.closest('.marquee__image').length && !$target.closest('.tooltip-marquee').length) {
                 removeTooltips();
-                const isHoveringSlider = e.target.closest('.marquee__slider');
+                const isHoveringSlider = $target.closest('.marquee__slider').length;
                 if (!isHoveringSlider) {
                     startSwiper();
                 }

@@ -72,7 +72,7 @@ $image    = get_field('special_offer_image', $prefix);
 
                     <?php
                     $btn_field = get_field('special_offer_button', $prefix);
-                    if ($btn_field && !empty($btn_field['btn']['btn_txt'])):
+                    if ($btn_field):
                         get_template_part('templates/components/button', null, [
                             'data'  => $btn_field['btn'],
                             'class' => 'special-offer__btn',
