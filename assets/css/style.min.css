@@ -151,6 +151,33 @@
     width: 100%
 }
 
+.popup.popup--small {
+    max-width: 30.625rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    background-image: url(../img/popup-pattern.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 2.5rem 2rem
+}
+
+.popup__icon {
+    width: 7.6875rem;
+    margin-bottom: 1rem
+}
+
+.popup__icon img {
+    width: 100%;
+    height: auto
+}
+
 .popup__image {
     display: none
 }
@@ -171,9 +198,12 @@
 }
 
 .popup__btn[data-fancybox-close] {
-    -ms-flex-item-align: center;
-    -ms-grid-row-align: center;
-    align-self: center
+    margin-top: 1rem;
+    width: 100%
+}
+
+.popup__btn[data-fancybox-close].btn-secondary {
+    background: #fff
 }
 
 .popup__subtitle {
@@ -748,6 +778,58 @@ body.is-loaded .preloader {
     transition: background-color .3s ease
 }
 
+._loading {
+    color: transparent !important;
+    pointer-events: none;
+    -webkit-transition: none;
+    transition: none
+}
+
+._loading::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    border: .1875rem solid var(--btn-text-color, #000);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-animation: rotation 1s linear infinite;
+    animation: rotation 1s linear infinite;
+    z-index: 3
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
+@keyframes rotation {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
 ::-webkit-scrollbar {
     width: .5rem
 }
@@ -977,7 +1059,8 @@ body.is-loaded .preloader {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 5rem;
     flex: 0 0 5rem;
-    height: 5rem
+    height: 5rem;
+    background: #fff
 }
 
 .form__file-image img {
@@ -996,7 +1079,7 @@ body.is-loaded .preloader {
     font-size: 1rem;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    color: #a4a7ae;
+    color: #d92d20;
     -webkit-transition: color .3s ease;
     transition: color .3s ease
 }
@@ -1132,7 +1215,8 @@ body.is-loaded .preloader {
 .btn.btn-primary {
     border-color: #ff4405;
     background: linear-gradient(83deg, #c192ff -2.25%, #ff4405 23.61%, #ff4405 73.52%, #c192ff 101.43%);
-    color: #fff
+    color: #fff;
+    --btn-text-color: #fff
 }
 
 .btn.btn-primary::after {
@@ -1173,12 +1257,14 @@ body.is-loaded .preloader {
 
 .btn.btn-white-border {
     color: #fff;
-    border-color: #fff
+    border-color: #fff;
+    --btn-text-color: #fff
 }
 
 .btn.btn-secondary {
     color: #535862;
-    border-color: #535862
+    border-color: #535862;
+    --btn-text-color: #535862
 }
 
 .btn:disabled, .btn[aria-disabled=true] {
@@ -4060,6 +4146,18 @@ html {
         right: .875rem
     }
 
+    .popup.popup--small {
+        padding: 2.5rem 1.5rem
+    }
+
+    .popup.popup--small .popup__title {
+        font-size: 1.75rem
+    }
+
+    .popup__icon {
+        margin-bottom: 1.5rem
+    }
+
     .popup__image {
         display: block;
         background: #ff4405;
@@ -4099,6 +4197,10 @@ html {
 
     .popup__content {
         padding: 3.25rem 3.5rem 1.25rem 3rem
+    }
+
+    .popup__btn[data-fancybox-close] {
+        margin-top: 1.5rem
     }
 
     .popup__subtitle {
@@ -5350,7 +5452,7 @@ html {
     }
 
     .form__file-remove:hover {
-        color: #d92d20
+        color: #f10
     }
 
     .form__policy a:hover {

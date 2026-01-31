@@ -151,6 +151,7 @@
 	&__file-image {
 		flex: 0 0 5rem;
 		height: 5rem;
+		background: #fff;
 		& img {
 			width: 100%;
 		}
@@ -165,11 +166,11 @@
 		height: 2rem;
 		font-size: 1rem;
 		flex-shrink: 0;
-		color: #a4a7ae;
+		color: #d92d20;
 		transition: color 0.3s ease;
 		@media (any-hover: hover) {
 			&:hover {
-				color: #d92d20;
+				color: #ff1100;
 			}
 		}
 	}
@@ -315,6 +316,7 @@
 		border-color: #ff4405;
 		background: linear-gradient(83deg, #c192ff -2.25%, #ff4405 23.61%, #ff4405 73.52%, #c192ff 101.43%);
 		color: #fff;
+		--btn-text-color: #fff;
 		&::after {
 			content: "";
 			position: absolute;
@@ -361,6 +363,7 @@
 	&.btn-white-border {
 		color: #fff;
 		border-color: #fff;
+		--btn-text-color: #fff;
 		@media (any-hover: hover) {
 			&:hover {
 				border-color: #ff4405;
@@ -373,6 +376,7 @@
 	&.btn-secondary {
 		color: #535862;
 		border-color: #535862;
+		--btn-text-color: #535862;
 		@media (any-hover: hover) {
 			&:hover {
 				border-color: #ff4405;

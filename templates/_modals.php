@@ -213,23 +213,14 @@ $privacy_policy = get_field('privacy_policy', 'option');
     </div>
 </div>
 
-<!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Fancybox.show([{
-            src: '#callback'
-        }])
-    })
-</script> -->
-
-<!--
-<div class="popup popup--background-decor" id="error-submitting">
+<div class="popup popup--small" id="error-submitting">
     <?php if ($error_icon): ?>
         <div class="popup__icon">
             <img src="<?php echo esc_url($error_icon['url']); ?>" alt="<?php echo esc_attr($error_icon['alt']) ?: 'Иконка'; ?>">
         </div>
     <?php endif; ?>
     <?php if ($error_title): ?>
-        <h3 class="popup__title color-accent title-md">
+        <h3 class="popup__title title-sm">
             <?php echo esc_html($error_title) ?>
         </h3>
     <?php endif; ?>
@@ -238,20 +229,21 @@ $privacy_policy = get_field('privacy_policy', 'option');
             <?php echo esc_html($error_subtitle) ?>
         </p>
     <?php endif; ?>
-    <button type="button" data-fancybox-close class="popup__btn btn btn-primary">
+    <button type="button" data-fancybox-close class="popup__btn btn btn-secondary">
         <?php echo esc_html($error_close_btn) ?>
     </button>
 </div>
 
 
-<div class="popup popup--background-decor" id="success-submitting">
+
+<div class="popup popup--small" id="success-submitting">
     <?php if ($success_icon): ?>
         <div class="popup__icon">
             <img src="<?php echo esc_url($success_icon['url']); ?>" alt="<?php echo esc_attr($success_icon['alt']) ?: 'Иконка'; ?>">
         </div>
     <?php endif; ?>
     <?php if ($success_title): ?>
-        <h3 class="popup__title color-accent title-md">
+        <h3 class="popup__title title-sm">
             <?php echo esc_html($success_title) ?>
         </h3>
     <?php endif; ?>
@@ -260,7 +252,7 @@ $privacy_policy = get_field('privacy_policy', 'option');
             <?php echo esc_html($success_subtitle) ?>
         </p>
     <?php endif; ?>
-    <button type="button" data-fancybox-close class="popup__btn btn btn-primary">
+    <button type="button" data-fancybox-close class="popup__btn btn btn-secondary">
         <?php echo esc_html($success_close_btn) ?>
     </button>
-</div> -->
+</div>

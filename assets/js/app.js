@@ -1,7 +1,6 @@
 "use strict";
 
 
-
 // preloader
 if ($('.preloader').length > 0) {
     let counting = setInterval(function () {
@@ -53,61 +52,6 @@ $(function () {
     if (typeof Fancybox !== "undefined" && Fancybox !== null) {
         Fancybox.bind("[data-fancybox]", {
             dragToClose: false,
-            on: {
-                ready: (fancyboxRef) => {
-                    const slide = fancyboxRef.getSlide();
-                    if (slide.src === '#policies') {
-                        const $container = $(slide.el);
-                        const trigger = slide.triggerEl;
-
-                        if (trigger) {
-                            const targetSlug = trigger.getAttribute('href').replace('#', '');
-                            const $targetRadio = $container.find(`input[name="policy-type"][value="${targetSlug}"]`);
-                            if ($targetRadio.length) {
-                                $targetRadio.prop('checked', true).trigger('change');
-                            } else {
-                                $container.find('input[name="policy-type"]:checked').trigger('change');
-                            }
-                            setTimeout(() => {
-                                if ($targetRadio.length) {
-                                    $targetRadio.prop('checked', true).trigger('change');
-                                } else {
-                                    $container.find('input[name="policy-type"]:checked').trigger('change');
-                                }
-
-                            }, 300)
-                        }
-
-                    }
-                },
-                close: (fancyboxRef, event) => {
-                    const targetElement = event.target;
-
-
-                    if (targetElement && targetElement.hasAttribute('data-goto-catalog')) {
-                        const target = $('#catalog');
-                        const header = $('.header');
-
-                        if (target.length) {
-                            const headerHeight = header.outerHeight() || 0;
-                            const targetPosition = target.offset().top - headerHeight;
-
-                            $('html, body').stop().animate({
-                                scrollTop: targetPosition
-                            }, 800);
-                        }
-                    }
-
-
-                },
-                destroy: (fancyboxRef) => {
-
-                    if (fancyboxRef.getSlide().src === '#cart') {
-                        window?.dornottCart.resetInterface()
-                    }
-
-                },
-            }
         });
     }
 
@@ -142,26 +86,6 @@ $(function () {
 
         }, 100);
     });
-
-    // steps animation
-
-    function setupStepsHandlers() {
-        const $stepsItems = $('.steps__item');
-
-        $stepsItems.off('click mouseenter mouseleave');
-
-        if ($('body').hasClass('_pc')) {
-            $stepsItems.on('mouseenter', function () {
-                $(this).addClass('active').siblings().removeClass('active');
-            });
-
-        } else {
-            $stepsItems.on('click', function (e) {
-                $(this).addClass('active').siblings().removeClass('active');
-            });
-        }
-    }
-
 
     // event handlers
     $(document).on('click', (e) => {
@@ -617,9 +541,6 @@ $(function () {
 
         bindSubmit($form) {
             $form.on('submit', async (e) => {
-                if ($form.attr('id') === 'cart-form') {
-                    return;
-                }
                 e.preventDefault();
 
                 if (this.validateForm($form)) {
@@ -652,10 +573,7 @@ $(function () {
                         $form.find('.form__file-preview').remove();
                         $form.find('.uploaded').removeClass('uploaded');
 
-                        if (window.dornottCart && $form.attr('id') === 'cart-form') {
-                            localStorage.removeItem(window.dornottCart.storageKey);
-                            window.dornottCart.updateInterface();
-                        }
+
 
                         if (!isSilent) {
 

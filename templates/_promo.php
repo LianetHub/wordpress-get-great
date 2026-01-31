@@ -108,7 +108,7 @@ $has_h1 = false;
                 </div>
 
                 <form action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" method="POST" class="promo__form form">
-                    <input type="hidden" name="action" value="send_contact_form">
+                    <input type="hidden" name="action" value="send_promo_form">
                     <input type="hidden" name="promo_slide_source" class="js-slide-source" value="">
                     <div class="promo__form-header">
                         <?php if ($promo_form_title): ?>

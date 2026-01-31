@@ -4,6 +4,7 @@ require_once('includes/admin-custom.php');
 require_once('includes/acf-custom.php');
 require_once('includes/post-types.php');
 require_once('includes/custom-menu.php');
+
 // =========================================================================
 // 1. CONSTANTS
 // =========================================================================
@@ -161,3 +162,6 @@ add_filter('acf/format_value', 'fix_widows_after_prepositions', 99, 3);
 
 
 add_filter('wpseo_breadcrumb_separator', '__return_empty_string');
+
+// FORM SUBMITTING
+require_once('includes/form-submitting.php');
