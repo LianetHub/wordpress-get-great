@@ -83,9 +83,9 @@ function handle_universal_form()
     $subject = $subjects[$action] ?? 'Новая заявка с сайта';
     $headers = ['Content-Type: text/html; charset=UTF-8'];
 
-    $username = sanitize_text_field($data['username'] ?? '');
-    $phone    = sanitize_text_field($data['phone'] ?? '');
-    $email    = sanitize_email($data['email'] ?? '');
+    $username     = sanitize_text_field($data['username'] ?? '');
+    $phone        = sanitize_text_field($data['phone'] ?? '');
+    $email        = sanitize_email($data['email'] ?? '');
     $promo_source = sanitize_text_field($data['promo_slide_source'] ?? '');
     $message_text = nl2br(sanitize_textarea_field($data['message'] ?? ''));
 
@@ -143,8 +143,28 @@ function handle_universal_form()
         }
     }
 
+
     $to = get_form_recipients();
     $mail_sent = wp_mail($to, $subject, $message, $headers, $attachments);
+
+    if ($action === 'send_download_form' && $mail_sent && !empty($email)) {
+        $presentation_file = get_field('pres_file', 'option');
+
+        if ($presentation_file && isset($presentation_file['ID'])) {
+            $user_subject = 'Ваша презентация от Get Great';
+            $user_message = '<div style="font-family: Arial, sans-serif;">';
+            $user_message .= '<h2>Здравствуйте, ' . esc_html($username) . '!</h2>';
+            $user_message .= '<p>Благодарим вас за интерес к нашей компании. Во вложении к этому письму находится презентация, которую вы запрашивали.</p>';
+            $user_message .= '<p>Если у вас возникнут вопросы, мы всегда на связи!</p>';
+            $user_message .= '</div>';
+
+            $file_path = get_attached_file($presentation_file['ID']);
+
+            if ($file_path) {
+                wp_mail($email, $user_subject, $user_message, $headers, [$file_path]);
+            }
+        }
+    }
 
     if (!empty($attachments)) {
         foreach ($attachments as $file) {

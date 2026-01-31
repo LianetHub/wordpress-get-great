@@ -76,7 +76,6 @@ $(function () {
     }
 
     getNavigator();
-    setupStepsHandlers();
 
     $(window).on('resize', () => {
         clearTimeout(window.resizeTimer);
@@ -673,6 +672,17 @@ $(function () {
             const $input = $(e.currentTarget);
             const $container = $input.closest(this.selectors.fileContainer);
             const file = e.target.files[0];
+            const maxSize = 10 * 1024 * 1024;
+
+            $container.find('.form__error').remove();
+
+            if (file && file.size > maxSize) {
+                $input.val('');
+                $container.append('<span class="form__error">Файл слишком большой. <br> Максимальный размер — 10 МБ.</span>');
+                $container.removeClass('uploaded');
+                $container.find('.form__file-preview').remove();
+                return;
+            }
 
             $container.find('.form__file-preview').remove();
             $container.removeClass('uploaded');
@@ -685,25 +695,24 @@ $(function () {
                     let previewContent = '';
                     if (isImage) {
                         previewContent = `
-                        <span class="form__file-image">
-                            <img src="${event.target.result}" alt="Превью" class="cover-image">
-                        </span>
-                    `;
+                <span class="form__file-image">
+                    <img src="${event.target.result}" alt="Превью" class="cover-image">
+                </span>
+            `;
                     }
                     const previewHtml = `
-                    <div class="form__file-preview">
-                        ${previewContent}
-                        <span class="form__file-name">${file.name}</span>
-                        <button type="button" aria-label="Удалить" class="form__file-remove icon-cross"></button>
-                    </div>
-                `;
+            <div class="form__file-preview">
+                ${previewContent}
+                <span class="form__file-name">${file.name}</span>
+                <button type="button" aria-label="Удалить" class="form__file-remove icon-cross"></button>
+            </div>
+        `;
                     $container.append(previewHtml);
                     $container.addClass('uploaded');
                 };
                 reader.readAsDataURL(file);
             }
         }
-
         handleFileRemove(e) {
             e.preventDefault();
             e.stopPropagation();
