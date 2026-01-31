@@ -373,7 +373,7 @@ $(function () {
 
     if ($('.gratitudes__slider').length) {
         new Swiper('.gratitudes__slider', {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 32,
             navigation: {
                 nextEl: '.gratitudes__next',
@@ -395,6 +395,9 @@ $(function () {
                 }
             },
             breakpoints: {
+                767.98: {
+                    slidesPerView: 3,
+                },
                 1199.98: {
                     slidesPerView: 4,
                 },
@@ -541,7 +544,7 @@ $(function () {
         new MobileSwiper('.services__slider', {
             slidesPerView: "auto",
             slideToClickedSlide: true,
-            spaceBetween: 12
+            spaceBetween: 12,
         }, 1199.98)
     }
 

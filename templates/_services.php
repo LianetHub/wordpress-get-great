@@ -21,7 +21,7 @@ $subtitle = get_field('services_subtitle', $prefix);
 $terms = get_terms([
     'taxonomy'   => 'service_cat',
     'hide_empty' => false,
-    'orderby'    => 'name',
+    'orderby'    => 'term_order',
     'order'      => 'ASC',
 ]);
 

@@ -2246,7 +2246,7 @@ body {
   margin-top: 1.5rem;
   max-width: 48rem;
   letter-spacing: 0.025em;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .special-offer__cards {
@@ -2497,7 +2497,6 @@ body {
 }
 
 .why__btn {
-  width: calc(33.33% - 1rem);
   margin: 2rem auto 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2533,12 +2532,11 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
   padding: 0 0 1rem;
   border-bottom: 0.0625rem solid #d5d7da;
 }
@@ -2571,6 +2569,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   gap: 1.5rem;
 }
 
@@ -3079,12 +3080,10 @@ body {
 }
 
 .cases__list {
-  margin-top: 4rem;
   display: -ms-grid;
   display: grid;
-  gap: 1.5rem;
-  -ms-grid-columns: (1fr)[2];
-  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .cases__more {
@@ -3102,8 +3101,8 @@ body {
 .case-card::after {
   content: "";
   position: absolute;
-  top: -0.0625rem;
-  right: -0.0625rem;
+  top: -0.09375rem;
+  right: -0.09375rem;
   width: 14.7058823529%;
   aspect-ratio: 1.0810810811;
   background-size: contain;
@@ -3227,10 +3226,10 @@ body {
 }
 
 .case-card__name {
-  font-size: 1.25rem;
   font-weight: 500;
   line-height: 120%;
-  letter-spacing: -0.0125rem;
+  font-size: 1.125rem;
+  letter-spacing: -0.01125rem;
 }
 
 .case-card__more {
@@ -3446,9 +3445,9 @@ body {
           flex-direction: column;
   text-align: left;
   border: 0.0625rem solid transparent;
-  padding: 1.5rem;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  padding: 0.75rem;
 }
 
 .services__item.swiper-slide {
@@ -3472,7 +3471,6 @@ body {
 
 .services__item-caption {
   font-family: "Gilroy";
-  font-size: 1.5rem;
   font-weight: 700;
   line-height: 120%;
   display: -webkit-box;
@@ -3484,6 +3482,7 @@ body {
   gap: 0.75rem;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
+  font-size: 1.125rem;
 }
 
 .services__item-caption.icon-arrow-right {
@@ -3520,8 +3519,6 @@ body {
 }
 
 .services__item-caption::before {
-  width: 1.5rem;
-  height: 1.5rem;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   display: -webkit-box;
@@ -3536,12 +3533,14 @@ body {
   color: #a4a7ae;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .services__item-desc {
   margin-top: 1rem;
-  font-size: 1rem;
-  line-height: 125%;
+  font-size: 0.75rem;
+  line-height: 150%;
 }
 
 .services__column-bottom {
@@ -4216,8 +4215,45 @@ html {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .gratitudes__caption {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+
+  .cases__list {
+    margin-top: 4rem;
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services__item {
+    padding: 1.5rem;
+  }
+
   .services__item.swiper-slide {
     width: 35rem;
+  }
+
+  .services__item-caption {
+    font-size: 1.5rem;
+  }
+
+  .services__item-caption::before {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .services__item-desc {
+    font-size: 1rem;
+    line-height: 125%;
   }
 }
 
@@ -4328,6 +4364,10 @@ html {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .special-offer__subtitle {
+    font-size: 1.5rem;
+  }
+
   .about__body {
     gap: 1.25rem;
     -ms-grid-columns: (1fr)[2];
@@ -4341,6 +4381,10 @@ html {
   .why__cards {
     -ms-grid-columns: (1fr)[3];
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .why__btn {
+    width: calc(33.33% - 1rem);
   }
 
   .faq__content {
@@ -4428,6 +4472,15 @@ html {
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(rgba(255, 255, 255, 0.2))) 0 0/0.0625rem 100% no-repeat, -webkit-gradient(linear, left top, left bottom, from(#fff), to(rgba(255, 255, 255, 0.2))) 100% 0/0.0625rem 100% no-repeat, -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.2)), to(rgba(255, 255, 255, 0.2))) 0 100%/100% 0.0625rem no-repeat, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff)) 0 0/100% 0.0625rem no-repeat;
     background: linear-gradient(#fff, rgba(255, 255, 255, 0.2)) 0 0/0.0625rem 100% no-repeat, linear-gradient(#fff, rgba(255, 255, 255, 0.2)) 100% 0/0.0625rem 100% no-repeat, linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) 0 100%/100% 0.0625rem no-repeat, linear-gradient(#fff, #fff) 0 0/100% 0.0625rem no-repeat;
     z-index: -1;
+  }
+
+  .cases__list {
+    gap: 1.5rem;
+  }
+
+  .case-card__name {
+    letter-spacing: -0.0125rem;
+    font-size: 1.25rem;
   }
 }
 
