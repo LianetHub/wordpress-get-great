@@ -51,6 +51,7 @@ $count = count($gallery);
                                 <img src="<?php echo esc_url($image['url']); ?>"
                                     alt="<?php echo esc_attr($image['alt']); ?>"
                                     loading="lazy">
+                                <span class="swiper-lazy-preloader"></span>
                             </a>
                         <?php endforeach; ?>
                     </div>

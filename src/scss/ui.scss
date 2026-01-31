@@ -69,9 +69,12 @@
 
 .title-sm {
 	font-family: $font-gilroy;
-	font-size: 2rem;
 	font-weight: 700;
 	line-height: 100%;
+	font-size: 1.5rem;
+	@media (min-width: $md4) {
+		font-size: 2rem;
+	}
 }
 
 .title-xs {
