@@ -165,3 +165,35 @@ add_filter('wpseo_breadcrumb_separator', '__return_empty_string');
 
 // FORM SUBMITTING
 require_once('includes/form-submitting.php');
+
+// pagination
+function get_great_pagination_class_filter($template)
+{
+	$template = str_replace('page-numbers', 'pagination__item', $template);
+	$template = str_replace('current', 'active', $template);
+
+	$template = str_replace('prev pagination__item', 'pagination__prev icon-arrow-left', $template);
+	$template = str_replace('next pagination__item', 'pagination__next icon-arrow-right', $template);
+
+	return $template;
+}
+add_filter('paginate_links', 'get_great_pagination_class_filter');
+
+add_filter('next_posts_link_attributes', 'posts_link_attributes');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes');
+
+function posts_link_attributes()
+{
+	return 'class="pagination__item"';
+}
+
+function custom_prev_class($format)
+{
+	return str_replace('href=', 'class="pagination__prev icon-arrow-left" href=', $format);
+}
+add_filter('previous_posts_link_attributes', function () {
+	return 'class="pagination__prev icon-arrow-left"';
+});
+add_filter('next_posts_link_attributes', function () {
+	return 'class="pagination__next icon-arrow-right"';
+});
