@@ -3278,6 +3278,92 @@ body {
   letter-spacing: 0.025em;
 }
 
+.founder__wrapper {
+  border-top: 0.0625rem solid #d5d7da;
+}
+
+.founder__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2.25rem;
+}
+
+.founder__main {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 2.25rem;
+  padding: 2rem 0;
+}
+
+.founder__blockquote {
+  font-style: italic;
+  max-width: 51.875rem;
+  position: relative;
+  padding-bottom: 4.1818181818em;
+  font-size: 1.125rem;
+  line-height: 144.44%;
+}
+
+.founder__blockquote p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.founder__blockquote::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 4.3125rem;
+  height: 3.1875rem;
+}
+
+.founder__blockquote::before {
+  background: url("../img/quotes.svg") center/contain no-repeat;
+}
+
+.founder__person-name {
+  font-family: "Gilroy";
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.founder__person-position {
+  margin-top: 0.25rem;
+  color: #717680;
+  line-height: 144.444%;
+  max-width: 21.875rem;
+  font-size: 0.875rem;
+}
+
+.founder__image-block {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  -webkit-filter: drop-shadow(0.5rem -0.5rem 0 #ff4405);
+          filter: drop-shadow(0.5rem -0.5rem 0 #ff4405);
+}
+
+.founder__image-block img {
+  clip-path: url(#founder-mask);
+  -webkit-clip-path: url(#founder-mask);
+}
+
 .clients.clients--marquee {
   padding: 1.25rem 0;
 }
@@ -4776,6 +4862,10 @@ html {
     padding: 0.75rem 1rem;
   }
 
+  .founder__person-position {
+    font-size: 1.125rem;
+  }
+
   .services__header {
     max-width: 45rem;
     -webkit-box-align: center;
@@ -5133,6 +5223,49 @@ html {
     line-height: 127.273%;
   }
 
+  .founder__wrapper {
+    border-bottom: 0.0625rem solid #d5d7da;
+  }
+
+  .founder__content {
+    gap: 0;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .founder__main {
+    background: url("../img/founder-bg.png") 100% 100%/80% auto no-repeat;
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  .founder__blockquote {
+    line-height: 127.273%;
+  }
+
+  .founder__blockquote::before {
+    width: 3.1363636364em;
+    height: 2.3181818182em;
+  }
+
+  .founder__image {
+    border-left: 0.0625rem solid #d5d7da;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 41.66667%;
+            flex: 0 0 41.66667%;
+    padding: 2rem 0 2rem 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
   .clients.clients--marquee {
     padding: 2.1875rem 0;
   }
@@ -5247,6 +5380,14 @@ html {
 
   .promo__slide {
     padding: 12.5rem 0 5rem;
+  }
+
+  .founder__blockquote {
+    font-size: 1.375rem;
+  }
+
+  .founder__person-name {
+    font-size: 2.625rem;
   }
 
   .services__content {
@@ -5528,6 +5669,14 @@ html {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .founder__main {
+    padding: 2.625rem 4.125rem 2rem 0;
+  }
+
+  .founder__image {
+    padding: 2.375rem 0 2rem 4.375rem;
+  }
+
   .clients__items {
     grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   }
@@ -5662,6 +5811,27 @@ html {
 @media (max-width: 1199.98px) {
   .menu__list:not(:last-child) {
     margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .founder__main {
+    position: relative;
+  }
+
+  .founder__main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: url("../img/founder-bg.png") center 100%/100% auto no-repeat;
+    border-bottom: 0.0625rem solid #d5d7da;
+    z-index: -1;
   }
 }
 

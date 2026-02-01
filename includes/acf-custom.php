@@ -112,6 +112,11 @@ function my_register_blocks()
 			'desc'  => 'Секция с заголовком и текстовым блоком',
 			'icon'  => 'editor-alignleft',
 		],
+		'founder' => [
+			'title' => 'Основатель',
+			'desc'  => 'Секция с цитатой, фото и информацией об основателе',
+			'icon'  => 'admin-users',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
