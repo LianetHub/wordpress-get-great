@@ -7,22 +7,32 @@
 
 .contacts {
 	margin-top: rem(24);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-color: #414651;
+	@media (max-width: $md4) {
+		background: #fff !important;
+	}
+	@media (min-width: $md4) {
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: #414651;
+	}
 	// .contacts__body
 	&__body {
 		max-width: rem(1028);
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1fr rem(492);
 		border: rem(1) solid #fff;
+		row-gap: 2rem;
+		@media (min-width: $md2) {
+			grid-template-columns: 1fr rem(492);
+		}
 	}
 	// .contacts__main
 	&__main {
 		background: #fff;
-		padding: rem(42) rem(48) 1.5rem;
+		@media (min-width: $md4) {
+			padding: rem(42) rem(48) 1.5rem;
+		}
 	}
 	// .contacts__title
 	&__title {
@@ -66,10 +76,12 @@
 	}
 	// .contacts__form
 	&__form {
-		padding: rem(42) rem(48) 1.5rem;
 		background: rgba(255, 255, 255, 0.4);
-		backdrop-filter: blur(21px);
-		-webkit-backdrop-filter: blur(21px);
+		backdrop-filter: blur(rem(21));
+		-webkit-backdrop-filter: blur(rem(21));
+		@media (min-width: $md4) {
+			padding: rem(42) rem(48) 1.5rem;
+		}
 	}
 	// .contacts__form
 	&__form {
