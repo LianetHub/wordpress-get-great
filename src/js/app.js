@@ -81,8 +81,6 @@ $(function () {
         clearTimeout(window.resizeTimer);
         window.resizeTimer = setTimeout(() => {
             getNavigator();
-            setupStepsHandlers();
-
         }, 100);
     });
 
@@ -357,12 +355,12 @@ $(function () {
             spaceBetween: hasImages ? 32 : 12,
             slideToClickedSlide: true,
             speed: 8000,
-            // autoplay: {
-            //     delay: 0,
-            //     disableOnInteraction: false,
-            //     pauseOnMouseEnter: false,
-            //     reverseDirection: isReverse
-            // },
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                reverseDirection: isReverse
+            },
             breakpoints: {
                 767.98: {
                     spaceBetween: hasImages ? 64 : 12,

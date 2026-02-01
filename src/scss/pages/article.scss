@@ -90,7 +90,7 @@
 
 	p {
 		a {
-			color: $accent;
+			color: #1570ef;
 		}
 		&:not(:last-child) {
 			margin-bottom: 1rem;
@@ -166,11 +166,11 @@
 		}
 	}
 	a {
-		color: $accent;
+		color: #1570ef;
 
-		@media screen and (min-width: $md2) {
+		@media (any-hover: hover) {
 			&:hover {
-				color: $accent;
+				text-decoration: underline;
 			}
 		}
 	}

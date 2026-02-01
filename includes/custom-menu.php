@@ -10,7 +10,7 @@ function theme_register_nav_menu()
     register_nav_menus([
         'primary_menu' => 'Главное меню (в шапке)',
         'footer_menu'  => 'Меню в подвале',
-        'footer_policies'  => 'Меню политики конфиденциальности'
+        'menu_policies'  => 'Меню политики конфиденциальности'
     ]);
 }
 class Menu_Nav_Walker extends Walker_Nav_Menu

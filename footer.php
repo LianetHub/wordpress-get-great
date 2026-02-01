@@ -71,7 +71,7 @@ if ($is_error_404) {
             <nav aria-label="Меню политик конфиденциальности" class="footer__policies">
                 <?php
                 wp_nav_menu([
-                    'theme_location' => 'footer_policies',
+                    'theme_location' => 'menu_policies',
                     'container'      => false,
                     'menu_class'     => 'footer__policies-list',
                     'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
