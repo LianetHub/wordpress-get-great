@@ -9,12 +9,25 @@
 	background: #181d27;
 	color: #d5d7da;
 	&.footer--error-404 {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		background: transparent;
-		z-index: 2;
+		@media (max-width: $md4) {
+			min-height: rem(204);
+		}
+		@media (min-width: $md4) {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			z-index: 2;
+			background: #181d27;
+			@media (min-height: 740px) {
+				background: transparent;
+			}
+		}
+		@media (min-width: $md2) {
+			@media (min-height: 720px) {
+				background: transparent;
+			}
+		}
 	}
 	padding: rem(32) 0 rem(24);
 	@media (min-width: $md4) {
