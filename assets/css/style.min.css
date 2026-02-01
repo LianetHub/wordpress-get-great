@@ -3986,8 +3986,6 @@ body {
     margin-top: 2rem;
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (1fr)[5];
-    grid-template-columns: repeat(5, 1fr);
     gap: .75rem
 }
 
@@ -4840,6 +4838,11 @@ body {
         gap: 1rem;
         padding: 1rem;
         padding-right: 14.7058823529%
+    }
+
+    .services__grid {
+        -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr)
     }
 
     .services__btn {
@@ -5720,6 +5723,11 @@ body {
         padding: 2.1875rem 0
     }
 
+    .services__grid {
+        -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr)
+    }
+
     .policy__content {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
@@ -6217,6 +6225,11 @@ body {
     .articles__list {
         -ms-grid-columns: (1fr)[4];
         grid-template-columns: repeat(4, 1fr)
+    }
+
+    .services__grid {
+        -ms-grid-columns: (1fr)[5];
+        grid-template-columns: repeat(5, 1fr)
     }
 
     .services__content {
