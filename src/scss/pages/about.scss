@@ -173,3 +173,113 @@
 		}
 	}
 }
+
+.numbers {
+	// .numbers__header
+	&__header {
+		display: flex;
+		flex-direction: column;
+		max-width: 46.75rem;
+		align-items: center;
+		text-align: center;
+		margin: 0 auto;
+		gap: 0.625rem;
+		@media (min-width: $md4) {
+			gap: 1rem;
+		}
+	}
+	// .numbers__hint
+	&__hint {
+	}
+	// .numbers__title
+	&__title {
+	}
+	// .numbers__slider
+	&__slider {
+		margin-top: 1.5rem;
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			top: rem(-1);
+			bottom: rem(-1);
+			left: 0;
+			width: 100%;
+			pointer-events: none;
+			z-index: 2;
+			background:
+				url("@img/numbers-slider-decor-1.svg") center rem(-1) / 100% auto no-repeat,
+				url("@img/numbers-slider-decor-2.svg") center calc(100% + rem(1)) / 100% auto no-repeat;
+		}
+		.swiper-wrapper {
+			transition-timing-function: linear !important;
+		}
+	}
+	// .numbers__slide
+	&__slide {
+		height: auto;
+	}
+	// .numbers__bottom
+	&__bottom {
+		margin-top: 2rem;
+	}
+	// .numbers__row
+	&__row {
+		max-width: rem(1396);
+		margin: 0 auto;
+		@media (max-width: $md2) {
+			display: grid;
+			gap: 1rem;
+			@media (min-width: $md4) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+		@media (min-width: $md2) {
+			columns: 4;
+			column-rule: rem(1) solid #d5d7da;
+			column-gap: rem(32);
+		}
+		@media (min-width: $md1) {
+			column-gap: rem(65);
+		}
+	}
+	// .numbers__column
+	&__column {
+		break-inside: avoid;
+		@media (max-width: $md2) {
+			padding-bottom: 1rem;
+			border-bottom: rem(1) solid #d5d7da;
+		}
+		@media (max-width: $md4) {
+			&:last-child {
+				border-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
+	}
+	// .numbers__column-caption
+	&__column-caption {
+		font-family: $font-gilroy;
+		display: flex;
+		align-items: flex-start;
+		gap: rem(9);
+	}
+	// .numbers__column-value
+	&__column-value {
+		color: #ff4405;
+		font-size: 3rem;
+		font-weight: 700;
+		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
+	}
+	// .numbers__column-unit
+	&__column-unit {
+		padding-top: 0.25rem;
+		font-size: 1.125rem;
+	}
+	// .numbers__column-desc
+	&__column-desc {
+		margin-top: rem(5);
+		font-size: 1.125rem;
+	}
+}

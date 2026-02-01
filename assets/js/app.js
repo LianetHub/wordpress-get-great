@@ -511,6 +511,78 @@ $(function () {
         }, 1199.98)
     }
 
+    if ($('.numbers__slider').length) {
+        new Swiper('.numbers__slider', {
+            slidesPerView: 5,
+            spaceBetween: 4,
+            speed: 20000,
+            loop: true,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+            },
+            breakpoints: {
+                767.98: {
+                    spaceBetween: 12,
+                }
+            }
+        })
+    }
+
+    // counting animation
+    const $counters = $('[data-counter]');
+
+    if ($counters.length > 0) {
+        const animationDuration = 3000;
+        $counters.each(function () {
+            const $section = $(this);
+
+            const callback = function (entries, counterObserver) {
+                if (entries[0].isIntersecting) {
+                    if (!$section.hasClass('animated')) {
+                        counter($section);
+                    }
+                    $section.addClass('animated');
+                }
+            };
+
+            const counterObserver = new IntersectionObserver(callback);
+            counterObserver.observe(this);
+        });
+
+        function counter($counter) {
+            let countFinish = +$counter.text().replace(/\s+/g, '');
+            $counter.parent().css('min-width', $counter.parent().width());
+            $counter.text("0");
+
+            const startTime = performance.now();
+
+            const updateCounter = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / animationDuration, 1);
+
+                const target = countFinish;
+                const count = progress * target;
+
+                $counter.text(numberWithCommas(Math.ceil(count)));
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    $counter.text(numberWithCommas(target));
+
+                    $counter.parent().css('min-width', '');
+                }
+            };
+
+            requestAnimationFrame(updateCounter);
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+    }
 
 
     // Form Controller

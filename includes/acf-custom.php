@@ -117,6 +117,11 @@ function my_register_blocks()
 			'desc'  => 'Секция с цитатой, фото и информацией об основателе',
 			'icon'  => 'admin-users',
 		],
+		'numbers' => [
+			'title' => 'О нас в цифрах',
+			'desc'  => 'Секция со слайдером изображений и карточками показателей',
+			'icon'  => 'performance',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
