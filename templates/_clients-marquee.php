@@ -2,7 +2,7 @@
 $clients = get_field('clients_list', 'option');
 
 if ($clients): ?>
-    <div class="clients">
+    <div class="clients lients--marquee">
         <div class="container">
             <div class="clients__marquee marquee">
                 <div class="marquee__slider swiper marquee__slider--images">

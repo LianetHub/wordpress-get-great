@@ -158,6 +158,27 @@ $(function () {
             $parentSection.find(`[data-project-target="${projectId}"]`).addClass('active');
         }
 
+        // Load more clients
+        if ($target.closest('[data-show-more="clients"]').length) {
+            const $btn = $target.closest('[data-show-more="clients"]');
+            const $container = $btn.closest('.clients__content');
+            const $hiddenItems = $container.find('.clients__item.is-hidden');
+
+            $hiddenItems.addClass('is-animated');
+
+            $hiddenItems.css('display', 'flex').hide().fadeIn(400).removeClass('is-hidden');
+
+            $btn.css('transition', 'all 0.3s ease');
+            $btn.css({
+                'transform': 'scale(0)',
+                'opacity': '0',
+                'pointer-events': 'none'
+            });
+            setTimeout(() => {
+                $btn.remove();
+            }, 400);
+        }
+
 
     });
 

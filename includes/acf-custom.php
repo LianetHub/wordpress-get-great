@@ -96,6 +96,11 @@ function my_register_blocks()
 			'desc'  => 'Секция услуг с выбором категорий и выводом проектов',
 			'icon'  => 'screenoptions',
 		],
+		'clients' => [
+			'title' => 'Наши клиенты',
+			'desc'  => 'Секция с логотипами клиентов и кнопкой подгрузки',
+			'icon'  => 'groups',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
