@@ -1,8 +1,20 @@
 <?php
+$show_block = get_field('show_clients_marquee', 'option');
+
+if (!$show_block) {
+    if (is_admin()) render_global_block_notice('Клиенты Marquee (Скрыто)');
+    return;
+}
+
+if (is_admin() && get_current_screen()->base !== 'toplevel_page_theme-general-settings2') {
+    render_global_block_notice('Наши клиенты (Marquee)');
+    return;
+}
+
 $clients = get_field('clients_list', 'option');
 
 if ($clients): ?>
-    <div class="clients lients--marquee">
+    <div class="clients clients--marquee">
         <div class="container">
             <div class="clients__marquee marquee">
                 <div class="marquee__slider swiper marquee__slider--images">
@@ -20,17 +32,16 @@ if ($clients): ?>
 
                                 if (!empty($client_name) && !empty($desc)) {
                                     $has_tooltip = true;
-                                    $tooltip_content = '<strong>' . esc_attr($client_name) . '</strong><br>' . esc_attr($desc);
+
+                                    $html = '<strong>' . $client_name . '</strong><br>' . $desc;
+                                    $tooltip_content = htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
                                 }
                             }
                         ?>
-                            <div class="marquee__image swiper-slide"
-                                <?php if ($has_tooltip): ?>
-                                data-tooltip-content="<?php echo $tooltip_content; ?>"
-                                <?php endif; ?>>
+                            <div class="marquee__image swiper-slide" <?php echo $has_tooltip ? 'data-tooltip-content="' . $tooltip_content . '"' : ''; ?>>
                                 <?php if ($logo): ?>
                                     <img src="<?php echo esc_url($logo['url']); ?>"
-                                        alt="<?php echo esc_attr($logo['alt'] ?? 'Логотип клиента'); ?>">
+                                        alt="<?php echo esc_attr($logo['alt'] ?: 'Логотип клиента'); ?>">
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>

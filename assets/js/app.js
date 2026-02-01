@@ -401,7 +401,7 @@ $(function () {
             const matrix = new WebKitCSSMatrix(style.transform);
             savedTranslate = matrix.m41;
 
-            swiper.autoplay.stop();
+            swiper.autoplay.pause();
             $(swiper.wrapperEl).css('transition', 'none');
             swiper.setTranslate(savedTranslate);
             isPaused = true;
@@ -420,7 +420,7 @@ $(function () {
 
             swiper.setTranslate(savedTranslate);
 
-            swiper.autoplay.start();
+            swiper.autoplay.resume();
             isPaused = false;
         };
 

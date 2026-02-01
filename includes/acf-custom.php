@@ -101,6 +101,17 @@ function my_register_blocks()
 			'desc'  => 'Секция с логотипами клиентов и кнопкой подгрузки',
 			'icon'  => 'groups',
 		],
+		'clients-marquee' => [
+			'title' => 'Наши клиенты (Бегущая строка)',
+			'desc'  => 'Глобальный слайдер с логотипами клиентов',
+			'icon'  => 'slides',
+			'is_global_only' => true
+		],
+		'description' => [
+			'title' => 'Описание (Что мы делаем)',
+			'desc'  => 'Секция с заголовком и текстовым блоком',
+			'icon'  => 'editor-alignleft',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
