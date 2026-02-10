@@ -1,6 +1,7 @@
 <?php
 
 require_once('includes/admin-custom.php');
+require_once('includes/my-guttenberg-blocks.php');
 require_once('includes/acf-custom.php');
 require_once('includes/post-types.php');
 require_once('includes/custom-menu.php');
@@ -269,3 +270,175 @@ function get_great_add_like()
 }
 add_action('wp_ajax_get_great_add_like', 'get_great_add_like');
 add_action('wp_ajax_nopriv_get_great_add_like', 'get_great_add_like');
+
+
+function get_great_transliterate($text)
+{
+	$cyr = [
+		'а',
+		'б',
+		'в',
+		'г',
+		'д',
+		'е',
+		'ё',
+		'ж',
+		'з',
+		'и',
+		'й',
+		'к',
+		'л',
+		'м',
+		'н',
+		'о',
+		'п',
+		'р',
+		'с',
+		'т',
+		'у',
+		'ф',
+		'х',
+		'ц',
+		'ч',
+		'ш',
+		'щ',
+		'ъ',
+		'ы',
+		'ь',
+		'э',
+		'ю',
+		'я',
+		'А',
+		'Б',
+		'В',
+		'Г',
+		'Д',
+		'Е',
+		'Ё',
+		'Ж',
+		'З',
+		'И',
+		'Й',
+		'К',
+		'Л',
+		'М',
+		'Н',
+		'О',
+		'П',
+		'Р',
+		'С',
+		'Т',
+		'У',
+		'Ф',
+		'Х',
+		'Ц',
+		'Ч',
+		'Ш',
+		'Щ',
+		'Ъ',
+		'Ы',
+		'Ь',
+		'Э',
+		'Ю',
+		'Я'
+	];
+	$lat = [
+		'a',
+		'b',
+		'v',
+		'g',
+		'd',
+		'e',
+		'io',
+		'zh',
+		'z',
+		'i',
+		'y',
+		'k',
+		'l',
+		'm',
+		'n',
+		'o',
+		'p',
+		'r',
+		's',
+		't',
+		'u',
+		'f',
+		'h',
+		'ts',
+		'ch',
+		'sh',
+		'shb',
+		'',
+		'y',
+		'',
+		'e',
+		'yu',
+		'ya',
+		'a',
+		'b',
+		'v',
+		'g',
+		'd',
+		'e',
+		'io',
+		'zh',
+		'z',
+		'i',
+		'y',
+		'k',
+		'l',
+		'm',
+		'n',
+		'o',
+		'p',
+		'r',
+		's',
+		't',
+		'u',
+		'f',
+		'h',
+		'ts',
+		'ch',
+		'sh',
+		'shb',
+		'',
+		'y',
+		'',
+		'e',
+		'yu',
+		'ya'
+	];
+
+	$text = str_replace($cyr, $lat, $text);
+	return sanitize_title($text);
+}
+
+function get_great_content_with_toc($content)
+{
+	$toc_list = '';
+
+	$content = preg_replace_callback('/<h([2])(.*?)>(.*?)<\/h\1>/i', function ($matches) use (&$toc_list) {
+		$tag = $matches[1];
+		$attrs = $matches[2];
+		$title_html = $matches[3];
+		$title_text = strip_tags($title_html);
+
+		$slug = get_great_transliterate($title_text);
+
+		if (!$slug) {
+			$slug = 'heading-' . mt_rand(1000, 9999);
+		}
+
+		$indent_class = ($tag === '3') ? ' sidebar__link--indent' : '';
+		$toc_list .= '<li><a href="#' . $slug . '" class="sidebar__link' . $indent_class . '">' . $title_text . '</a></li>';
+
+		return '<h' . $tag . $attrs . ' id="' . $slug . '">' . $title_html . '</h' . $tag . '>';
+	}, $content);
+
+	return [
+		'content' => $content,
+		'toc'     => $toc_list
+	];
+}

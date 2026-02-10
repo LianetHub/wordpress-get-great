@@ -3,16 +3,16 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-Bold.woff2") format("woff2"), url("../fonts/Gilroy-Bold.woff") format("woff");
-  font-weight: 700;
+  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
-  font-weight: 400;
+  src: url("../fonts/Gilroy-Bold.woff2") format("woff2"), url("../fonts/Gilroy-Bold.woff") format("woff");
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -25,20 +25,20 @@
 }
 
 @font-face {
+  font-family: "icons";
+  font-display: swap;
+  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Inter";
   src: url("../fonts/Inter-VariableFont_wght.woff2") format("woff2 supports variations"), url("../fonts/Inter-VariableFont_wght.woff2") format("woff2-variations"), url("../fonts/Inter-VariableFont_wght.woff") format("woff");
   font-weight: 100 900;
   font-stretch: 75% 125%;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: "icons";
-  font-display: swap;
-  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
 }
 
 .sidebar__link::before,
@@ -3999,8 +3999,9 @@ body {
 }
 
 .article__header-photo img {
-  border-radius: 1.5rem;
   min-height: 15.625rem;
+  width: 100%;
+  height: auto;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -4064,9 +4065,9 @@ body {
       -ms-flex-align: center;
           align-items: center;
   gap: 1rem;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .article__author-thumb {
@@ -4092,7 +4093,7 @@ body {
   right: 0;
   width: 1.125rem;
   height: 1.125rem;
-  background: url("../img/decor/verified-tick.svg") center/contain no-repeat;
+  background: url("../img/verified-tick.svg") center/contain no-repeat;
 }
 
 .article__author-name {
@@ -4418,10 +4419,6 @@ body {
   padding-bottom: 3rem;
 }
 
-.article__body {
-  color: #414651;
-}
-
 .article__footer {
   padding-top: 1.5rem;
 }
@@ -4558,6 +4555,53 @@ body {
   height: 1.25rem;
 }
 
+.article__blockquote {
+  border-left: 0.125rem solid #ff4405;
+  padding-block: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding-left: 1.25rem;
+}
+
+.article__blockquote .article__author {
+  margin-top: 2rem;
+  gap: 0.75rem;
+}
+
+.article__blockquote .article__author-thumb {
+  width: 3rem;
+  height: 3rem;
+}
+
+.article__blockquote .article__author-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 144.444%;
+}
+
+.article__blockquote-text {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  font-style: italic;
+}
+
+.article__blockquote-text::before {
+  display: none !important;
+}
+
+.article__accordion {
+  margin: 3.25rem 0 3rem;
+}
+
 .typography-block {
   font-size: 1.125rem;
   line-height: 1.55;
@@ -4572,32 +4616,29 @@ body {
   font-weight: 600;
 }
 
-.typography-block h2 {
-  margin: 6.4rem 0 2rem;
-  font-size: 3rem;
-  line-height: 1.25;
-}
-
-.typography-block h2:first-child {
-  margin-top: 0;
-  margin-bottom: 2.4rem;
-  font-size: 3.6rem;
-  font-weight: 500;
-  line-height: 1.25;
-}
-
 .typography-block h1 {
   margin-top: 0;
   margin-bottom: 2.4rem;
-  font-size: 3.6rem;
+  font-size: 3rem;
   font-family: "Gilroy";
   font-weight: 500;
   line-height: 1.25;
 }
 
+.typography-block h2 {
+  margin: 2.5rem 0 1.25rem;
+  font-size: 2.25rem;
+  line-height: 116.667%;
+}
+
+.typography-block h2:first-child {
+  margin-top: 0;
+}
+
 .typography-block h3 {
-  font-size: 2.4rem;
-  margin: 3.2rem 0 1.6rem;
+  font-size: 1.75rem;
+  margin: 2rem 0 1rem;
+  line-height: 128.571%;
 }
 
 .typography-block h3:first-child {
@@ -4605,8 +4646,13 @@ body {
 }
 
 .typography-block h4 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   line-height: 1.45;
+  margin: 2rem 0 1rem;
+}
+
+.typography-block h4:first-child {
+  margin-top: 0;
 }
 
 .typography-block p a {
@@ -4659,37 +4705,89 @@ body {
   top: 0;
 }
 
-.typography-block .subtxt {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #ff4405;
-}
-
-.typography-block .subtxt a {
-  text-decoration: underline;
-  color: inherit;
-}
-
-.typography-block .subtxt a:hover {
-  text-decoration: none;
-}
-
-.typography-block a {
+.typography-block a:not(.article__more) {
   color: #1570ef;
 }
 
 .typography-block cite,
 .typography-block blockquote {
-  padding-block: 0.5rem;
-  border-left: 0.125rem solid #ff4405;
+  margin: 1.5rem 0 2rem;
+  padding: 1.125rem;
   border-radius: 0.5rem;
   background: #f5f5f5;
   color: #181d27;
-  font-weight: 500;
-  line-height: 150%;
+  font-weight: 600;
+  line-height: 155.556%;
   display: block;
-  font-size: 1.25rem;
-  padding-left: 1.25rem;
+  font-size: 1.125rem;
+  padding-left: 2.625rem;
+  position: relative;
+}
+
+.typography-block cite::before,
+.typography-block blockquote::before {
+  content: "";
+  position: absolute;
+  top: 1.125rem;
+  left: 1.125rem;
+  bottom: 1.125rem;
+  width: 0.25rem;
+  background: #ff4405;
+}
+
+.typography-block figure {
+  margin: 3rem 0 2rem;
+}
+
+.typography-block figure figcaption {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  color: #414651;
+  font-size: 0.875rem;
+  line-height: 142.857%;
+}
+
+.typography-block .wp-block-columns {
+  margin: 3rem 0 2rem;
+  gap: 0.75rem !important;
+}
+
+.typography-block .wp-block-columns .wp-block-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.typography-block .wp-block-columns .wp-block-column:last-child figcaption {
+  text-align: right;
+}
+
+.typography-block .wp-block-columns .wp-block-column figure {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+}
+
+.typography-block .wp-block-columns .wp-block-column figure img {
+  width: 100%;
+  height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .services.services-page {
@@ -6146,10 +6244,8 @@ body {
     font-size: 1.25rem;
   }
 
-  .typography-block cite,
-  .typography-block blockquote {
+  .article__blockquote {
     padding-left: 1.5rem;
-    font-size: 1.5rem;
   }
 
   .services__header {
@@ -7393,46 +7489,9 @@ body {
     line-height: 1.5;
   }
 
-  .typography-block h2 {
-    margin-top: 3.2rem;
-    font-size: 2rem;
-  }
-
-  .typography-block h2:first-child {
-    font-size: 2.4rem;
-    margin-bottom: 1em;
-  }
-
-  .typography-block h1 {
-    font-size: 2.4rem;
-    margin-bottom: 1em;
-  }
-
-  .typography-block h3 {
-    font-size: 1.6rem;
-  }
-
-  .content h2 + .typography-block h3 {
-    margin-top: 2rem;
-  }
-
-  .typography-block h4 {
-    font-size: 1.6rem;
-    line-height: 1.5;
-  }
-
   .typography-block ul,
   .typography-block ol {
     margin-bottom: 1.2em;
-  }
-
-  .typography-block .subtxt {
-    font-size: 1.6rem;
-  }
-
-  .typography-block .fz-24 {
-    font-size: 1.8rem;
-    line-height: 1.45;
   }
 }
 
@@ -7696,7 +7755,7 @@ body {
     color: #fff;
   }
 
-  .typography-block a:hover {
+  .typography-block a:not(.article__more):hover {
     text-decoration: underline;
   }
 

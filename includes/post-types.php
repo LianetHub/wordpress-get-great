@@ -299,3 +299,31 @@ add_filter('wp_link_query', function ($results, $query) {
 
     return $results;
 }, 10, 2);
+
+
+register_post_type('blog_authors', [
+    'labels' => [
+        'name'               => 'Авторы',
+        'singular_name'      => 'Автор',
+        'add_new'            => 'Добавить автора',
+        'add_new_item'       => 'Добавить нового автора',
+        'edit_item'          => 'Редактировать автора',
+        'new_item'           => 'Новый автор',
+        'view_item'          => 'Посмотреть автора',
+        'search_items'       => 'Искать авторов',
+        'not_found'          => 'Авторов не найдено',
+        'not_found_in_trash' => 'В корзине авторов не найдено',
+        'menu_name'          => 'Авторы блога',
+    ],
+    'public'              => false,
+    'show_ui'             => true,
+    'show_in_menu'        => true,
+    'query_var'           => false,
+    'rewrite'             => false,
+    'capability_type'     => 'post',
+    'has_archive'         => false,
+    'hierarchical'        => false,
+    'menu_icon'           => 'dashicons-businessman',
+    'supports'            => ['title', 'thumbnail', 'excerpt'],
+    'show_in_rest'        => true,
+]);

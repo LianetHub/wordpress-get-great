@@ -7,25 +7,46 @@
 
 <?php get_header(); ?>
 
-<?php if (have_posts()) : while (have_posts()) : the_post();
+<?php if (have_posts()) :
+    while (have_posts()) :
+        the_post();
+
         $categories = get_the_category();
         $main_cat = !empty($categories) ? $categories[0] : null;
-        $reading_time = get_great_the_reading_time();
-        $author_id = get_post_field('post_author', get_the_ID());
-?>
+        $reading_time = get_great_reading_time(get_the_ID()) . ' мин. читать';
 
+        $data = get_great_content_with_toc(apply_filters('the_content', get_the_content()));
+        $content = $data['content'];
+        $toc_list = $data['toc'];
+
+        $blog_authors = get_field('blog_authors');
+
+        if ($blog_authors) {
+            $author_name = $blog_authors->post_title;
+            $author_info = $blog_authors->post_excerpt;
+            $author_img  = get_the_post_thumbnail_url($blog_authors->ID, 'full');
+            $is_verified = get_field('is_verified', $blog_authors->ID);
+        } else {
+            $author_id   = get_post_field('post_author', get_the_ID());
+            $author_name = get_the_author();
+            $author_info = get_the_author_meta('description');
+            $author_img  = get_avatar_url($author_id);
+            $is_verified = true;
+        }
+
+        $first_letter = mb_substr($author_name, 0, 1);
+?>
         <section class="article">
             <div class="container">
                 <div class="article__breadcrumbs">
-                    <?php
-                    require_once(TEMPLATE_PATH . '/components/breadcrumbs.php');
-                    ?>
+                    <?php require_once(TEMPLATE_PATH . '/components/breadcrumbs.php'); ?>
                 </div>
 
                 <div class="article__main">
-                    <a href="" class="article__back icon-arrow-left btn btn-secondary">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="article__back icon-arrow-left btn btn-secondary">
                         Назад
                     </a>
+
                     <article class="article__content">
                         <div class="article__header">
                             <div class="article__info">
@@ -36,7 +57,7 @@
                                 <?php endif; ?>
 
                                 <div class="article__stats">
-                                    <div class="article__stat icon-clock"><?php echo $reading_time ?></div>
+                                    <div class="article__stat icon-clock"><?php echo $reading_time; ?></div>
                                     <div class="article__stat icon-like"><?php echo (int) get_post_meta(get_the_ID(), 'get_great_likes', true); ?></div>
                                     <div class="article__stat icon-eye"><?php echo get_great_get_post_views(get_the_ID()); ?></div>
                                 </div>
@@ -45,12 +66,18 @@
                             <h1 class="article__title title-md"><?php the_title(); ?></h1>
 
                             <div class="article__author">
-                                <div class="article__author-thumb verified">
-                                    <?php echo get_avatar($author_id, 96, '', 'Фото автора', ['class' => 'cover-image']); ?>
+                                <div class="article__author-thumb <?php echo $is_verified ? 'verified' : ''; ?>">
+                                    <?php if ($author_img) : ?>
+                                        <img src="<?php echo esc_url($author_img); ?>"
+                                            alt="<?php echo esc_attr($author_name); ?>"
+                                            class="cover-image">
+                                    <?php else : ?>
+                                        <div class="article-author__letter"><?php echo esc_html($first_letter); ?></div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="article__author-body">
-                                    <div class="article__author-name"><?php the_author(); ?></div>
-                                    <div class="article__author-info"><?php the_author_meta('description'); ?></div>
+                                    <div class="article__author-name"><?php echo esc_html($author_name); ?></div>
+                                    <div class="article__author-info"><?php echo esc_html($author_info); ?></div>
                                 </div>
                             </div>
 
@@ -62,7 +89,7 @@
                         </div>
 
                         <div class="article__body typography-block">
-                            <?php the_content(); ?>
+                            <?php echo $content; ?>
                         </div>
 
                         <div class="article__footer">
@@ -97,20 +124,25 @@
                         </div>
                     </article>
 
-                    <button type="button" class="article__nav-btn icon-chevron-down">Содержание статьи</button>
+                    <?php if (!empty($toc_list)) : ?>
+                        <button type="button" class="article__nav-btn icon-chevron-down">Содержание статьи</button>
+                    <?php endif; ?>
 
                     <aside id="article-nav" class="article__sidebar sidebar">
                         <div class="article__sidebar-header">
                             <div class="article__sidebar-caption">Содержание</div>
                             <button type="button" class="article__sidebar-close icon-cross"></button>
                         </div>
-                        <ul class="sidebar__list"></ul>
+                        <ul class="sidebar__list">
+                            <?php echo $toc_list; ?>
+                        </ul>
                     </aside>
                 </div>
             </div>
         </section>
 
-<?php endwhile;
+<?php
+    endwhile;
 endif; ?>
 
 <!-- <section class="blog">
