@@ -197,3 +197,75 @@ add_filter('previous_posts_link_attributes', function () {
 add_filter('next_posts_link_attributes', function () {
 	return 'class="pagination__next icon-arrow-right"';
 });
+
+// время чтения в минутах для поста
+function get_great_reading_time($post_id = null, $wpm = 10, $seconds_per_image = 5)
+{
+	$post_id = $post_id ?: get_the_ID();
+
+	// 1. Берём «сырое» содержимое и сразу прогоняем сквозь фильтры → HTML
+	$html = apply_filters('the_content', get_post_field('post_content', $post_id));
+
+	// 2. Считаем слова (wp_strip_all_tags убирает HTML, шорткоды, комментарии)
+	$words = str_word_count(wp_strip_all_tags($html));
+
+	// 3. Считаем картинки
+	preg_match_all('/<img\b[^>]*>/i', $html, $matches);
+	$images = count($matches[0]);
+
+	// Переводим «картинки‑в‑секунды» в «дополнительные слова»
+	$words += ($images * $seconds_per_image) * $wpm / 60;
+
+	return max(1, (int) ceil($words / $wpm));
+}
+
+function get_great_the_reading_time($before = '', $after = ' мин. читать')
+{
+	printf(
+		'%s%d%s',
+		$before,
+		get_great_reading_time(),
+		$after
+	);
+}
+
+// Просмотры статьи
+function get_great_set_post_views($postID)
+{
+	$count_key = 'get_great_post_views';
+	$count     = get_post_meta($postID, $count_key, true);
+
+	if ($count == '') {
+		$count = 0;
+		delete_post_meta($postID, $count_key);
+		add_post_meta($postID, $count_key, 1);
+	} else {
+		$count++;
+		update_post_meta($postID, $count_key, $count);
+	}
+}
+
+function get_great_get_post_views($postID)
+{
+	$count = get_post_meta($postID, 'get_great_post_views', true);
+	return $count ? (int) $count : 0;
+}
+
+
+// Лайки статьи
+function get_great_add_like()
+{
+	if (! isset($_POST['post_id']) || ! is_numeric($_POST['post_id'])) {
+		wp_send_json_error();
+	}
+
+	$post_id = (int) $_POST['post_id'];
+
+	$current_likes = (int) get_post_meta($post_id, 'get_great_likes', true);
+	$current_likes++;
+	update_post_meta($post_id, 'get_great_likes', $current_likes);
+
+	wp_send_json_success(['likes' => $current_likes]);
+}
+add_action('wp_ajax_get_great_add_like', 'get_great_add_like');
+add_action('wp_ajax_nopriv_get_great_add_like', 'get_great_add_like');

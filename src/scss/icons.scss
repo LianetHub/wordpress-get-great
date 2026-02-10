@@ -18,6 +18,18 @@
 	}
 }
 
+.icon-copy:before {
+	content: "\e90e";
+}
+.icon-dislike:before {
+	content: "\e90f";
+}
+.icon-eye:before {
+	content: "\e910";
+}
+.icon-like:before {
+	content: "\e911";
+}
 .icon-cross:before {
 	content: "\e90b";
 }

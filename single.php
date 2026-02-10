@@ -10,7 +10,7 @@
 <?php if (have_posts()) : while (have_posts()) : the_post();
         $categories = get_the_category();
         $main_cat = !empty($categories) ? $categories[0] : null;
-        $reading_time = get_field('reading_time') ?: '5 мин.';
+        $reading_time = get_great_the_reading_time();
         $author_id = get_post_field('post_author', get_the_ID());
 ?>
 
@@ -23,10 +23,9 @@
                 </div>
 
                 <div class="article__main">
-                    <a href="<?php echo get_post_type_archive_link('post'); ?>" class="article__back icon-prev">
+                    <a href="" class="article__back icon-arrow-left btn btn-secondary">
                         Назад
                     </a>
-
                     <article class="article__content">
                         <div class="article__header">
                             <div class="article__info">
@@ -37,15 +36,9 @@
                                 <?php endif; ?>
 
                                 <div class="article__stats">
-                                    <div class="article__stat icon-clock"><?php echo esc_html($reading_time); ?> читать</div>
-
-                                    <?php if (function_exists('get_post_likes')) : ?>
-                                        <div class="article__stat icon-like"><?php echo get_post_likes(get_the_ID()); ?></div>
-                                    <?php endif; ?>
-
-                                    <?php if (function_exists('get_post_views')) : ?>
-                                        <div class="article__stat icon-eye"><?php echo get_post_views(get_the_ID()); ?></div>
-                                    <?php endif; ?>
+                                    <div class="article__stat icon-clock"><?php echo $reading_time ?></div>
+                                    <div class="article__stat icon-like"><?php echo (int) get_post_meta(get_the_ID(), 'get_great_likes', true); ?></div>
+                                    <div class="article__stat icon-eye"><?php echo get_great_get_post_views(get_the_ID()); ?></div>
                                 </div>
                             </div>
 
@@ -86,7 +79,7 @@
                                     $tags = get_the_tags();
                                     if ($tags) :
                                         foreach ($tags as $tag) : ?>
-                                            <a href="<?php echo get_tag_link($tag->term_id); ?>" class="article__label label label--pink">
+                                            <a href="<?php echo get_tag_link($tag->term_id); ?>" class="article__label">
                                                 <?php echo esc_html($tag->name); ?>
                                             </a>
                                     <?php endforeach;
