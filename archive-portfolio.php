@@ -9,8 +9,18 @@
 
 <?php require_once(TEMPLATE_PATH . '_hero.php'); ?>
 
-<?php require_once(TEMPLATE_PATH . '_gratitudes.php'); ?>
-<?php require_once(TEMPLATE_PATH . '_presentation.php'); ?>
+<?php
+$donor = get_page_by_path('portfolio-details');
+$donor_id = $donor ? $donor->ID : null;
+
+?>
+
+<?php
+if ($donor) {
+    $content = apply_filters('the_content', $donor->post_content);
+    echo $content;
+}
+?>
 
 
 

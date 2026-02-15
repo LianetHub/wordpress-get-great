@@ -231,41 +231,76 @@ function custom_archive_title($title)
 }
 
 
-add_action('admin_bar_menu', 'add_edit_services_donor_link', 999);
-function add_edit_services_donor_link($wp_admin_bar)
+function get_donor_config()
 {
-    if (!is_admin() && is_post_type_archive('services')) {
-        $donor_page = get_page_by_path('uslugi-details');
+    return [
+        'services' => [
+            'slug'  => 'uslugi-details',
+            'title' => 'Редактировать контент услуг'
+        ],
+        'portfolio' => [
+            'slug'  => 'portfolio-details',
+            'title' => 'Редактировать контент портфолио'
+        ],
+    ];
+}
 
-        if ($donor_page) {
-            $wp_admin_bar->add_node([
-                'id'    => 'edit',
-                'title' => 'Редактировать контент услуг',
-                'href'  => get_edit_post_link($donor_page->ID),
-                'meta'  => [
-                    'class' => 'ab-item',
-                ],
-            ]);
+add_action('admin_bar_menu', 'add_custom_donor_edit_links', 999);
+function add_custom_donor_edit_links($wp_admin_bar)
+{
+    if (is_admin()) {
+        return;
+    }
+
+    $config = get_donor_config();
+
+    foreach ($config as $post_type => $data) {
+        if (is_post_type_archive($post_type)) {
+            $donor_page = get_page_by_path($data['slug']);
+
+            if ($donor_page) {
+                $wp_admin_bar->add_node([
+                    'id'    => 'edit',
+                    'title' => $data['title'],
+                    'href'  => get_edit_post_link($donor_page->ID),
+                    'meta'  => [
+                        'class' => 'ab-item',
+                    ],
+                ]);
+            }
         }
     }
 }
 
-add_action('template_redirect', 'redirect_donor_page_to_archive');
-function redirect_donor_page_to_archive()
+add_action('template_redirect', 'redirect_donor_pages_to_archives');
+function redirect_donor_pages_to_archives()
 {
-    if (is_single('uslugi-details') || is_page('uslugi-details')) {
-        wp_redirect(get_post_type_archive_link('services'), 301);
-        exit;
+    $config = get_donor_config();
+
+    foreach ($config as $post_type => $data) {
+        if (is_single($data['slug']) || is_page($data['slug'])) {
+            wp_redirect(get_post_type_archive_link($post_type), 301);
+            exit;
+        }
     }
 }
 
-add_filter('pre_get_posts', 'exclude_donor_from_search');
-function exclude_donor_from_search($query)
+add_filter('pre_get_posts', 'exclude_donors_from_search');
+function exclude_donors_from_search($query)
 {
     if (!is_admin() && $query->is_main_query() && $query->is_search()) {
-        $donor = get_page_by_path('uslugi-details');
-        if ($donor) {
-            $query->set('post__not_in', [$donor->ID]);
+        $config = get_donor_config();
+        $exclude_ids = [];
+
+        foreach ($config as $data) {
+            $donor = get_page_by_path($data['slug']);
+            if ($donor) {
+                $exclude_ids[] = $donor->ID;
+            }
+        }
+
+        if (!empty($exclude_ids)) {
+            $query->set('post__not_in', $exclude_ids);
         }
     }
     return $query;
