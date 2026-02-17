@@ -18,7 +18,7 @@
 	}
 	//.articles__tag
 	&__tag {
-		font-size: 1.25rem;
+		font-size: 1rem;
 		letter-spacing: -0.0125rem;
 		text-transform: uppercase;
 		padding: 0.25rem 0.75rem;
@@ -26,6 +26,9 @@
 		border: rem(1) solid #181d27;
 		color: #181d27;
 		transition: all 0.3s ease;
+		@media (min-width: $md4) {
+			font-size: 1.25rem;
+		}
 		&.active {
 			background: #181d27;
 			color: #fff;
@@ -292,8 +295,8 @@
 			align-items: flex-end;
 		}
 	}
-	// .articles__title
-	&__title {
+	// .articles__details
+	&__details {
 		display: flex;
 		align-items: center;
 		gap: 0.44rem;

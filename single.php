@@ -142,13 +142,12 @@
                     </article>
 
                     <?php if (!empty($toc_list)) : ?>
-                        <button type="button" class="article__nav-btn icon-chevron-down">Содержание статьи</button>
+                        <a href="#article-nav" data-fancybox class="article__nav-btn btn btn-primary icon-chevron-down">Содержание статьи</a>
                     <?php endif; ?>
 
                     <aside id="article-nav" class="article__sidebar sidebar">
-                        <div class="article__sidebar-header">
-                            <div class="article__sidebar-caption">Содержание</div>
-                            <button type="button" class="article__sidebar-close icon-cross"></button>
+                        <div class="article__sidebar-header title-xs">
+                            Содержание
                         </div>
                         <ul class="sidebar__list">
                             <?php echo $toc_list; ?>
@@ -178,7 +177,7 @@ endif; ?>
         ?>
 
         <div class="articles__header">
-            <h2 class="articles__title title-xs">
+            <h2 class="articles__details title-xs">
                 Другие статьи <span class="quantity-count"><?php echo $related_query->found_posts; ?></span>
             </h2>
             <div class="articles__controls">

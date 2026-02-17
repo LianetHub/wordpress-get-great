@@ -119,9 +119,12 @@
 		display: none;
 		@media (min-width: $md5) {
 			display: flex;
-			margin-left: 2rem;
+			margin-left: 1rem;
 			padding-right: 1rem;
 			border-right: rem(1) solid #61656c;
+		}
+		@media (min-width: $md0) {
+			margin-left: 2rem;
 		}
 	}
 	// .header__social
@@ -209,14 +212,15 @@
 	&__list {
 		display: flex;
 		flex-direction: column;
+		padding: 0 1.5rem;
 		&:not(:last-child) {
 			@media (max-width: $md2) {
 				margin-bottom: 0.5rem;
 			}
 		}
-		padding: 0 1.5rem;
+
 		@media (min-width: $md-menu) {
-			gap: 0.5rem;
+			gap: 0;
 			flex-direction: row;
 			padding: 0;
 		}
