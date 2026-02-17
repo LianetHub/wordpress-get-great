@@ -442,3 +442,34 @@ function get_great_content_with_toc($content)
 		'toc'     => $toc_list
 	];
 }
+
+function get_contrast_color($hexcolor)
+{
+	$hexcolor = str_replace('#', '', $hexcolor);
+	if (strlen($hexcolor) == 3) {
+		$hexcolor = $hexcolor[0] . $hexcolor[0] . $hexcolor[1] . $hexcolor[1] . $hexcolor[2] . $hexcolor[2];
+	}
+	$r = hexdec(substr($hexcolor, 0, 2));
+	$g = hexdec(substr($hexcolor, 2, 2));
+	$b = hexdec(substr($hexcolor, 4, 2));
+	$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+	return ($yiq >= 128) ? '#000000' : '#ffffff';
+}
+
+function get_processed_svg($url, $new_color)
+{
+	if (!$url) return '';
+
+	$path = str_replace(site_url('/'), ABSPATH, $url);
+
+	if (!file_exists($path)) {
+		return '<img src="' . esc_url($url) . '" alt="">';
+	}
+
+	$svg_code = file_get_contents($path);
+
+	$svg_code = preg_replace('/fill="((?!none)[^"]+)"/i', 'fill="' . $new_color . '"', $svg_code);
+	$svg_code = preg_replace('/stroke="((?!none)[^"]+)"/i', 'stroke="' . $new_color . '"', $svg_code);
+
+	return $svg_code;
+}
