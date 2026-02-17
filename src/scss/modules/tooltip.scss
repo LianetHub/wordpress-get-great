@@ -20,10 +20,16 @@
 	font-size: 0.75rem;
 	line-height: 1.5;
 	max-width: 20rem;
-	width: 200%;
+	width: 100%;
 	pointer-events: none;
 	user-select: none;
 	text-align: left;
+	&.tooltip-copy {
+		max-width: 15rem;
+		width: fit-content;
+		text-align: center;
+		padding: 0.5rem 0.75rem;
+	}
 
 	& strong {
 		color: #ff4405;

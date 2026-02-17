@@ -183,6 +183,126 @@ $(function () {
     });
 
 
+    // Tooltip
+    class TooltipManager {
+        constructor(options = {}) {
+            this.tooltipClass = options.tooltipClass || 'tooltip-default';
+            this.activeClass = options.activeClass || 'active-tooltip';
+            this.offset = options.offset || 16;
+            this.defaultPosition = options.defaultPosition || 'bottom';
+            this.onShow = options.onShow || null;
+            this.onHide = options.onHide || null;
+
+            this.$activeElement = null;
+            this.$currentTooltip = null;
+
+            this._initGlobalEvents();
+        }
+
+        _initGlobalEvents() {
+            $(document).on('pointerdown.tooltipManager', (e) => {
+                const $target = $(e.target);
+                if (!this.$currentTooltip) return;
+
+                if (!$target.closest(`.${this.activeClass}`).length && !$target.closest(`.${this.tooltipClass}`).length) {
+                    this.hide();
+                }
+            });
+
+            $(window).on('resize.tooltipManager scroll.tooltipManager', () => {
+                if (this.$currentTooltip && this.$activeElement) {
+                    this._positionTooltip(this.$activeElement, this.$currentTooltip);
+                }
+            });
+        }
+
+        show($el, content) {
+            this.hide();
+
+            this.$activeElement = $el;
+            this.$activeElement.addClass(this.activeClass);
+
+            this.$currentTooltip = $(`<div class="tooltip ${this.tooltipClass}"></div>`).html(content);
+            $('body').append(this.$currentTooltip);
+
+            this._positionTooltip(this.$activeElement, this.$currentTooltip);
+
+            if (typeof this.onShow === 'function') {
+                this.onShow(this.$activeElement);
+            }
+        }
+
+        hide() {
+            if (!this.$currentTooltip) return;
+
+            if (this.$activeElement) {
+                this.$activeElement.removeClass(this.activeClass);
+            }
+
+            const $prevElement = this.$activeElement;
+            this.$currentTooltip.remove();
+
+            this.$currentTooltip = null;
+            this.$activeElement = null;
+
+            if (typeof this.onHide === 'function') {
+                this.onHide($prevElement);
+            }
+        }
+
+        _positionTooltip($anchor, $tooltip) {
+            const rect = $anchor[0].getBoundingClientRect();
+            const tooltipRect = $tooltip[0].getBoundingClientRect();
+            const $win = $(window);
+            const scrollY = $win.scrollTop();
+            const scrollX = $win.scrollLeft();
+            const winHeight = $win.height();
+
+            let top, currentDir;
+            let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
+
+            const canShowBottom = rect.bottom + this.offset + tooltipRect.height < winHeight;
+            const canShowTop = rect.top - this.offset - tooltipRect.height > 0;
+
+            if (this.defaultPosition === 'bottom') {
+                if (canShowBottom) {
+                    top = rect.bottom + scrollY + this.offset;
+                    currentDir = 'open-bottom';
+                } else {
+                    top = rect.top + scrollY - tooltipRect.height - this.offset;
+                    currentDir = 'open-top';
+                }
+            } else {
+                if (canShowTop) {
+                    top = rect.top + scrollY - tooltipRect.height - this.offset;
+                    currentDir = 'open-top';
+                } else {
+                    top = rect.bottom + scrollY + this.offset;
+                    currentDir = 'open-bottom';
+                }
+            }
+
+            if (left < 10) left = 10;
+            if (left + tooltipRect.width > $win.width() - 10) {
+                left = $win.width() - tooltipRect.width - 10;
+            }
+
+            $tooltip.removeClass('open-top open-bottom')
+                .addClass(currentDir)
+                .css({
+                    top: top + 'px',
+                    left: left + 'px'
+                });
+        }
+
+        destroy() {
+            this.hide();
+            $(document).off('.tooltipManager');
+            $(window).off('.tooltipManager');
+        }
+    }
+
+
     // sliders
     class MobileSwiper {
         constructor(sliderName, options, condition = 767.98) {
@@ -211,6 +331,7 @@ $(function () {
             }
         }
     }
+
 
 
     if ($('.promo__slider').length) {
@@ -359,14 +480,14 @@ $(function () {
     }
 
     $('.marquee__slider').each(function () {
-        var $el = $(this);
-        var isReverse = $el.attr('data-direction') === 'reverse';
-        var hasImages = $el.hasClass('marquee__slider--images');
+        const $el = $(this);
+        const isReverse = $el.attr('data-direction') === 'reverse';
+        const hasImages = $el.hasClass('marquee__slider--images');
 
         let savedTranslate = 0;
         let isPaused = false;
 
-        var swiper = new Swiper(this, {
+        const swiper = new Swiper(this, {
             loop: true,
             slidesPerView: 'auto',
             observer: true,
@@ -389,18 +510,11 @@ $(function () {
             }
         });
 
-        const removeTooltips = () => {
-            $('.tooltip-marquee').remove();
-            $('.marquee__image').removeClass('active-tooltip');
-        };
-
         const stopSwiper = () => {
             if (isPaused) return;
-
             const style = window.getComputedStyle(swiper.wrapperEl);
             const matrix = new WebKitCSSMatrix(style.transform);
             savedTranslate = matrix.m41;
-
             swiper.autoplay.pause();
             $(swiper.wrapperEl).css('transition', 'none');
             swiper.setTranslate(savedTranslate);
@@ -409,97 +523,49 @@ $(function () {
 
         const startSwiper = () => {
             if (!isPaused) return;
-
             $(swiper.wrapperEl).css('transition', '');
-
             swiper.params.freeMode.enabled = false;
             swiper.update();
-
             swiper.params.freeMode.enabled = true;
             swiper.update();
-
             swiper.setTranslate(savedTranslate);
-
             swiper.autoplay.resume();
             isPaused = false;
         };
 
-        const showTooltip = ($slide, e) => {
-            const content = $slide.attr('data-tooltip-content');
-            if (!content) return;
-
-            removeTooltips();
-            stopSwiper();
-
-            $slide.addClass('active-tooltip');
-
-            const $tooltip = $('<div class="tooltip tooltip-marquee"></div>').html(content);
-            $('body').append($tooltip);
-
-            const rect = $slide[0].getBoundingClientRect();
-            const tooltipRect = $tooltip[0].getBoundingClientRect();
-            const scrollY = $(window).scrollTop();
-            const scrollX = $(window).scrollLeft();
-
-            let top = rect.bottom + scrollY + 16;
-            let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
-            let currentDir = 'open-bottom';
-
-            if (top + tooltipRect.height > scrollY + $(window).height()) {
-                top = rect.top + scrollY - tooltipRect.height - 16;
-                currentDir = 'open-top';
+        const tooltip = new TooltipManager({
+            onShow: () => stopSwiper(),
+            onHide: (el) => {
+                if (!$el.is(':hover')) {
+                    startSwiper();
+                }
             }
-
-            $tooltip.addClass(currentDir);
-
-            if (left < 10) left = 10;
-            if (left + tooltipRect.width > $(window).width() - 10) {
-                left = $(window).width() - tooltipRect.width - 10;
-            }
-
-            $tooltip.css({
-                top: top + 'px',
-                left: left + 'px'
-            });
-
-            e.stopPropagation();
-        };
+        });
 
         $el.on('pointerenter', function (e) {
             if (e.originalEvent.pointerType === 'mouse') stopSwiper();
         });
 
         $el.on('pointerleave', function (e) {
-            if (e.originalEvent.pointerType === 'mouse') {
-                removeTooltips();
+            if (e.originalEvent.pointerType === 'mouse' && !tooltip.$currentTooltip) {
                 startSwiper();
             }
         });
 
         $el.find('.marquee__image[data-tooltip-content]').each(function () {
             const $slide = $(this);
+            const content = $slide.attr('data-tooltip-content');
 
             $slide.on('pointerenter', function (e) {
                 if (e.originalEvent.pointerType === 'mouse') {
-                    showTooltip($slide, e);
+                    tooltip.show($slide, content);
                 }
             });
 
             $slide.on('click', function (e) {
-                stopSwiper();
-                showTooltip($slide, e);
+                e.stopPropagation();
+                tooltip.show($slide, content);
             });
-        });
-
-        $(document).on('pointerdown', function (e) {
-            const $target = $(e.target);
-            if (!$target.closest('.marquee__image').length && !$target.closest('.tooltip-marquee').length) {
-                removeTooltips();
-                const isHoveringSlider = $target.closest('.marquee__slider').length;
-                if (!isHoveringSlider) {
-                    startSwiper();
-                }
-            }
         });
     });
 
@@ -1155,6 +1221,35 @@ $(function () {
 
     window.dynamicAdapt = new DynamicAdapt("max");
 
+    if ($('.article__copy').length) {
 
+        const copyTooltipManager = new TooltipManager({
+            tooltipClass: 'tooltip-copy',
+            defaultPosition: 'top',
+            offset: 10
+        });
+
+        let copyTimeout = null;
+
+        $('.article__copy').on('click', function (e) {
+            e.preventDefault();
+            const $btn = $(this);
+            const url = $btn.attr('data-url');
+
+            if (!url) return;
+
+            navigator.clipboard.writeText(url).then(() => {
+                copyTooltipManager.show($btn, 'Скопировано');
+
+                if (copyTimeout) clearTimeout(copyTimeout);
+
+                copyTimeout = setTimeout(() => {
+                    copyTooltipManager.hide();
+                }, 1500);
+            }).catch(err => {
+                console.error('Ошибка при копировании: ', err);
+            });
+        });
+    }
 })
 

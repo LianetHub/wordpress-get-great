@@ -112,7 +112,10 @@
                                     ?>
                                 </div>
 
-                                <button class="article__copy icon-copy" data-url="<?php the_permalink(); ?>">Ссылка</button>
+                                <button
+                                    type="button"
+                                    class="article__copy icon-copy"
+                                    data-url="<?php the_permalink(); ?>">Ссылка</button>
 
                                 <?php
                                 $share_url   = urlencode(get_permalink());
