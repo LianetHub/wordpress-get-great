@@ -35,7 +35,7 @@
 
         $first_letter = mb_substr($author_name, 0, 1);
 ?>
-        <section class="article">
+        <section class="article" data-post-id="<?php echo get_the_ID(); ?>">
             <div class="container">
                 <div class="article__breadcrumbs">
                     <?php require_once(TEMPLATE_PATH . '/components/breadcrumbs.php'); ?>
@@ -95,8 +95,8 @@
                             <div class="article__likes">
                                 <div class="article__likes-text">Статья была полезной?</div>
                                 <div class="article__likes-btns">
-                                    <button type="button" class="article__likes-btn icon-like">Да</button>
-                                    <button type="button" class="article__likes-btn icon-dislike">Нет</button>
+                                    <button type="button" class="article__likes-btn article-use__yes icon-like">Да</button>
+                                    <button type="button" class="article__likes-btn article-use__no icon-dislike">Нет</button>
                                 </div>
                             </div>
                             <div class="article__bottom">

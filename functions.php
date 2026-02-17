@@ -37,6 +37,10 @@ function theme_enqueue_scripts()
 	wp_enqueue_script('swiper-js', get_template_directory_uri() . '/assets/js/libs/swiper-bundle.min.js', array(), null, true);
 	wp_enqueue_script('fancybox-js', get_template_directory_uri() . '/assets/js/libs/fancybox.umd.js', array(), null, true);
 	wp_enqueue_script('app-js', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery'), null, true);
+
+	wp_localize_script('app-js', 'great_ajax', [
+		'url' => admin_url('admin-ajax.php')
+	]);
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
@@ -203,18 +207,10 @@ add_filter('next_posts_link_attributes', function () {
 function get_great_reading_time($post_id = null, $wpm = 10, $seconds_per_image = 5)
 {
 	$post_id = $post_id ?: get_the_ID();
-
-	// 1. Берём «сырое» содержимое и сразу прогоняем сквозь фильтры → HTML
 	$html = apply_filters('the_content', get_post_field('post_content', $post_id));
-
-	// 2. Считаем слова (wp_strip_all_tags убирает HTML, шорткоды, комментарии)
 	$words = str_word_count(wp_strip_all_tags($html));
-
-	// 3. Считаем картинки
 	preg_match_all('/<img\b[^>]*>/i', $html, $matches);
 	$images = count($matches[0]);
-
-	// Переводим «картинки‑в‑секунды» в «дополнительные слова»
 	$words += ($images * $seconds_per_image) * $wpm / 60;
 
 	return max(1, (int) ceil($words / $wpm));
@@ -252,7 +248,6 @@ function get_great_get_post_views($postID)
 	return $count ? (int) $count : 0;
 }
 
-
 // Лайки статьи
 function get_great_add_like()
 {
@@ -268,9 +263,28 @@ function get_great_add_like()
 
 	wp_send_json_success(['likes' => $current_likes]);
 }
+
 add_action('wp_ajax_get_great_add_like', 'get_great_add_like');
 add_action('wp_ajax_nopriv_get_great_add_like', 'get_great_add_like');
 
+function get_great_remove_like()
+{
+	if (!isset($_POST['post_id']) || !is_numeric($_POST['post_id'])) {
+		wp_send_json_error();
+	}
+
+	$post_id = (int)$_POST['post_id'];
+	$current_likes = (int)get_post_meta($post_id, 'get_great_likes', true);
+
+	if ($current_likes > 0) {
+		$current_likes--;
+		update_post_meta($post_id, 'get_great_likes', $current_likes);
+	}
+
+	wp_send_json_success(['likes' => $current_likes]);
+}
+add_action('wp_ajax_get_great_remove_like', 'get_great_remove_like');
+add_action('wp_ajax_nopriv_get_great_remove_like', 'get_great_remove_like');
 
 function get_great_transliterate($text)
 {

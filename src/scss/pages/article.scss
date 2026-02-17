@@ -671,6 +671,7 @@
 	}
 	// .article__likes-btn
 	&__likes-btn {
+		position: relative;
 		line-height: 150%;
 		display: flex;
 		align-items: center;
@@ -689,12 +690,54 @@
 			flex-shrink: 0;
 			transition: color 0.3s ease;
 		}
+		&::after {
+			content: "";
+			position: absolute;
+			inset: rem(-5) rem(-8);
+			border-radius: 0.5rem;
+			background: #f5f5f5;
+			opacity: 0;
+			transition: all 0.3s ease-in-out;
+			pointer-events: none;
+			z-index: -1;
+		}
 		&.icon-like {
 			color: #0f7a65;
 		}
 		&.icon-dislike {
 			color: #f04438;
 		}
+		&.is-active {
+			&::after {
+				opacity: 1;
+				pointer-events: all;
+			}
+			&::before {
+				animation: pulse 0.3s ease-in-out;
+			}
+			&.icon-like {
+				&::before {
+					color: #0f7a65;
+				}
+			}
+			&.icon-dislike {
+				&::before {
+					color: #f04438;
+				}
+			}
+			@keyframes pulse {
+				0% {
+					transform: scale(1);
+				}
+				50% {
+					transform: scale(1.4);
+				}
+				100% {
+					transform: scale(1.1);
+				}
+			}
+		}
+
 		@media (any-hover: hover) {
 			&:hover {
 				&::before {
