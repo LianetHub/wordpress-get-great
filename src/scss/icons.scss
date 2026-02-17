@@ -17,8 +17,18 @@
 		display: block;
 	}
 }
+
 .icon-cross:before {
 	content: "\e90b";
+}
+.icon-dislike:before {
+	content: "\e910";
+}
+.icon-like:before {
+	content: "\e911";
+}
+.icon-copy:before {
+	content: "\e90f";
 }
 .icon-clock:before {
 	content: "\e90c";

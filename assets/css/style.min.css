@@ -11,16 +11,16 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/Gilroy-SemiBold.woff2) format("woff2"), url(../fonts/Gilroy-SemiBold.woff) format("woff");
-    font-weight: 600;
+    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
+    font-weight: 400;
     font-style: normal
 }
 
 @font-face {
-    font-family: icons;
+    font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
-    font-weight: 400;
+    src: url(../fonts/Gilroy-SemiBold.woff2) format("woff2"), url(../fonts/Gilroy-SemiBold.woff) format("woff");
+    font-weight: 600;
     font-style: normal
 }
 
@@ -34,9 +34,9 @@
 }
 
 @font-face {
-    font-family: Gilroy;
+    font-family: icons;
     font-display: swap;
-    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
+    src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
     font-weight: 400;
     font-style: normal
 }
@@ -59,6 +59,18 @@
 
 .icon-cross:before {
     content: "\e90b"
+}
+
+.icon-dislike:before {
+    content: "\e910"
+}
+
+.icon-like:before {
+    content: "\e911"
+}
+
+.icon-copy:before {
+    content: "\e90f"
 }
 
 .icon-clock:before {
@@ -4471,6 +4483,17 @@ body {
     margin-right: auto
 }
 
+.article__label {
+    color: #fff;
+    border-radius: 2.5rem;
+    background: #181d27;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -.01rem;
+    text-transform: uppercase
+}
+
 .article__copy {
     border-radius: .5rem;
     border: .0625rem solid #d0d5dd;
@@ -4507,7 +4530,13 @@ body {
     -ms-flex-align: center;
     align-items: center;
     width: 1.25rem;
+    font-size: 1.25rem;
     height: 1.25rem
+}
+
+.article__socials {
+    max-width: 15.75rem;
+    gap: .75rem
 }
 
 .article__blockquote {
@@ -6317,6 +6346,12 @@ body {
 
     .article__likes-btn {
         font-size: 1.25rem
+    }
+
+    .article__socials {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end
     }
 
     .article__blockquote {

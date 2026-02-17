@@ -106,19 +106,34 @@
                                     $tags = get_the_tags();
                                     if ($tags) :
                                         foreach ($tags as $tag) : ?>
-                                            <a href="<?php echo get_tag_link($tag->term_id); ?>" class="article__label">
-                                                <?php echo esc_html($tag->name); ?>
-                                            </a>
+                                            <span class="article__label"><?php echo esc_html($tag->name); ?></span>
                                     <?php endforeach;
-                                    endif; ?>
+                                    endif;
+                                    ?>
                                 </div>
 
                                 <button class="article__copy icon-copy" data-url="<?php the_permalink(); ?>">Ссылка</button>
 
+                                <?php
+                                $share_url   = urlencode(get_permalink());
+                                $share_title = urlencode(get_the_title());
+                                ?>
                                 <div class="article__socials socials">
-                                    <a href="https://t.me/share/url?url=<?php the_permalink(); ?>" target="_blank" aria-label="Поделиться в Telegram" class="socials__link icon-telegram"></a>
-                                    <a href="https://wa.me/?text=<?php the_permalink(); ?>" target="_blank" aria-label="Поделиться в WhatsApp" class="socials__link icon-whatsapp"></a>
-                                    <a href="https://vk.com/share.php?url=<?php the_permalink(); ?>" target="_blank" aria-label="Поделиться в VK" class="socials__link icon-vk"></a>
+                                    <a href="https://api.whatsapp.com/send?text=<?php echo $share_title . ' ' . $share_url; ?>" class="socials__item" style="--hover-bg: #00e510;" target="_blank" rel="nofollow">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/whatsapp.svg" alt="WhatsApp">
+                                    </a>
+                                    <a href="https://t.me/share/url?url=<?php echo $share_url; ?>&text=<?php echo $share_title; ?>" class="socials__item" style="--hover-bg: #00b0f2;" target="_blank" rel="nofollow">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/telegram.svg" alt="Telegram">
+                                    </a>
+                                    <a href="https://vk.com/share.php?url=<?php echo $share_url; ?>" class="socials__item" style="--hover-bg: #0077ff;" target="_blank" rel="nofollow">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/vk.svg" alt="VK">
+                                    </a>
+                                    <a href="https://connect.ok.ru/offer?url=<?php echo $share_url; ?>&title=<?php echo $share_title; ?>" class="socials__item" style="--hover-bg: #ee8208;" target="_blank" rel="nofollow">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/ok.svg" alt="OK">
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $share_url; ?>" class="socials__item" style="--hover-bg: #0866ff;" target="_blank" rel="nofollow">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/facebook.svg" alt="Facebook">
+                                    </a>
                                 </div>
                             </div>
                         </div>

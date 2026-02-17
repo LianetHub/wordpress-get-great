@@ -207,8 +207,20 @@ function customize_standard_taxonomy_labels()
         $labels->all_items = 'Все категории статей';
         $labels->menu_name = 'Категории статей';
     }
-    if (taxonomy_exists('post_tag')) {
-        register_taxonomy('post_tag', array());
+
+    if (isset($wp_taxonomies['post_tag'])) {
+        $tag_labels = &$wp_taxonomies['post_tag']->labels;
+        $tag_labels->name = 'Лейблы';
+        $tag_labels->singular_name = 'Лейбл';
+        $tag_labels->menu_name = 'Лейблы';
+
+        $wp_taxonomies['post_tag']->public = false;
+        $wp_taxonomies['post_tag']->publicly_queryable = false;
+        $wp_taxonomies['post_tag']->show_ui = true;
+        $wp_taxonomies['post_tag']->show_in_nav_menus = false;
+        $wp_taxonomies['post_tag']->show_tagcloud = false;
+        $wp_taxonomies['post_tag']->show_in_quick_edit = true;
+        $wp_taxonomies['post_tag']->show_admin_column = true;
     }
 }
 
