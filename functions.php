@@ -248,6 +248,17 @@ function get_great_get_post_views($postID)
 	return $count ? (int) $count : 0;
 }
 
+function get_great_increment_views_ajax()
+{
+	if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
+		get_great_set_post_views((int)$_POST['post_id']);
+		wp_send_json_success();
+	}
+	wp_send_json_error();
+}
+add_action('wp_ajax_get_great_increment_views', 'get_great_increment_views_ajax');
+add_action('wp_ajax_nopriv_get_great_increment_views', 'get_great_increment_views_ajax');
+
 // Лайки статьи
 function get_great_add_like()
 {

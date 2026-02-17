@@ -1367,6 +1367,32 @@ $(function () {
         });
     }
 
+    // views
+    if ($('.article').length) {
+        const $article = $('.article');
+        const postId = $article.attr('data-post-id');
+        const viewStorageKey = 'article_viewed_' + postId;
+        const now = Date.now();
+        const dayInMs = 24 * 60 * 60 * 1000;
+
+        const lastView = localStorage.getItem(viewStorageKey);
+
+        if (!lastView || (now - lastView) > dayInMs) {
+            $.ajax({
+                url: great_ajax.url,
+                type: 'POST',
+                data: {
+                    action: 'get_great_increment_views',
+                    post_id: postId
+                },
+                success: function (res) {
+                    if (res.success) {
+                        localStorage.setItem(viewStorageKey, now);
+                    }
+                }
+            });
+        }
+    }
 
 })
 
