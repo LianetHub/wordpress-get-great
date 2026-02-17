@@ -71,7 +71,15 @@ add_action('acf/init', function () {
             'icon'            => 'images-alt2',
             'render_template' => 'templates/blog-blocks/slider-article.php',
             'mode'            => 'edit',
+        ]);
 
+        acf_register_block_type([
+            'name'            => 'checklist-article',
+            'title'           => __('Чек-лист', 'txtdomain'),
+            'category'        => 'pp-category',
+            'icon'            => 'yes-alt',
+            'render_template' => 'templates/blog-blocks/checklist-article.php',
+            'mode'            => 'edit',
         ]);
     }
 });

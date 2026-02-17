@@ -533,6 +533,7 @@ $(function () {
     $('.article__slider').each(function () {
         const $this = $(this);
         new Swiper(this, {
+            loop: true,
             navigation: {
                 nextEl: $this.find('.article__next')[0],
                 prevEl: $this.find('.article__prev')[0],

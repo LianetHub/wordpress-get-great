@@ -860,6 +860,66 @@
 		font-size: 1.125rem;
 		line-height: 133.333%;
 	}
+	// .article__checklist
+	&__checklist {
+		&:not(:first-child) {
+			margin-top: 3rem;
+		}
+		&:not(:last-child) {
+			margin-bottom: 3rem;
+		}
+	}
+}
+
+.checklist-block {
+	border-radius: 0.5rem;
+	background: #f5f5f5;
+	padding: 2rem;
+	// .checklist-block__title
+	&__title {
+		font-size: 1.5rem;
+		font-weight: 700;
+		line-height: 133.333%;
+	}
+	// .checklist-block__description
+	&__description {
+		margin-top: 1.25rem;
+		color: #535862;
+		font-size: 1.125rem;
+		font-style: italic;
+		line-height: 144.444%;
+	}
+	// .checklist-block__list
+	&__list {
+		margin-top: 1.25rem;
+	}
+	// .checklist-block__item
+	&__item {
+		counter-increment: num;
+		padding-left: 2rem;
+		position: relative;
+		&:not(:last-child) {
+			margin-bottom: 0.75rem;
+		}
+		&::before {
+			display: inline;
+			position: static;
+		}
+		&::after {
+			content: "\e90e";
+			width: 1.5rem;
+			height: 1.5rem;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.5rem;
+			color: #25b887;
+			@extend %ic;
+		}
+	}
 }
 
 .typography-block {
