@@ -63,5 +63,15 @@ add_action('acf/init', function () {
             'render_template' => 'templates/blog-blocks/accordion-article.php',
             'mode'            => 'edit',
         ]);
+
+        acf_register_block_type([
+            'name'            => 'slider-article',
+            'title'           => __('Слайдер', 'txtdomain'),
+            'category'        => 'pp-category',
+            'icon'            => 'images-alt2',
+            'render_template' => 'templates/blog-blocks/slider-article.php',
+            'mode'            => 'edit',
+
+        ]);
     }
 });

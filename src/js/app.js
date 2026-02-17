@@ -530,6 +530,21 @@ $(function () {
         })
     }
 
+    $('.article__slider').each(function () {
+        const $this = $(this);
+        new Swiper(this, {
+            navigation: {
+                nextEl: $this.find('.article__next')[0],
+                prevEl: $this.find('.article__prev')[0],
+            },
+            pagination: {
+                el: $this.find('.article__pagination')[0],
+                clickable: true,
+            },
+            slidesPerView: 1,
+        });
+    });
+
     // counting animation
     const $counters = $('[data-counter]');
 

@@ -225,13 +225,23 @@
 		position: static;
 		margin: auto;
 		width: auto;
-
+		--swiper-pagination-bullet-horizontal-gap: #{rem(6)};
 		.swiper-pagination-bullet {
-			background: #a4a7ae;
+			background: #fff;
 			opacity: 1;
+			position: relative;
+			&::before {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 1.5rem;
+				height: 1.5rem;
+			}
 			&.swiper-pagination-bullet-active {
 				opacity: 1;
-				background: #414651;
+				background: $accent;
 			}
 		}
 	}
