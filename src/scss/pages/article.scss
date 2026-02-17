@@ -7,8 +7,10 @@
 
 .article {
 	padding-top: 4.5rem;
+	padding-bottom: rem(25);
 	@media (min-width: $md2) {
 		padding-top: rem(80);
+		padding-bottom: rem(49);
 	}
 	// .article__breadcrumbs
 	&__breadcrumbs {

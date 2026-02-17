@@ -35,7 +35,7 @@
                 <?php while (have_posts()) : the_post();
                     $cat = get_the_category();
                     $cat_name = $cat ? $cat[0]->name : 'Статья';
-                    $reading_time = get_field('reading_time') ?: '5 мин.';
+                    $reading_time_val = get_great_reading_time(get_the_ID());
 
                     $has_thumb = has_post_thumbnail();
                     $placeholder_logo = get_field('logo', 'option');
@@ -60,7 +60,7 @@
 
                             <span class="articles__card-bottom">
                                 <span class="articles__card-date icon-calendar"><?php echo get_the_date('j F, H:i'); ?></span>
-                                <span class="articles__card-read icon-clock"><?php echo esc_html($reading_time); ?> читать</span>
+                                <span class="articles__card-read icon-clock"><?php echo $reading_time_val; ?> мин. читать</span>
                             </span>
                         </a>
                     </li>

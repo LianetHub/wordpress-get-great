@@ -14,7 +14,6 @@
         $categories = get_the_category();
         $main_cat = !empty($categories) ? $categories[0] : null;
         $reading_time = get_great_reading_time(get_the_ID()) . ' мин. читать';
-
         $data = get_great_content_with_toc(apply_filters('the_content', get_the_content()));
         $content = $data['content'];
         $toc_list = $data['toc'];
@@ -163,22 +162,72 @@
     endwhile;
 endif; ?>
 
-<!-- <section class="blog">
+<section class="articles">
     <div class="container">
-        <div class="blog__header">
-            <h2 class="blog__title">Полезные статьи <span class="blog__quantity quantity">9</span></h2>
-            <div class="blog__controls">
-                <button type="button" class="blog__prev swiper-button-prev swiper-button--grey"></button>
-                <button type="button" class="blog__next swiper-button-next swiper-button--grey"></button>
+        <?php
+        $current_post_id = get_the_ID();
+        $related_args = [
+            'post_type'      => 'post',
+            'posts_per_page' => 9,
+            'post__not_in'   => [$current_post_id],
+            'orderby'        => 'date',
+            'order'          => 'DESC',
+        ];
+
+        $related_query = new WP_Query($related_args);
+        ?>
+
+        <div class="articles__header">
+            <h2 class="articles__title title-xs">
+                Другие статьи <span class="quantity-count"><?php echo $related_query->found_posts; ?></span>
+            </h2>
+            <div class="articles__controls">
+                <button type="button" class="articles__prev swiper-button-prev swiper-button--grey"></button>
+                <button type="button" class="articles__next swiper-button-next swiper-button--grey"></button>
             </div>
         </div>
-        <div class="blog__slider swiper">
-            <ul class="swiper-wrapper">
 
+        <div class="articles__slider swiper">
+            <ul class="swiper-wrapper">
+                <?php if ($related_query->have_posts()) : ?>
+                    <?php while ($related_query->have_posts()) : $related_query->the_post();
+                        $cat = get_the_category();
+                        $cat_name = $cat ? $cat[0]->name : 'Статья';
+                        $reading_time_val = get_great_reading_time(get_the_ID());
+                        $has_thumb = has_post_thumbnail();
+                        $placeholder_logo = get_field('logo', 'option');
+                        $card_image_class = 'articles__card-image' . (!$has_thumb ? ' is-placeholder' : '');
+                    ?>
+                        <li class="swiper-slide articles__item">
+                            <a href="<?php the_permalink(); ?>" class="articles__card">
+                                <span class="articles__card-label"><?php echo esc_html($cat_name); ?></span>
+
+                                <span class="<?php echo $card_image_class; ?>">
+                                    <?php if ($has_thumb) : ?>
+                                        <?php the_post_thumbnail('full', ['class' => 'cover-image']); ?>
+                                    <?php elseif ($placeholder_logo) : ?>
+                                        <img src="<?php echo esc_url($placeholder_logo['url']); ?>"
+                                            class="placeholder-logo"
+                                            alt="<?php echo esc_attr($placeholder_logo['alt'] ?: get_bloginfo('name')); ?>">
+                                    <?php endif; ?>
+                                </span>
+
+                                <span class="articles__card-name"><?php the_title(); ?></span>
+                                <span class="articles__card-desc"><?php echo wp_trim_words(get_the_excerpt(), 25); ?></span>
+
+                                <span class="articles__card-bottom">
+                                    <span class="articles__card-date icon-calendar"><?php echo get_the_date('j F, H:i'); ?></span>
+                                    <span class="articles__card-read icon-clock"><?php echo $reading_time_val; ?> мин. читать</span>
+                                </span>
+                            </a>
+                        </li>
+                    <?php endwhile;
+                    wp_reset_postdata(); ?>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
-</section> -->
+</section>
 <?php require_once(TEMPLATE_PATH . '_presentation.php'); ?>
 
 

@@ -12,6 +12,7 @@ if (!$show_gratitudes) return;
 
 $hint = get_field('gratitudes_hint', 'option') ?: 'Благодарности';
 $title = get_field('gratitudes_title', 'option') ?: 'Благодарности клиентов';
+$title_slider = get_field('gratitudes_title_slider', 'option') ?: 'Количество';
 $gallery = get_field('gratitudes_gallery', 'option');
 
 if (!$gallery) return;
@@ -29,8 +30,8 @@ $count = count($gallery);
             <div class="gratitudes__content">
                 <div class="gratitudes__caption">
                     <div class="gratitudes__details title-xs">
-                        Письма благодарности
-                        <span class="gratitudes__details-quantity">
+                        <?php echo $title_slider; ?>
+                        <span class="quantity-count">
                             <?php echo $count; ?>
                         </span>
                     </div>

@@ -332,8 +332,6 @@ $(function () {
         }
     }
 
-
-
     if ($('.promo__slider').length) {
         const $tabs = $('.promo__tab-btn');
         const $promoSection = $('.promo');
@@ -611,6 +609,29 @@ $(function () {
             slidesPerView: 1,
         });
     });
+
+    if ($('.articles__slider').length) {
+        new Swiper('.articles__slider', {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            watchOverflow: true,
+            navigation: {
+                nextEl: '.articles__next',
+                prevEl: '.articles__prev'
+            },
+            breakpoints: {
+                767.98: {
+                    slidesPerView: 3,
+                },
+                1199.98: {
+                    slidesPerView: 3,
+                },
+                1661.98: {
+                    slidesPerView: 4,
+                },
+            }
+        })
+    }
 
     // counting animation
     const $counters = $('[data-counter]');

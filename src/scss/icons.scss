@@ -17,7 +17,9 @@
 		display: block;
 	}
 }
-
+.icon-eye:before {
+	content: "\e912";
+}
 .icon-cross:before {
 	content: "\e90b";
 }
