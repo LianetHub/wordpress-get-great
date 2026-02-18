@@ -122,6 +122,11 @@ function my_register_blocks()
 			'desc'  => 'Секция со слайдером изображений и карточками показателей',
 			'icon'  => 'performance',
 		],
+		'other-services' => [
+			'title' => 'Другие услуги',
+			'desc'  => 'Список ссылок на другие услуги',
+			'icon'  => 'randomize',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
@@ -158,6 +163,16 @@ function force_source_value_on_options_page($value, $post_id, $field)
 	return $value;
 }
 
+
+add_filter('allowed_block_types_all', function ($allowed_blocks, $editor_context) {
+	if ($editor_context->post->post_type !== 'services') {
+		if (isset($allowed_blocks['acf/other-services'])) {
+			unset($allowed_blocks['acf/other-services']);
+		}
+	}
+	return $allowed_blocks;
+}, 10, 2);
+
 add_filter('acf/prepare_field', 'fix_all_source_fields_on_options_page');
 function fix_all_source_fields_on_options_page($field)
 {
@@ -185,6 +200,8 @@ add_action('acf/input/admin_head', function () {
         </style>';
 	}
 });
+
+
 
 add_action('acf/input/admin_head', function () {
 ?>

@@ -2992,7 +2992,23 @@ body {
 .promo.promo--services {
     min-height: 41.25rem;
     height: 100%;
-    padding: 6.25rem 0 4rem
+    padding: 6.25rem 0 6.25rem
+}
+
+.promo.promo--services .promo__side {
+    padding-top: 1.5rem
+}
+
+.promo.promo--services .promo__actions {
+    -webkit-box-ordinal-group: 0;
+    -ms-flex-order: -1;
+    order: -1
+}
+
+.promo.promo--services .promo__slider {
+    position: absolute;
+    inset: 0;
+    z-index: 1
 }
 
 .promo__top {
@@ -3254,12 +3270,12 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
     gap: 1.5rem
 }
 
@@ -5405,6 +5421,52 @@ body {
     transition: margin .3s ease
 }
 
+.other-services__grid {
+    margin-top: 1.125rem;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[4];
+    grid-template-columns: repeat(4, 1fr);
+    border-top: .0625rem solid #d5d7da;
+    border-left: .0625rem solid #d5d7da;
+    -webkit-column-gap: .125rem;
+    -moz-column-gap: .125rem;
+    column-gap: .125rem
+}
+
+.other-services__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1.5rem .75rem 1.5rem 1.125rem;
+    color: #535862;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 120%;
+    border-bottom: .0625rem solid #d5d7da;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.other-services__item:nth-child(4n+4) {
+    border-right: .0625rem solid #d5d7da
+}
+
+.other-services__item:last-child {
+    border-right: .0625rem solid #d5d7da
+}
+
+.other-services__item::before {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+    color: #a4a7ae
+}
+
 .contacts {
     margin-top: 1.5rem
 }
@@ -6875,6 +6937,12 @@ body {
         margin-top: 1rem
     }
 
+    .promo__controls {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end
+    }
+
     .cases__list {
         gap: 1.5rem
     }
@@ -7657,6 +7725,13 @@ body {
 }
 
 @media (max-width:991.98px) {
+    .promo.promo--services {
+        padding: 4.5rem 0 4rem;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end
+    }
+
     .founder__main {
         position: relative
     }

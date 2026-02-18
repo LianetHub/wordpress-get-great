@@ -28,7 +28,23 @@
 	&.promo--services {
 		min-height: rem(660);
 		height: 100%;
-		padding: rem(100) 0 rem(64);
+		padding: rem(100) 0 rem(100);
+
+		@media (max-width: $md3) {
+			padding: rem(72) 0 rem(64);
+			justify-content: flex-end;
+		}
+		.promo__side {
+			padding-top: rem(24);
+		}
+		.promo__actions {
+			order: -1;
+		}
+		.promo__slider {
+			position: absolute;
+			inset: 0;
+			z-index: $ui-index-1;
+		}
 	}
 
 	// .promo__top
@@ -370,9 +386,12 @@
 	// .promo__controls
 	&__controls {
 		display: flex;
-		justify-content: flex-end;
 		align-items: center;
+		justify-content: flex-start;
 		gap: 1.5rem;
+		@media (min-width: $md3) {
+			justify-content: flex-end;
+		}
 	}
 	// .promo__pagination
 	&__pagination {

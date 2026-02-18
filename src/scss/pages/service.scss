@@ -1,0 +1,44 @@
+@use "sass:color";
+@use "sass:math";
+@use "mixins" as *;
+@use "variables" as *;
+@use "fonts";
+@use "icons";
+
+.other-services {
+	// .other-services__title
+	&__title {
+	}
+	// .other-services__grid
+	&__grid {
+		margin-top: rem(18);
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		border-top: rem(1) solid #d5d7da;
+		border-left: rem(1) solid #d5d7da;
+
+		column-gap: rem(2);
+	}
+	// .other-services__item
+	&__item {
+		display: flex;
+		align-items: center;
+		padding: 1.5rem rem(12) 1.5rem rem(18);
+		color: #535862;
+		font-size: 1.25rem;
+		font-weight: 400;
+		line-height: 120%;
+		border-bottom: rem(1) solid #d5d7da;
+		justify-content: space-between;
+		&:nth-child(4n + 4) {
+			border-right: rem(1) solid #d5d7da;
+		}
+		&:last-child {
+			border-right: rem(1) solid #d5d7da;
+		}
+		&::before {
+			order: 1;
+			color: #a4a7ae;
+		}
+	}
+}

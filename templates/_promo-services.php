@@ -68,7 +68,6 @@ $promo_slides = get_field('promo_slides');
                 <div class="promo__slide swiper-slide promo__slide--default">
                     <div class="container">
                         <div class="promo__offer">
-                            <?php require(TEMPLATE_PATH . '/components/breadcrumbs.php'); ?>
                             <h1 class="promo__title title"><?php the_title(); ?></h1>
                         </div>
                     </div>
