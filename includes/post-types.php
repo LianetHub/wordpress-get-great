@@ -3,26 +3,6 @@
 add_action('init', 'register_custom_entities');
 function register_custom_entities()
 {
-    register_taxonomy('service_cat', 'services', [
-        'labels' => [
-            'name'              => 'Категории услуг',
-            'singular_name'     => 'Категория услуги',
-            'search_items'      => 'Искать категории услуг',
-            'all_items'         => 'Все категории услуг',
-            'parent_item'       => 'Родительская категория услуги',
-            'parent_item_colon' => 'Родительская категория услуги:',
-            'edit_item'         => 'Изменить категорию услуги',
-            'update_item'       => 'Обновить категорию услуги',
-            'add_new_item'      => 'Добавить новую категорию услуг',
-            'new_item_name'     => 'Название новой категории услуг',
-            'menu_name'         => 'Категории услуг',
-            'back_to_items'     => '← Назад к категориям услуг',
-        ],
-        'hierarchical'      => true,
-        'show_in_rest'      => true,
-        'rewrite'           => ['slug' => 'uslugi', 'with_front' => false],
-    ]);
-
     register_post_type('services', [
         'labels' => [
             'name'               => 'Услуги',
@@ -41,7 +21,7 @@ function register_custom_entities()
         'has_archive'        => 'uslugi',
         'menu_icon'          => 'dashicons-admin-tools',
         'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
-        'rewrite'            => ['slug' => 'uslugi/%service_cat%', 'with_front' => false],
+        'rewrite'            => ['slug' => 'uslugi', 'with_front' => false],
         'show_in_rest'       => true,
     ]);
 
@@ -91,15 +71,6 @@ function register_custom_entities()
 add_filter('post_type_link', 'custom_taxonomy_permalinks', 10, 2);
 function custom_taxonomy_permalinks($post_link, $post)
 {
-    if ($post->post_type === 'services' && strpos($post_link, '%service_cat%') !== false) {
-        $terms = get_the_terms($post->ID, 'service_cat');
-        if (!empty($terms) && !is_wp_error($terms)) {
-            return str_replace('%service_cat%', $terms[0]->slug, $post_link);
-        } else {
-            return str_replace('%service_cat%', 'general', $post_link);
-        }
-    }
-
     if ($post->post_type === 'portfolio' && strpos($post_link, '%portfolio_cat%') !== false) {
         $terms = get_the_terms($post->ID, 'portfolio_cat');
         if (!empty($terms) && !is_wp_error($terms)) {
@@ -115,15 +86,6 @@ function custom_taxonomy_permalinks($post_link, $post)
 add_filter('nav_menu_link_attributes', 'fix_custom_menu_links', 10, 2);
 function fix_custom_menu_links($atts, $item)
 {
-    if (isset($atts['href']) && strpos($atts['href'], '%service_cat%') !== false) {
-        $terms = get_the_terms($item->object_id, 'service_cat');
-        if (!empty($terms) && !is_wp_error($terms)) {
-            $atts['href'] = str_replace('%service_cat%', $terms[0]->slug, $atts['href']);
-        } else {
-            $atts['href'] = str_replace('%service_cat%/', '', $atts['href']);
-        }
-    }
-
     if (isset($atts['href']) && strpos($atts['href'], '%portfolio_cat%') !== false) {
         $terms = get_the_terms($item->object_id, 'portfolio_cat');
         if (!empty($terms) && !is_wp_error($terms)) {
@@ -139,10 +101,6 @@ function fix_custom_menu_links($atts, $item)
 add_filter('post_type_archive_link', 'fix_cpt_archive_links', 10, 2);
 function fix_cpt_archive_links($link, $post_type)
 {
-    if ($post_type === 'services') {
-        return str_replace('%service_cat%/', '', $link);
-    }
-
     if ($post_type === 'portfolio') {
         return str_replace('%portfolio_cat%/', '', $link);
     }
@@ -323,7 +281,7 @@ add_filter('wp_link_query_args', function ($query) {
 });
 
 add_filter('wp_link_query', function ($results, $query) {
-    $taxonomies = ['service_cat', 'portfolio_cat', 'category'];
+    $taxonomies = ['portfolio_cat', 'category'];
 
     $args = [
         'taxonomy'   => $taxonomies,
