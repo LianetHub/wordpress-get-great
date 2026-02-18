@@ -334,59 +334,91 @@ $(function () {
     }
 
     if ($('.promo__slider').length) {
-        const $tabs = $('.promo__tab-btn');
         const $promoSection = $('.promo');
+        const $tabs = $('.promo__tab-btn');
         const $slideSourceInput = $('.js-slide-source');
+        const $nextBtn = $('.promo__next');
         const startSlide = $promoSection.data('initial') || 0;
 
         const updateSourceInput = (swiper) => {
-            const activeSlide = swiper.slides[swiper.realIndex];
-            const title = $(activeSlide).attr('data-title') || ('Слайд ' + (swiper.realIndex + 1));
-            $slideSourceInput.val(title);
+            if ($slideSourceInput.length) {
+                const activeSlide = swiper.slides[swiper.realIndex];
+                const title = $(activeSlide).attr('data-title') || ('Слайд ' + (swiper.realIndex + 1));
+                $slideSourceInput.val(title);
+            }
         };
 
         const promoSlider = new Swiper('.promo__slider', {
             initialSlide: startSlide,
             slidesPerView: 1,
+            loop: $tabs.length === 0,
             effect: 'fade',
-            fadeEffect: { crossFade: true },
+            fadeEffect: {
+                crossFade: true
+            },
             speed: 800,
             autoplay: {
                 delay: 15000,
                 disableOnInteraction: false,
                 stopOnLastSlide: false
             },
+            navigation: {
+                nextEl: '.promo__next',
+                prevEl: '.promo__prev',
+            },
+            pagination: {
+                el: '.promo__pagination',
+                type: 'fraction',
+                formatFractionCurrent: function (number) {
+                    return number < 10 ? '0' + number : number;
+                },
+                formatFractionTotal: function (number) {
+                    return number < 10 ? '0' + number : number;
+                },
+                renderFraction: function (currentClass, totalClass) {
+                    return '<span class="' + currentClass + '"></span>' +
+                        ' / ' +
+                        '<span class="' + totalClass + '"></span>';
+                }
+            },
             on: {
                 init: function (swiper) {
                     let delay = swiper.params.autoplay.delay;
-                    $tabs.css('--counting-speed', delay / 1000 + 's');
 
-                    $tabs.each(function () {
-                        const rect = $(this).find('rect')[0];
-                        if (rect) {
-                            const length = rect.getTotalLength();
-                            rect.style.strokeDasharray = length;
-                            rect.style.strokeDashoffset = length;
-                            rect.style.transition = 'none';
-                        }
-                    });
+                    if ($tabs.length) {
+                        $tabs.css('--counting-speed', delay / 1000 + 's');
+                        $tabs.each(function () {
+                            const rect = $(this).find('rect')[0];
+                            if (rect) {
+                                const length = rect.getTotalLength();
+                                rect.style.strokeDasharray = length;
+                                rect.style.strokeDashoffset = length;
+                                rect.style.transition = 'none';
+                            }
+                        });
+                        $tabs.removeClass('active counting');
+                    }
 
-                    $tabs.removeClass('active counting');
+                    if ($nextBtn.length) {
+                        $nextBtn.css('--counting-speed', delay / 1000 + 's');
+                        $nextBtn.addClass('counting');
+                    }
 
                     updateSourceInput(swiper);
 
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             const activeIndex = swiper.realIndex;
-                            const $activeTab = $tabs.eq(activeIndex);
-                            const activeRect = $activeTab.find('rect')[0];
 
-                            if (activeRect) {
-                                void $activeTab[0].offsetWidth;
-                                activeRect.style.transition = '';
+                            if ($tabs.length) {
+                                const $activeTab = $tabs.eq(activeIndex);
+                                const activeRect = $activeTab.find('rect')[0];
+                                if (activeRect) {
+                                    void $activeTab[0].offsetWidth;
+                                    activeRect.style.transition = '';
+                                }
+                                $activeTab.addClass('active counting');
                             }
-
-                            $activeTab.addClass('active counting');
                         });
                     });
                 },
@@ -395,44 +427,60 @@ $(function () {
                     const activeIndex = swiper.realIndex;
                     let delay = swiper.params.autoplay.delay;
                     let speed = swiper.params.speed;
-
-                    $tabs.css('--counting-speed', (delay + speed) / 1000 + 's');
+                    let fullPeriod = (delay + speed) / 1000 + 's';
 
                     updateSourceInput(swiper);
 
-                    $tabs.each(function () {
-                        const rect = $(this).find('rect')[0];
-                        if (rect) {
-                            const length = rect.getTotalLength();
-                            $(this).removeClass('active counting');
-                            rect.style.transition = 'none';
-                            rect.style.strokeDashoffset = length;
+                    if ($nextBtn.length) {
+                        $nextBtn.removeClass('counting');
+                        void $nextBtn[0].offsetWidth;
+                        if (swiper.autoplay.running) {
+                            $nextBtn.css('--counting-speed', fullPeriod);
+                            $nextBtn.addClass('counting');
                         }
-                    });
-
-                    if (swiper.autoplay.running) {
-                        void $tabs[activeIndex].offsetWidth;
-                        const activeRect = $tabs.eq(activeIndex).find('rect')[0];
-                        if (activeRect) {
-                            activeRect.style.transition = '';
-                        }
-                        $tabs.eq(activeIndex).addClass('active counting');
-                    } else {
-                        $tabs.eq(activeIndex).addClass('active');
                     }
+
+                    if ($tabs.length) {
+                        $tabs.css('--counting-speed', fullPeriod);
+                        $tabs.each(function () {
+                            const rect = $(this).find('rect')[0];
+                            if (rect) {
+                                const length = rect.getTotalLength();
+                                $(this).removeClass('active counting');
+                                rect.style.transition = 'none';
+                                rect.style.strokeDashoffset = length;
+                            }
+                        });
+
+                        if (swiper.autoplay.running) {
+                            void $tabs[activeIndex].offsetWidth;
+                            const activeRect = $tabs.eq(activeIndex).find('rect')[0];
+                            if (activeRect) {
+                                activeRect.style.transition = '';
+                            }
+                            $tabs.eq(activeIndex).addClass('active counting');
+                        } else {
+                            $tabs.eq(activeIndex).addClass('active');
+                        }
+                    }
+                },
+
+                autoplayStop: function () {
+                    if ($tabs.length) $tabs.removeClass('counting');
+                    if ($nextBtn.length) $nextBtn.removeClass('counting');
                 }
             },
         });
 
-        $tabs.on('click', function (e) {
-            e.preventDefault();
-            promoSlider.autoplay.stop();
-            $tabs.removeClass('counting');
-            const index = $(this).index();
-            promoSlider.slideTo(index);
-        });
+        if ($tabs.length) {
+            $tabs.on('click', function (e) {
+                e.preventDefault();
+                promoSlider.autoplay.stop();
+                const index = $(this).index();
+                promoSlider.slideTo(index);
+            });
+        }
     }
-
     if ($('.gratitudes__slider').length) {
         new Swiper('.gratitudes__slider', {
             slidesPerView: 1.05,

@@ -25,6 +25,23 @@
 		height: 100%;
 		padding: rem(200) 0 rem(80);
 	}
+	&.promo--services {
+		min-height: rem(660);
+		height: 100%;
+		padding: rem(100) 0 rem(64);
+	}
+
+	// .promo__top
+	&__top {
+		width: 100%;
+		.breadcrumbs {
+			.breadcrumbs__current {
+				&[aria-current="page"] {
+					color: #a4a7ae;
+				}
+			}
+		}
+	}
 	// .promo__actions
 	&__actions {
 		@media (min-width: $md3) {
@@ -349,6 +366,33 @@
 		.form__policy a {
 			color: #36bffa;
 		}
+	}
+	// .promo__controls
+	&__controls {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 1.5rem;
+	}
+	// .promo__pagination
+	&__pagination {
+		&.swiper-pagination.swiper-pagination-fraction {
+			color: #a4a7ae;
+			.swiper-pagination-current {
+				color: #fff;
+			}
+		}
+	}
+	// .promo__controls-btns
+	&__controls-btns {
+		display: flex;
+		gap: 0.375rem;
+	}
+	// .promo__prev
+	&__prev {
+	}
+	// .promo__next
+	&__next {
 	}
 }
 

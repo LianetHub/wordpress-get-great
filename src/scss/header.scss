@@ -123,6 +123,9 @@
 			padding-right: 1rem;
 			border-right: rem(1) solid #61656c;
 		}
+		@media (min-width: $md1) {
+			flex-wrap: nowrap;
+		}
 		@media (min-width: $md0) {
 			margin-left: 2rem;
 		}
