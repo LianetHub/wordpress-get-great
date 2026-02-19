@@ -3,6 +3,14 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
+  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  font-display: swap;
   src: url("../fonts/Gilroy-Bold.woff2") format("woff2"), url("../fonts/Gilroy-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
@@ -11,8 +19,8 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
-  font-weight: 400;
+  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -21,14 +29,6 @@
   font-display: swap;
   src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
   font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  font-display: swap;
-  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
-  font-weight: 600;
   font-style: normal;
 }
 
@@ -5485,13 +5485,12 @@ body {
   margin-top: 1.125rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-  grid-template-columns: repeat(4, 1fr);
   border-top: 0.0625rem solid #d5d7da;
   border-left: 0.0625rem solid #d5d7da;
   -webkit-column-gap: 0.125rem;
      -moz-column-gap: 0.125rem;
           column-gap: 0.125rem;
+  border-right: 0.0625rem solid #d5d7da;
 }
 
 .other-services__item {
@@ -5501,23 +5500,13 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 1.5rem 0.75rem 1.5rem 1.125rem;
   color: #535862;
-  font-size: 1.25rem;
-  font-weight: 400;
   line-height: 120%;
   border-bottom: 0.0625rem solid #d5d7da;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-
-.other-services__item:nth-child(4n+4) {
-  border-right: 0.0625rem solid #d5d7da;
-}
-
-.other-services__item:last-child {
-  border-right: 0.0625rem solid #d5d7da;
+  padding: 1.2em 0.6em 1.2em 0.9em;
 }
 
 .other-services__item::before {
@@ -6070,6 +6059,16 @@ body {
 
   .services__btn {
     width: auto;
+  }
+
+  .other-services__grid {
+    border-right: 0;
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .other-services__item:last-child {
+    border-right: 0.0625rem solid #d5d7da;
   }
 }
 
@@ -7125,6 +7124,16 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .other-services__grid {
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .other-services__item {
+    padding: 1.5rem 0.75rem 1.5rem 1.125rem;
+    font-size: 1.25rem;
+  }
+
   .policy__content {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
@@ -7611,6 +7620,15 @@ body {
   .services__project-desc {
     font-size: 1.25rem;
   }
+
+  .other-services__grid {
+    -ms-grid-columns: (1fr)[4];
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .other-services__item:nth-child(4n+4) {
+    border-right: 0.0625rem solid #d5d7da;
+  }
 }
 
 @media (min-width: 1581px) {
@@ -7982,6 +8000,18 @@ body {
   .numbers__row {
     -ms-grid-columns: (1fr)[2];
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 991.98px) and (min-width: 575.98px) {
+  .other-services__item:nth-child(2n+2) {
+    border-right: 0.0625rem solid #d5d7da;
+  }
+}
+
+@media (max-width: 1399.98px) and (min-width: 991.98px) {
+  .other-services__item:nth-child(3n+3) {
+    border-right: 0.0625rem solid #d5d7da;
   }
 }
 
