@@ -137,6 +137,11 @@ function my_register_blocks()
 			'desc'  => 'Этапы работы с нумерованным списком',
 			'icon'  => 'editor-ol',
 		],
+		'licenses' => [
+			'title' => 'Лицензии и сертификаты',
+			'desc'  => 'Сетка изображений лицензий с названиями',
+			'icon'  => 'awards',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {

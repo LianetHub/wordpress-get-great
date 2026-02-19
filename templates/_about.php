@@ -14,11 +14,15 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
     return;
 }
 
-$hint  = get_field('about_hint', $prefix) ?: "О нас";
+$hint  = get_field('about_hint', $prefix);
 $title = get_field('about_title', $prefix);
+$tabs  = get_field('about_tabs', $prefix);
+$tabs_count = $tabs ? count($tabs) : 0;
+
+$tag = $title ? 'section' : 'div';
 ?>
 
-<section class="about">
+<<?php echo $tag; ?> class="about">
     <div class="about__wrapper">
         <div class="container">
             <div class="about__body">
@@ -60,15 +64,17 @@ $title = get_field('about_title', $prefix);
                     <?php endif; ?>
 
                     <?php if (have_rows('about_tabs', $prefix)): ?>
-                        <div class="about__tabs">
-                            <?php $i = 0;
-                            while (have_rows('about_tabs', $prefix)): the_row(); ?>
-                                <button class="about__tab btn btn-secondary <?php echo ($i === 0) ? 'active' : ''; ?>">
-                                    <?php the_sub_field('tab_name'); ?>
-                                </button>
-                            <?php $i++;
-                            endwhile; ?>
-                        </div>
+                        <?php if ($tabs_count > 1): ?>
+                            <div class="about__tabs">
+                                <?php $i = 0;
+                                while (have_rows('about_tabs', $prefix)): the_row(); ?>
+                                    <button class="about__tab btn btn-secondary <?php echo ($i === 0) ? 'active' : ''; ?>">
+                                        <?php the_sub_field('tab_name'); ?>
+                                    </button>
+                                <?php $i++;
+                                endwhile; ?>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="about__tabs-wrapper">
                             <?php $i = 0;
@@ -97,4 +103,4 @@ $title = get_field('about_title', $prefix);
             </div>
         </div>
     </div>
-</section>
+</<?php echo $tag; ?>>
