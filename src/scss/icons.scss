@@ -17,6 +17,10 @@
 		display: block;
 	}
 }
+
+.icon-help-circle:before {
+	content: "\e913";
+}
 .icon-eye:before {
 	content: "\e912";
 }

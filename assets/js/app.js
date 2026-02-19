@@ -1291,6 +1291,43 @@ $(function () {
 
     window.dynamicAdapt = new DynamicAdapt("max");
 
+    // сards tooltip
+    const cardsTooltip = new TooltipManager({
+        tooltipClass: 'cards-tooltip',
+        activeClass: 'is-active',
+        offset: 12,
+        defaultPosition: 'top'
+    });
+
+    $(document).on('pointerenter', '.cards-block__tooltip', function (e) {
+        if (e.pointerType === 'mouse') {
+            const $this = $(this);
+            const content = $this.data('tooltip-content');
+
+            if (content) {
+                cardsTooltip.show($this, content);
+            }
+        }
+    });
+
+    $(document).on('pointerleave', '.cards-block__tooltip', function (e) {
+        if (e.pointerType === 'mouse') {
+            cardsTooltip.hide();
+        }
+    });
+
+    $(document).on('click', '.cards-block__tooltip', function (e) {
+        if (e.pointerType !== 'mouse') {
+            const $this = $(this);
+            const content = $this.data('tooltip-content');
+
+            if (cardsTooltip.$activeElement && cardsTooltip.$activeElement.is($this)) {
+                cardsTooltip.hide();
+            } else if (content) {
+                cardsTooltip.show($this, content);
+            }
+        }
+    });
 
     // ==== Article actions
 

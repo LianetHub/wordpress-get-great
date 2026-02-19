@@ -3,14 +3,6 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
-    font-weight: 400;
-    font-style: normal
-}
-
-@font-face {
-    font-family: Gilroy;
-    font-display: swap;
     src: url(../fonts/Gilroy-Bold.woff2) format("woff2"), url(../fonts/Gilroy-Bold.woff) format("woff");
     font-weight: 700;
     font-style: normal
@@ -19,8 +11,8 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/Gilroy-SemiBold.woff2) format("woff2"), url(../fonts/Gilroy-SemiBold.woff) format("woff");
-    font-weight: 600;
+    src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
+    font-weight: 400;
     font-style: normal
 }
 
@@ -29,6 +21,14 @@
     font-display: swap;
     src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
     font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Gilroy;
+    font-display: swap;
+    src: url(../fonts/Gilroy-SemiBold.woff2) format("woff2"), url(../fonts/Gilroy-SemiBold.woff) format("woff");
+    font-weight: 600;
     font-style: normal
 }
 
@@ -55,6 +55,10 @@
 
 [class*=" icon-"]:before, [class^=icon-]:before {
     display: block
+}
+
+.icon-help-circle:before {
+    content: "\e913"
 }
 
 .icon-eye:before {
@@ -5456,6 +5460,82 @@ body {
     color: #a4a7ae
 }
 
+.cards-block__content {
+    display: -ms-grid;
+    display: grid;
+    gap: 1.125rem;
+    margin-top: 1.125rem
+}
+
+.cards-block__column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    background: #f5f5f5;
+    position: relative;
+    min-height: 13.75rem;
+    padding: 1.25rem
+}
+
+.cards-block__icon {
+    width: 3rem;
+    height: 3rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: #fff
+}
+
+.cards-block__icon svg {
+    width: 2.25rem;
+    -o-object-fit: contain;
+    object-fit: contain
+}
+
+.cards-block__bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    gap: .875rem
+}
+
+.cards-block__text {
+    color: #181d27;
+    font-weight: 700;
+    line-height: 109.091%;
+    font-size: 1.125rem
+}
+
+.cards-block__tooltip {
+    cursor: pointer;
+    color: #535862;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    font-size: 1.125rem
+}
+
 .contacts {
     margin-top: 1.5rem
 }
@@ -5998,6 +6078,11 @@ body {
 
     .other-services__item:last-child {
         border-right: .0625rem solid #d5d7da
+    }
+
+    .cards-block__content {
+        -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr)
     }
 }
 
@@ -6651,6 +6736,21 @@ body {
         font-size: 1rem
     }
 
+    .cards-block__column {
+        min-height: 16.875rem;
+        padding: 1.5rem
+    }
+
+    .cards-block__text {
+        font-size: 1.25rem
+    }
+
+    .cards-block__tooltip {
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 1.25rem
+    }
+
     .contacts {
         background-size: cover;
         background-repeat: no-repeat;
@@ -7059,6 +7159,13 @@ body {
         font-size: 1.25rem
     }
 
+    .cards-block__content {
+        margin-top: 1.5rem;
+        gap: 1.5rem;
+        -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr)
+    }
+
     .policy__content {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
@@ -7284,6 +7391,21 @@ body {
 
     .services__bottom {
         display: none
+    }
+
+    .cards-block__content {
+        -ms-grid-columns: (1fr)[12];
+        grid-template-columns: repeat(12, 1fr)
+    }
+
+    .cards-block__column--span-3 {
+        -ms-grid-column-span: 3;
+        grid-column: span 3
+    }
+
+    .cards-block__column--span-5 {
+        -ms-grid-column-span: 3;
+        grid-column: span 3
     }
 
     .contacts__body {
@@ -7554,6 +7676,10 @@ body {
     .other-services__item:nth-child(4n+4) {
         border-right: .0625rem solid #d5d7da
     }
+
+    .cards-block__text {
+        font-size: 1.375rem
+    }
 }
 
 @media (min-width:1581px) {
@@ -7657,6 +7783,16 @@ body {
 
     .services__project-desc {
         font-size: 1.375rem
+    }
+
+    .cards-block__content {
+        -ms-grid-columns: (1fr)[15];
+        grid-template-columns: repeat(15, 1fr)
+    }
+
+    .cards-block__column--span-5 {
+        -ms-grid-column-span: 5;
+        grid-column: span 5
     }
 }
 
@@ -8198,6 +8334,10 @@ body {
 
     .service-card:hover .service-card__btn {
         margin-bottom: 0
+    }
+
+    .cards-block__tooltip:hover {
+        color: #ff4405
     }
 
     .contacts__item-link:hover {

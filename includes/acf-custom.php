@@ -127,6 +127,11 @@ function my_register_blocks()
 			'desc'  => 'Список ссылок на другие услуги',
 			'icon'  => 'randomize',
 		],
+		'cards-block' => [
+			'title' => 'Мы делаем (Карточки)',
+			'desc'  => 'Сетка карточек с иконками, текстом и тултипами',
+			'icon'  => 'layout',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
