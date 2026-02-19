@@ -132,6 +132,11 @@ function my_register_blocks()
 			'desc'  => 'Сетка карточек с иконками, текстом и тултипами',
 			'icon'  => 'layout',
 		],
+		'how-we-work' => [
+			'title' => 'Как мы работаем',
+			'desc'  => 'Этапы работы с нумерованным списком',
+			'icon'  => 'editor-ol',
+		],
 	];
 
 	foreach ($blocks as $name => $settings) {
