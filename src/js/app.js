@@ -682,6 +682,28 @@ $(function () {
         })
     }
 
+    if ($('.how-we-work__slider').length) {
+        new Swiper('.how-we-work__slider', {
+            slidesPerView: "auto",
+            spaceBetween: 24,
+            watchOverflow: true,
+            breakpoints: {
+                767.98: {
+                    spaceBetween: 36,
+                },
+                991.98: {
+                    spaceBetween: 42,
+                },
+                1199.98: {
+                    spaceBetween: 48,
+                },
+                1661.98: {
+                    spaceBetween: 56,
+                },
+            }
+        })
+    }
+
     // counting animation
     const $counters = $('[data-counter]');
 

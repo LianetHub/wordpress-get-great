@@ -30,7 +30,7 @@
 	&.promo--services {
 		min-height: rem(660);
 		height: 100%;
-		padding: rem(100) 0 rem(100);
+		padding: rem(100) 0 rem(64);
 
 		@media (max-width: $md3) {
 			min-height: rem(650);
@@ -44,6 +44,10 @@
 
 		.promo__side {
 			padding-top: rem(24);
+		}
+
+		.promo__slide {
+			padding-bottom: rem(64);
 		}
 
 		.promo__actions {
@@ -60,6 +64,7 @@
 	// .promo__top
 	&__top {
 		width: 100%;
+		order: -1;
 
 		.breadcrumbs {
 			.breadcrumbs__current {

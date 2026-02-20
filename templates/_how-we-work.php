@@ -27,25 +27,27 @@ if ($items) :
                     <div class="how-we-work__hint hint"><?php echo esc_html($hint); ?></div>
                 <?php endif; ?>
                 <?php if ($title) : ?>
-                    <h2 class="how-we-work__title title"><?php echo esc_html($title); ?></h2>
+                    <h2 class="how-we-work__title title-lg"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
             </div>
 
-            <ol class="how-we-work__list">
-                <?php foreach ($items as $item) :
-                    $caption = $item['caption'];
-                    $desc = $item['description'];
-                ?>
-                    <li class="how-we-work__item">
-                        <?php if ($caption) : ?>
-                            <div class="how-we-work__caption"><?php echo esc_html($caption); ?></div>
-                        <?php endif; ?>
-                        <?php if ($desc) : ?>
-                            <div class="how-we-work__desc"><?php echo esc_html($desc); ?></div>
-                        <?php endif; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ol>
+            <div class="how-we-work__slider swiper">
+                <ol class="swiper-wrapper">
+                    <?php foreach ($items as $item) :
+                        $caption = $item['caption'];
+                        $desc = $item['description'];
+                    ?>
+                        <li class="how-we-work__item swiper-slide">
+                            <?php if ($caption) : ?>
+                                <div class="how-we-work__caption"><?php echo esc_html($caption); ?></div>
+                            <?php endif; ?>
+                            <?php if ($desc) : ?>
+                                <div class="how-we-work__desc"><?php echo esc_html($desc); ?></div>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
         </div>
     </section>
 <?php endif; ?>
