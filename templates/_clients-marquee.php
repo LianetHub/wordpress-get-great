@@ -20,19 +20,22 @@ if ($clients): ?>
                 <div class="marquee__slider swiper marquee__slider--images">
                     <div class="swiper-wrapper">
                         <?php foreach ($clients as $client):
+                            if (!empty($client['is_logo_hidden'])) continue;
+
                             $logo = $client['logo'];
                             $project = $client['case_project'];
+                            $show_tooltip_field = isset($client['show_tooltip']) ? $client['show_tooltip'] : true;
+
                             $has_tooltip = false;
                             $tooltip_content = '';
 
-                            if ($project) {
+                            if ($project && $show_tooltip_field) {
                                 $post_id = $project->ID;
                                 $client_name = get_field('client_name', $post_id);
                                 $desc = get_the_excerpt($post_id);
 
                                 if (!empty($client_name) && !empty($desc)) {
                                     $has_tooltip = true;
-
                                     $html = '<strong>' . $client_name . '</strong><br>' . $desc;
                                     $tooltip_content = htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
                                 }
