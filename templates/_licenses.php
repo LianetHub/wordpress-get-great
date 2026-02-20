@@ -41,8 +41,12 @@ if ($items) :
                 <?php foreach ($items as $item) :
                     $image = $item['image'];
                     $name = $item['name'];
+                    $has_border = !empty($item['has_border']);
+
+                    $col_value = $item['licenses_columns'] ?: '4';
+                    $item_span_class = ($col_value === '5') ? 'licenses__item--span-4' : 'licenses__item--span-5';
                 ?>
-                    <li class="licenses__item">
+                    <li class="licenses__item <?php echo $item_span_class; ?> <?php echo $has_border ? 'has-border' : ''; ?>">
                         <?php if ($image) : ?>
                             <div class="licenses__item-image">
                                 <img src="<?php echo esc_url($image['url']); ?>"

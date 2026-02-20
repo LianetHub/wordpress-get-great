@@ -287,7 +287,6 @@
 			max-width: 45rem;
 			align-items: center;
 			text-align: center;
-			gap: 0.875rem;
 			margin: 0 auto;
 		}
 	}
@@ -445,64 +444,74 @@
 	&__header {
 		display: flex;
 		flex-direction: column;
-
 		gap: 1rem;
 
 		@media (min-width: $md4) {
-			max-width: 46.75rem;
+			max-width: 50rem;
 			align-items: center;
 			text-align: center;
 			margin: 0 auto;
 		}
 	}
 
-	// .licenses__hint
-	&__hint {}
-
-	// .licenses__title
-	&__title {}
-
-	// .licenses__subtitle
-	&__subtitle {}
-
-
-	// .licenses__list
 	&__list {
 		margin-top: 2.62rem;
 		display: grid;
 		gap: 1.625rem;
 
-		@media (min-width:$md5) {
+		@media (min-width: $md5) {
 			grid-template-columns: repeat(2, 1fr);
-
 		}
 
-		@media (min-width:$md2) {
-			margin-top: 1.66rem;
+		@media (min-width: $md2) {
+			margin-top: rem(42);
 			gap: rem(42);
-			grid-template-columns: repeat(4, 1fr);
-
+			grid-template-columns: repeat(20, 1fr);
 		}
 	}
 
-	// .licenses__item
 	&__item {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: rem(12);
 
-		&:nth-child(odd) {
+		grid-column: span 2;
+
+		@media (min-width: $md5) {
+			grid-column: span 1;
+		}
+
+		@media (min-width: $md2) {
+			&--span-5 {
+				grid-column: span 5;
+			}
+
+			&--span-4 {
+				grid-column: span 4;
+			}
+		}
+
+		&.has-border {
 			.licenses__item-image {
 				border: rem(1) solid #D5D7DA;
 			}
 		}
 	}
 
+	&__item-image {
+		aspect-ratio: math.div(302, 124);
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
+		& img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+	}
 
-	// .licenses__item-name
 	&__item-name {
-
 		font-size: 1.125rem;
 		font-weight: 500;
 		line-height: 144.444%;
