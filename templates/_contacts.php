@@ -85,6 +85,10 @@ if ($section_bg) {
                             <div class="contacts__item-value">
                                 <div class="contacts__socials socials">
                                     <?php while (have_rows('social_links', 'option')): the_row();
+                                        $show_item = get_sub_field('show_item');
+
+                                        if (!$show_item) continue;
+
                                         $icon = get_sub_field('icon');
                                         $link = get_sub_field('link');
                                         $hover_color = get_sub_field('hover_color');

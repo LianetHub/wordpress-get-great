@@ -31,6 +31,10 @@ if ($is_error_404) {
                 <?php if (have_rows('social_links', 'option')): ?>
                     <div class="footer__socials socials">
                         <?php while (have_rows('social_links', 'option')): the_row();
+                            $show_item = get_sub_field('show_item');
+
+                            if (!$show_item) continue;
+
                             $icon = get_sub_field('icon');
                             $link = get_sub_field('link');
                             $hover_color = get_sub_field('hover_color');
