@@ -14,16 +14,23 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
     return;
 }
 
-$hint  = get_field('about_hint', $prefix);
-$title = get_field('about_title', $prefix);
-$tabs  = get_field('about_tabs', $prefix);
+$hint     = get_field('about_hint', $prefix);
+$title    = get_field('about_title', $prefix);
+$tabs     = get_field('about_tabs', $prefix);
+$bg_color = get_field('about_bg_color', $prefix);
 $tabs_count = $tabs ? count($tabs) : 0;
 
 $tag = $title ? 'section' : 'div';
+$has_wrapper = ($bg_color === 'blue');
+
+$is_service = (get_post_type() === 'services');
 ?>
 
 <<?php echo $tag; ?> class="about">
-    <div class="about__wrapper">
+    <?php if ($has_wrapper): ?>
+        <div class="about__wrapper">
+        <?php endif; ?>
+
         <div class="container">
             <div class="about__body">
                 <div class="about__visual">
@@ -48,7 +55,11 @@ $tag = $title ? 'section' : 'div';
                     <svg class="about__mask hidden">
                         <defs>
                             <clipPath id="about-mask" clipPathUnits="objectBoundingBox">
-                                <path transform="scale(0.00135135, 0.00129533)" d="M562.841 0C567.008 0 571.103 1.08483 574.723 3.14776L727.882 90.4211C735.374 94.6902 740 102.65 740 111.273V669C740 682.255 729.255 693 716 693H601.365C588.11 693 577.365 703.745 577.365 717V748C577.365 761.255 566.62 772 553.365 772H24C10.7452 772 0 761.255 0 748V108C0 94.7452 10.7452 84 24 84H125.627C138.882 84 149.627 73.2548 149.627 60V24C149.627 10.7452 160.372 0 173.627 0H562.841Z" />
+                                <?php if ($is_service): ?>
+                                    <path transform="scale(0.00131579, 0.00149254)" d="M564.47 60C564.47 73.2548 575.215 84 588.47 84H736C749.255 84 760 94.7452 760 108V646C760 659.255 749.255 670 736 670H190.36C177.105 670 166.36 659.255 166.36 646V609C166.36 595.745 155.615 585 142.36 585H24C10.7452 585 0 574.255 0 561V111.011C0 102.385 4.62918 94.423 12.1254 90.155L164.951 3.14352C168.57 1.08333 172.662 0 176.826 0H540.47C553.725 0 564.47 10.7452 564.47 24V60Z" />
+                                <?php else: ?>
+                                    <path transform="scale(0.00135135, 0.00129533)" d="M562.841 0C567.008 0 571.103 1.08483 574.723 3.14776L727.882 90.4211C735.374 94.6902 740 102.65 740 111.273V669C740 682.255 729.255 693 716 693H601.365C588.11 693 577.365 703.745 577.365 717V748C577.365 761.255 566.62 772 553.365 772H24C10.7452 772 0 761.255 0 748V108C0 94.7452 10.7452 84 24 84H125.627C138.882 84 149.627 73.2548 149.627 60V24C149.627 10.7452 160.372 0 173.627 0H562.841Z" />
+                                <?php endif; ?>
                             </clipPath>
                         </defs>
                     </svg>
@@ -102,5 +113,8 @@ $tag = $title ? 'section' : 'div';
                 </div>
             </div>
         </div>
-    </div>
+
+        <?php if ($has_wrapper): ?>
+        </div>
+    <?php endif; ?>
 </<?php echo $tag; ?>>

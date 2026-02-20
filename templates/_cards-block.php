@@ -14,16 +14,28 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
     return;
 }
 
+$hint = get_field('cards_block_hint', $prefix);
 $title = get_field('cards_block_title', $prefix);
+$subtitle = get_field('cards_block_subtitle', $prefix);
 $cards = get_field('cards_block_items', $prefix);
 
 if ($cards) :
 ?>
     <section class="cards-block">
         <div class="container">
-            <?php if ($title) : ?>
-                <h2 class="cards-block__title hint"><?php echo esc_html($title); ?></h2>
-            <?php endif; ?>
+            <div class="cards-block__header">
+                <?php if ($hint): ?>
+                    <div class="cards-block__hint hint"><?php echo esc_html($hint); ?></div>
+                <?php endif; ?>
+
+                <?php if ($title): ?>
+                    <h2 class="cards-block__title title-lg"><?php echo esc_html($title); ?></h2>
+                <?php endif; ?>
+
+                <?php if ($subtitle): ?>
+                    <p class="cards-block__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                <?php endif; ?>
+            </div>
 
             <div class="cards-block__content">
                 <?php foreach ($cards as $card) :
@@ -32,6 +44,7 @@ if ($cards) :
                     $text = $card['text'];
                     $tooltip = $card['tooltip'];
                     $individual_color = $card['icon_color'] ?: '#ff4d00';
+                    $desc = $card['desc'];
                 ?>
                     <div class="cards-block__column cards-block__column--<?php echo esc_attr($size); ?>">
                         <div class="cards-block__icon">
@@ -50,6 +63,9 @@ if ($cards) :
                                 <div class="cards-block__tooltip icon-help-circle" data-tooltip-content="<?php echo esc_attr($tooltip); ?>"></div>
                             <?php endif; ?>
                         </div>
+                        <?php if ($desc) : ?>
+                            <p class="cards-block__desc"><?php echo esc_html($desc); ?></p>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -21,32 +21,34 @@ $items = get_field('how_we_work_items', $prefix);
 if ($items) :
 ?>
     <section class="how-we-work">
-        <div class="container">
-            <div class="how-we-work__header">
-                <?php if ($hint) : ?>
-                    <div class="how-we-work__hint hint"><?php echo esc_html($hint); ?></div>
-                <?php endif; ?>
-                <?php if ($title) : ?>
-                    <h2 class="how-we-work__title title-lg"><?php echo esc_html($title); ?></h2>
-                <?php endif; ?>
-            </div>
+        <div class="how-we-work__wrapper">
+            <div class="container">
+                <div class="how-we-work__header">
+                    <?php if ($hint) : ?>
+                        <div class="how-we-work__hint hint"><?php echo esc_html($hint); ?></div>
+                    <?php endif; ?>
+                    <?php if ($title) : ?>
+                        <h2 class="how-we-work__title title-lg"><?php echo esc_html($title); ?></h2>
+                    <?php endif; ?>
+                </div>
 
-            <div class="how-we-work__slider swiper">
-                <ol class="swiper-wrapper">
-                    <?php foreach ($items as $item) :
-                        $caption = $item['caption'];
-                        $desc = $item['description'];
-                    ?>
-                        <li class="how-we-work__item swiper-slide">
-                            <?php if ($caption) : ?>
-                                <div class="how-we-work__caption"><?php echo esc_html($caption); ?></div>
-                            <?php endif; ?>
-                            <?php if ($desc) : ?>
-                                <div class="how-we-work__desc"><?php echo esc_html($desc); ?></div>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ol>
+                <div class="how-we-work__slider swiper">
+                    <ol class="swiper-wrapper">
+                        <?php foreach ($items as $item) :
+                            $caption = $item['caption'];
+                            $desc = $item['description'];
+                        ?>
+                            <li class="how-we-work__item swiper-slide">
+                                <?php if ($caption) : ?>
+                                    <div class="how-we-work__caption"><?php echo esc_html($caption); ?></div>
+                                <?php endif; ?>
+                                <?php if ($desc) : ?>
+                                    <div class="how-we-work__desc"><?php echo esc_html($desc); ?></div>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                </div>
             </div>
         </div>
     </section>

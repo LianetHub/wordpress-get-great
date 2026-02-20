@@ -14,16 +14,28 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
     return;
 }
 
-$title = get_field('licenses_title', $prefix) ?? "у нас есть";
+$hint = get_field('licenses_hint', $prefix) ?? "у нас есть";
+$title = get_field('licenses_title', $prefix) ?? "Все сертификации";
+$subtitle = get_field('licenses_subtitle', $prefix);
 $items = get_field('licenses_items', $prefix);
 
 if ($items) :
 ?>
     <section class="licenses">
         <div class="container">
-            <?php if ($title) : ?>
-                <h2 class="licenses__title hint"><?php echo esc_html($title); ?></h2>
-            <?php endif; ?>
+            <div class="licenses__header">
+                <?php if ($hint): ?>
+                    <div class="licenses__hint hint"><?php echo esc_html($hint); ?></div>
+                <?php endif; ?>
+
+                <?php if ($title): ?>
+                    <h2 class="licenses__title title-lg"><?php echo esc_html($title); ?></h2>
+                <?php endif; ?>
+
+                <?php if ($subtitle): ?>
+                    <p class="licenses__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                <?php endif; ?>
+            </div>
 
             <ul class="licenses__list">
                 <?php foreach ($items as $item) :

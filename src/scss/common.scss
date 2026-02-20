@@ -525,7 +525,7 @@ body {
 		gap: 1rem;
 
 		@media (min-width: $md4) {
-			max-width: 46.75rem;
+			max-width: 55rem;
 			align-items: center;
 			text-align: center;
 			margin: 0 auto;
@@ -948,7 +948,6 @@ body {
 	// .about__tabs-wrapper
 	&__tabs-wrapper {
 		&:not(:first-child) {
-
 			margin-top: 1.5rem;
 
 			@media (min-width: $md4) {
@@ -994,6 +993,9 @@ body {
 			margin-top: 2.5rem;
 		}
 	}
+
+	// .about__mask
+	&__mask {}
 }
 
 .gratitudes {
