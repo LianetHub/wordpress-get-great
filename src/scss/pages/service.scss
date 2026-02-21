@@ -46,6 +46,15 @@
 		justify-content: space-between;
 		padding: em(1.5, 1.25) em(12, 20) em(1.5, 1.25) em(18, 20);
 
+		& span {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			flex: 1 1 auto;
+		}
+
 		@media (min-width:$md5) {
 			padding: em(1.5, 1.25) em(12, 20) em(1.5, 1.25) em(18, 20);
 			border-bottom: rem(1) solid #d5d7da;

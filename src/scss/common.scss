@@ -213,6 +213,11 @@ body {
 		#f6f8fa;
 	padding-top: 4.5rem;
 
+	@media (min-width:$md3) {
+		padding-top: rem(90);
+
+	}
+
 	@media (min-width: $md2) {
 		padding-top: rem(80);
 		background:

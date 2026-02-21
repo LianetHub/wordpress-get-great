@@ -68,7 +68,7 @@ require_once(get_template_directory() . '/templates/_hero.php');
                         if ($query->have_posts()) :
                             while ($query->have_posts()) : $query->the_post(); ?>
                                 <a href="<?php the_permalink(); ?>" class="other-services__item icon-chevron-right">
-                                    <?php the_title(); ?>
+                                    <span><?php the_title(); ?></span>
                                 </a>
                             <?php endwhile;
                             wp_reset_postdata();
@@ -81,5 +81,7 @@ require_once(get_template_directory() . '/templates/_hero.php');
         </div>
     </div>
 </div>
+
+<?php require_once(TEMPLATE_PATH . '_presentation.php'); ?>
 
 <?php get_footer(); ?>
