@@ -170,6 +170,23 @@
   padding: 0;
 }
 
+.fancybox__slide.is-case-popup-slide .f-html {
+  max-width: 112.5rem;
+  width: 100%;
+  padding: 3rem 1rem 1rem;
+}
+
+.fancybox__slide.has-ajax .f-button.is-close-button {
+  --f-close-button-width: 4rem;
+  --f-close-button-height: 4rem;
+  --f-button-bg: rgba(194, 194, 194, 0.40);
+  --f-close-button-color: #000;
+  top: 0;
+  right: 0;
+  opacity: 0.7;
+  --f-button-hover-bg: rgba(194, 194, 194, 0.40);
+}
+
 .fancybox__backdrop {
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(5px);
@@ -4889,6 +4906,14 @@ body {
   margin: 3rem 0 2rem;
 }
 
+.typography-block figure:last-child {
+  margin-bottom: 0;
+}
+
+.typography-block figure:first-child {
+  margin-top: 0;
+}
+
 .typography-block figure figcaption {
   margin-top: 1rem;
   margin-bottom: 0;
@@ -4957,6 +4982,9 @@ body {
           align-items: center;
   position: relative;
   background: rgba(24, 29, 39, 0.86);
+}
+
+.wp-block-column .video-modal-block {
   min-height: 100%;
 }
 
@@ -5978,6 +6006,68 @@ body {
   font-size: 1.25rem;
 }
 
+.case-popup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 108.5rem;
+  gap: 2.625rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.case-popup__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.case-popup__labels {
+  margin-top: 1.375rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.case-popup__label {
+  font-size: 0.875rem;
+}
+
+.case-popup__title {
+  margin-top: 1.375rem;
+}
+
+.case-popup__info {
+  margin-top: 1.375rem;
+}
+
+.case-popup__info .case-block__list {
+  -webkit-columns: 1;
+     -moz-columns: 1;
+          columns: 1;
+}
+
+.case-popup__actions {
+  margin-top: 1.375rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.75rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .contacts {
   margin-top: 1.5rem;
 }
@@ -6583,6 +6673,10 @@ body {
 @media (min-width: 767.98px) {
   .fancybox__slide {
     padding: 1.25rem;
+  }
+
+  .fancybox__slide.is-case-popup-slide .f-html {
+    padding: 2rem;
   }
 
   .f-button.is-close-button {
@@ -7297,6 +7391,23 @@ body {
             columns: 2;
   }
 
+  .case-popup {
+    padding: 2.75rem 2rem 1.375rem 0.625rem;
+  }
+
+  .case-popup__title {
+    font-size: 1.5rem;
+  }
+
+  .case-popup__actions {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
   .contacts {
     background-size: cover;
     background-repeat: no-repeat;
@@ -8003,6 +8114,42 @@ body {
 
   .case-detail__content.typography-block h2 {
     font-size: 3rem;
+  }
+
+  .case-popup {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .case-popup__left {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 29.5625rem;
+            flex: 0 0 29.5625rem;
+  }
+
+  .case-popup__right {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    min-height: 37.5rem;
+    position: relative;
+    width: 100%;
+  }
+
+  .case-popup__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .case-popup__media::-webkit-scrollbar {
+    display: none;
   }
 
   .contacts__body {
@@ -8716,6 +8863,10 @@ body {
 }
 
 @media (any-hover: hover) {
+  .fancybox__slide.has-ajax .f-button.is-close-button:hover {
+    opacity: 1;
+  }
+
   .breadcrumbs__link:is(a):hover {
     color: #ff4405;
   }

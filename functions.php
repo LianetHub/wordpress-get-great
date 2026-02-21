@@ -553,3 +553,50 @@ add_filter('register_post_type_args', function ($args, $post_type) {
 	}
 	return $args;
 }, 20, 2);
+
+
+add_action('wp_ajax_load_case_popup', 'load_case_popup_callback');
+add_action('wp_ajax_nopriv_load_case_popup', 'load_case_popup_callback');
+
+function load_case_popup_callback()
+{
+	$post_id = isset($_GET['post_id']) ? intval($_GET['post_id']) : 0;
+	if (!$post_id) wp_die();
+
+	$post = get_post($post_id);
+	$blocks = parse_blocks($post->post_content);
+
+	$left_column_html = '';
+	$right_column_html = '';
+	$client_name = '';
+
+	$left_target_blocks = ['acf/client-desc', 'acf/client-request', 'acf/results-list'];
+	$right_target_blocks = ['core/image', 'core/gallery', 'acf/portfolio-video', 'core/video'];
+
+	foreach ($blocks as $block) {
+		if (empty($block['blockName'])) continue;
+
+		if ($block['blockName'] === 'acf/client-desc') {
+			$client_name = isset($block['attrs']['data']['client_name']) ? $block['attrs']['data']['client_name'] : '';
+		}
+
+		$rendered_block = render_block($block);
+
+		if (in_array($block['blockName'], $left_target_blocks)) {
+			$left_column_html .= $rendered_block;
+		} elseif (in_array($block['blockName'], $right_target_blocks)) {
+			$right_column_html .= $rendered_block;
+		}
+	}
+
+	set_query_var('case_popup_data', [
+		'post_id'     => $post_id,
+		'client_name' => $client_name,
+		'left'        => $left_column_html,
+		'right'       => $right_column_html,
+		'terms'       => get_the_terms($post_id, 'portfolio_cat')
+	]);
+
+	get_template_part('templates/components/case-popup-content');
+	wp_die();
+}

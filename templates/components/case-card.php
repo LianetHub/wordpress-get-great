@@ -6,7 +6,11 @@ $terms = get_the_terms($post_id, 'portfolio_cat');
 $logo = get_field('logo', 'option');
 ?>
 
-<a href="<?php the_permalink(); ?>" class="case-card">
+<a href="<?php the_permalink(); ?>"
+    class="case-card"
+    data-fancybox
+    data-type="ajax"
+    data-src="<?php echo admin_url('admin-ajax.php'); ?>?action=load_case_popup&post_id=<?php echo $post_id; ?>">
     <span class="case-card__image <?php echo !$thumb_url ? 'case-card__image--placeholder' : ''; ?>">
         <?php if ($thumb_url): ?>
             <img src="<?php echo esc_url($thumb_url); ?>"

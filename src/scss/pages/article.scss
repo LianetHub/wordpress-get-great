@@ -1237,6 +1237,14 @@
 	& figure {
 		margin: 3rem 0 2rem;
 
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:first-child {
+			margin-top: 0;
+		}
+
 		& figcaption {
 			margin-top: 1rem;
 			margin-bottom: 0;
@@ -1290,7 +1298,11 @@
 	align-items: center;
 	position: relative;
 	background: rgba(24, 29, 39, 0.86);
-	min-height: 100%;
+
+	.wp-block-column & {
+		min-height: 100%;
+
+	}
 
 	&.poster-default {
 		& img {

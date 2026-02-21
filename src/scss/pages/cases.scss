@@ -278,7 +278,6 @@
     &__client-details {}
 }
 
-
 .case-detail {
 
     // .case-detail__body
@@ -394,7 +393,6 @@
 
 }
 
-
 .case-block {
     &:not(:first-child) {
         margin-top: 2rem;
@@ -443,6 +441,114 @@
             text-align: center;
             font-size: 1.25rem;
             @extend %ic, .icon-check;
+        }
+    }
+
+}
+
+.case-popup {
+
+    display: flex;
+    max-width: rem(1736);
+    gap: rem(42);
+    flex-direction: column;
+
+    @media (min-width:$md4) {
+        padding: rem(44) rem(32) rem(22) rem(10);
+    }
+
+    @media (min-width:$md2) {
+        flex-direction: row;
+    }
+
+    // .case-popup__left
+    &__left {
+        display: flex;
+        flex-direction: column;
+
+        @media (min-width:$md2) {
+            flex: 0 0 rem(473);
+
+        }
+    }
+
+    // .case-popup__header
+    &__header {}
+
+    // .case-popup__type
+    &__type {}
+
+    // .case-popup__labels
+    &__labels {
+        margin-top: rem(22);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    // .case-popup__label
+    &__label {
+        font-size: 0.875rem;
+    }
+
+    // .case-popup__title
+    &__title {
+        margin-top: rem(22);
+
+        @media (min-width:$md4) {
+            font-size: 1.5rem;
+        }
+    }
+
+    // .case-popup__info
+    &__info {
+        margin-top: rem(22);
+
+        .case-block__list {
+            columns: 1;
+        }
+    }
+
+    // .case-popup__actions
+    &__actions {
+        margin-top: rem(22);
+        display: flex;
+        gap: rem(12);
+        flex-direction: column;
+
+        @media (min-width:$md4) {
+            flex-wrap: wrap;
+            flex-direction: row;
+
+        }
+    }
+
+    // .case-popup__right
+    &__right {
+        @media (min-width:$md2) {
+            flex: 1 1 auto;
+            min-height: rem(600);
+            position: relative;
+            width: 100%;
+
+        }
+    }
+
+    // .case-popup__media
+    &__media {
+        @media (min-width:$md2) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
         }
     }
 

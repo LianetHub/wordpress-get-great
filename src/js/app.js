@@ -52,6 +52,14 @@ $(function () {
     if (typeof Fancybox !== "undefined" && Fancybox !== null) {
         Fancybox.bind("[data-fancybox]", {
             dragToClose: false,
+            on: {
+                "Carousel.ready": (fancyboxRef) => {
+                    const slide = fancyboxRef.getSlide();
+                    if (slide && slide.triggerEl.classList.contains('case-card') && slide.triggerEl.dataset.type === "ajax") {
+                        slide.el.classList.add("is-case-popup-slide");
+                    }
+                },
+            },
         });
     }
 
