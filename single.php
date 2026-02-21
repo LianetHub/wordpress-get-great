@@ -42,9 +42,10 @@
                 </div>
 
                 <div class="article__main">
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="article__back icon-arrow-left btn btn-secondary">
+                    <button type="button"
+                        class="article__back back-button icon-arrow-left btn btn-secondary">
                         Назад
-                    </a>
+                    </button>
 
                     <article class="article__content">
                         <div class="article__header">

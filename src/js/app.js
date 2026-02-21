@@ -179,7 +179,13 @@ $(function () {
             }, 400);
         }
 
-
+        // back button
+        if ($target.is('.back-button')) {
+            if (document.referrer && document.referrer.indexOf(window.location.hostname) !== -1) {
+                e.preventDefault();
+                window.history.back();
+            }
+        }
 
     });
 
