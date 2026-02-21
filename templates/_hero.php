@@ -6,7 +6,10 @@ if (is_post_type_archive('services')) {
     $current_id = $donor ? $donor->ID : null;
 }
 
-$has_thumbnail = has_post_thumbnail($current_id) && !is_singular('portfolio');
+
+$hide_image_context = is_archive() || is_tax() || is_front_page() || is_home() || is_singular('portfolio');
+
+$has_thumbnail = has_post_thumbnail($current_id) && !$hide_image_context;
 
 $hero_class = $has_thumbnail ? ' hero--has-poster' : '';
 ?>
@@ -24,6 +27,8 @@ $hero_class = $has_thumbnail ? ' hero--has-poster' : '';
                     the_title();
                 } elseif (is_post_type_archive()) {
                     post_type_archive_title();
+                } elseif (is_tax() || is_category() || is_tag()) {
+                    single_term_title();
                 } else {
                     echo get_the_archive_title();
                 }

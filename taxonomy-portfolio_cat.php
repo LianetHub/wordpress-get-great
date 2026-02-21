@@ -14,9 +14,7 @@
 <?php
 $donor = get_page_by_path('portfolio-details');
 if ($donor) {
-    echo '<div class="portfolio-global-content">';
     echo apply_filters('the_content', $donor->post_content);
-    echo '</div>';
 }
 ?>
 
