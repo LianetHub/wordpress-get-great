@@ -81,5 +81,14 @@ add_action('acf/init', function () {
             'render_template' => 'templates/blog-blocks/checklist-article.php',
             'mode'            => 'edit',
         ]);
+
+        acf_register_block_type([
+            'name'            => 'portfolio-video',
+            'title'           => 'Видео (во всплывающем окне)',
+            'category'        => 'pp-category',
+            'icon'            => 'video-alt',
+            'render_template' => 'templates/blog-blocks/video-article.php',
+            'mode'            => 'edit',
+        ]);
     }
 });

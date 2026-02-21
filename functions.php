@@ -498,3 +498,58 @@ function get_processed_svg($url, $new_color)
 
 	return $svg_code;
 }
+
+
+
+add_action('acf/init', function () {
+	$blocks = [
+		'client-desc'    => 'О клиенте',
+		'client-request' => 'Запрос клиента',
+		'results-list'   => 'Что было сделано'
+	];
+
+	foreach ($blocks as $slug => $title) {
+		acf_register_block_type([
+			'name'            => $slug,
+			'title'           => $title,
+			'render_template' => "templates/portfolio-blocks/{$slug}.php",
+			'category'        => 'formatting',
+			'icon'            => 'portfolio',
+			'mode'            => 'edit',
+			'supports'        => [
+				'align' => false,
+				'reusable' => false,
+				'move' => true
+			],
+		]);
+	}
+});
+
+add_filter('register_post_type_args', function ($args, $post_type) {
+	if ($post_type === 'portfolio') {
+		$args['template'] = [
+			['acf/client-desc', [
+				'lock' => [
+					'remove' => true,
+					'move'   => false,
+				],
+			]],
+			['acf/client-request', [
+				'lock' => [
+					'remove' => true,
+					'move'   => false,
+				],
+			]],
+			['acf/results-list', [
+				'lock' => [
+					'remove' => true,
+					'move'   => false,
+				],
+			]],
+			['core/paragraph', ['placeholder' => 'Здесь можно добавлять любые блоки...']],
+		];
+
+		$args['template_lock'] = false;
+	}
+	return $args;
+}, 20, 2);

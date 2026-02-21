@@ -21,7 +21,10 @@ $manual_cases = get_field('selected_cases', $prefix);
 
 $posts_per_page = wp_is_mobile() ? 5 : 9;
 
-if ($manual_cases) {
+
+if (!empty($manual_cases)) {
+
+
     if (wp_is_mobile() && count($manual_cases) > 5) {
         $manual_cases = array_slice($manual_cases, 0, 5);
     }
@@ -31,6 +34,7 @@ if ($manual_cases) {
         'post__in'       => $manual_cases,
         'orderby'        => 'post__in',
         'posts_per_page' => -1,
+        'post_status'    => 'publish',
     ];
 } else {
     $args = [

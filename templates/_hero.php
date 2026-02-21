@@ -6,7 +6,8 @@ if (is_post_type_archive('services')) {
     $current_id = $donor ? $donor->ID : null;
 }
 
-$has_thumbnail = has_post_thumbnail($current_id);
+$has_thumbnail = has_post_thumbnail($current_id) && !is_singular('portfolio');
+
 $hero_class = $has_thumbnail ? ' hero--has-poster' : '';
 ?>
 
@@ -21,6 +22,8 @@ $hero_class = $has_thumbnail ? ' hero--has-poster' : '';
                 <?php
                 if (is_singular()) {
                     the_title();
+                } elseif (is_post_type_archive()) {
+                    post_type_archive_title();
                 } else {
                     echo get_the_archive_title();
                 }
