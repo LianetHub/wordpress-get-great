@@ -18,51 +18,40 @@ $hint = get_field('services_hint', $prefix) ?: "что мы делаем";
 $title = get_field('services_title', $prefix) ?: "Наши услуги";
 $subtitle = get_field('services_subtitle', $prefix);
 
-$terms = get_terms([
-    'taxonomy'   => 'service_cat',
-    'hide_empty' => false,
-    'orderby'    => 'term_order',
-    'order'      => 'ASC',
-]);
+$services_list = get_field('services_list', $prefix);
+$show_services_button = get_field('show_services_button', $prefix);
 
-if (!empty($terms) && !is_wp_error($terms)) :
+if ($services_list) :
     $all_items = [];
-    $all_projects = [];
-    $total_count = count($terms);
+    $total_count = count($services_list);
 
-    foreach ($terms as $index => $term) {
-        $project_group = get_field('category_project', 'service_cat_' . $term->term_id);
-
-        $project_data = null;
-        if ($project_group && !empty($project_group['project'])) {
-            $p_id = $project_group['project'];
-            $custom_img = $project_group['image'] ?? null;
-
-            $img_url = '';
-            if ($custom_img) {
-                $img_url = is_array($custom_img) ? $custom_img['url'] : $custom_img;
-            } else {
-                $img_url = get_the_post_thumbnail_url($p_id, 'large');
-            }
-
-            $project_data = [
-                'id'   => $p_id,
-                'name' => get_the_title($p_id),
-                'desc' => get_the_excerpt($p_id),
-                'link' => get_permalink($p_id),
-                'img'  => $img_url
-            ];
+    $manual_active_index = -1;
+    foreach ($services_list as $index => $item) {
+        if (!empty($item['is_active_service'])) {
+            $manual_active_index = $index;
+            break;
         }
+    }
+
+    foreach ($services_list as $index => $item) {
+        $unique_id = 'service_' . $index;
+        $img = $item['project_image'];
+        $img_url = is_array($img) ? $img['url'] : $img;
+
+        $is_active = ($manual_active_index !== -1) ? ($index === $manual_active_index) : ($index === 0);
 
         $all_items[] = [
-            'term'    => $term,
-            'project' => $project_data,
-            'active'  => ($index === 0) ? 'active' : ''
+            'id'           => $unique_id,
+            'name'         => $item['service_name'],
+            'description'  => $item['service_description'],
+            'active'       => $is_active ? 'active' : '',
+            'project'      => [
+                'title'    => $item['project_title'],
+                'text'     => $item['project_text'],
+                'btn_data' => $item['project_button'],
+                'img'      => $img_url,
+            ]
         ];
-
-        if ($project_data) {
-            $all_projects[$term->term_id] = $project_data;
-        }
     }
 
     $left_column = [];
@@ -84,71 +73,72 @@ if (!empty($terms) && !is_wp_error($terms)) :
         <div class="services__wrapper">
             <div class="container">
                 <div class="services__header">
-                    <?php if ($hint): ?>
-                        <div class="services__hint hint"><?php echo esc_html($hint); ?></div>
-                    <?php endif; ?>
-                    <?php if ($title): ?>
-                        <h2 class="services__title title-lg"><?php echo esc_html($title); ?></h2>
-                    <?php endif; ?>
-                    <?php if ($subtitle): ?>
-                        <p class="services__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
-                    <?php endif; ?>
+                    <?php if ($hint): echo '<div class="services__hint hint">' . esc_html($hint) . '</div>';
+                    endif; ?>
+                    <?php if ($title): echo '<h2 class="services__title title-lg">' . esc_html($title) . '</h2>';
+                    endif; ?>
+                    <?php if ($subtitle): echo '<p class="services__subtitle subtitle">' . esc_html($subtitle) . '</p>';
+                    endif; ?>
                 </div>
 
                 <div class="services__content">
                     <div class="services__column">
                         <div class="services__items">
                             <?php foreach ($left_column as $item) : ?>
-                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
-                                    <span class="services__item-caption icon-arrow-right"><?php echo esc_html($item['term']->name); ?></span>
-                                    <span class="services__item-desc"><?php echo esc_html($item['term']->description); ?></span>
+                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['id']; ?>">
+                                    <span class="services__item-caption icon-arrow-right"><?php echo esc_html($item['name']); ?></span>
+                                    <span class="services__item-desc"><?php echo esc_html($item['description']); ?></span>
                                 </button>
                             <?php endforeach; ?>
                         </div>
-                        <div class="services__column-bottom" data-da=".services__bottom, 1199.98">
-                            <?php
-                            $btn_field = get_field('services_button', $prefix);
-                            if ($btn_field && !empty($btn_field['btn'])):
-                                get_template_part('templates/components/button', null, [
-                                    'data'  => $btn_field['btn'],
-                                    'class' => 'services__btn',
-                                ]);
-                            endif;
-                            ?>
-                        </div>
+                        <?php if ($show_services_button): ?>
+                            <div class="services__column-bottom" data-da=".services__bottom, 1199.98">
+                                <?php
+                                $btn_field = get_field('services_button', $prefix);
+                                if ($btn_field && !empty($btn_field['btn'])):
+                                    get_template_part('templates/components/button', null, [
+                                        'data'  => $btn_field['btn'],
+                                        'class' => 'services__btn',
+                                    ]);
+                                endif;
+                                ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="services__projects">
-                        <?php
-                        $p_idx = 0;
-                        foreach ($all_projects as $t_id => $proj) : ?>
-                            <div class="services__project <?php echo ($p_idx === 0) ? 'active' : ''; ?>" data-project-target="<?php echo $t_id; ?>">
-                                <div class="services__project-image">
+                        <?php foreach ($all_items as $item) :
+                            $proj = $item['project'];
+                            if (empty($proj['title'])) continue;
+                        ?>
+                            <div class="services__project <?php echo $item['active']; ?>" data-project-target="<?php echo $item['id']; ?>">
+                                <span class="services__project-image">
                                     <?php if ($proj['img']): ?>
-                                        <img src="<?php echo esc_url($proj['img']); ?>" alt="<?php echo esc_attr($proj['name']); ?>">
+                                        <img src="<?php echo esc_url($proj['img']); ?>" alt="<?php echo esc_attr($proj['title']); ?>">
+                                    <?php endif; ?>
+                                </span>
+                                <div class="services__project-info">
+                                    <div class="services__project-name"><?php echo esc_html($proj['title']); ?></div>
+                                    <div class="services__project-desc"><?php echo esc_html($proj['text']); ?></div>
+                                    <?php if (!empty($proj['btn_data'])): ?>
+                                        <?php
+                                        get_template_part('templates/components/button', null, [
+                                            'data'  => $proj['btn_data']['btn'],
+                                            'class' => 'services__project-btn',
+                                        ]);
+                                        ?>
                                     <?php endif; ?>
                                 </div>
-                                <div class="services__project-info">
-                                    <div class="services__project-name">
-                                        <?php echo esc_html($proj['name']); ?>
-                                    </div>
-                                    <div class="services__project-desc">
-                                        <?php echo esc_html($proj['desc']); ?>
-                                    </div>
-                                    <a href="<?php echo esc_url($proj['link']); ?>" class="services__project-btn btn btn-secondary">Подробнее</a>
-                                </div>
                             </div>
-                        <?php
-                            $p_idx++;
-                        endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
 
                     <div class="services__column">
                         <div class="services__items">
                             <?php foreach ($right_column as $item) : ?>
-                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['term']->term_id; ?>">
-                                    <span class="services__item-caption icon-arrow-left"><?php echo esc_html($item['term']->name); ?></span>
-                                    <span class="services__item-desc"><?php echo esc_html($item['term']->description); ?></span>
+                                <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['id']; ?>">
+                                    <span class="services__item-caption icon-arrow-left"><?php echo esc_html($item['name']); ?></span>
+                                    <span class="services__item-desc"><?php echo esc_html($item['description']); ?></span>
                                 </button>
                             <?php endforeach; ?>
                         </div>

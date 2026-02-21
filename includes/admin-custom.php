@@ -11,6 +11,7 @@ class Wptuts_Simple_Admin
 		add_filter('login_headerurl', array($this, 'change_wp_login_url'));
 		add_filter('login_headertext', array($this, 'change_wp_login_title'));
 		add_action('admin_head', array($this, 'custom_css'));
+		add_action('admin_footer', array($this, 'custom_js'));
 	}
 
 	function remove_menus()
@@ -47,6 +48,46 @@ class Wptuts_Simple_Admin
 		echo $css;
 	}
 
+	function custom_js()
+	{
+?>
+		<script>
+			(function($) {
+				if (typeof acf === 'undefined') return;
+
+				acf.addAction('ready_field/name=is_active_service', function(field) {
+					field.on('change', function(e) {
+						var $input = field.$input();
+						var isChecked = $input.prop('checked');
+
+						if (isChecked) {
+							var $repeater = field.$el.closest('.acf-repeater');
+							var $siblings = $repeater.find('.acf-field[data-name="is_active_service"]');
+
+							$siblings.each(function() {
+								var otherField = acf.getField($(this));
+
+								if (otherField.$el[0] !== field.$el[0]) {
+									var $otherInput = otherField.$input();
+
+									if ($otherInput.prop('checked')) {
+										$otherInput.prop('checked', false);
+
+										otherField.$el.find('.acf-switch').removeClass('-on');
+
+										setTimeout(function() {
+											otherField.val(0);
+										}, 10);
+									}
+								}
+							});
+						}
+					});
+				});
+			})(jQuery);
+		</script>
+<?php
+	}
 	function my_custom_login_logo()
 	{
 		echo '

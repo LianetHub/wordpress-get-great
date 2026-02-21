@@ -6350,6 +6350,12 @@ body {
     width: auto;
   }
 
+  .services__project-btn[data-fancybox] {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+
   .other-services__grid {
     border-right: 0;
     border-bottom: 0;
@@ -6997,7 +7003,6 @@ body {
   }
 
   .services__header {
-    max-width: 45rem;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
