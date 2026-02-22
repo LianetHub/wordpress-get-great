@@ -216,6 +216,10 @@ $(function () {
 
         _initGlobalEvents() {
             $(document).on('pointerdown.tooltipManager', (e) => {
+                if (e.originalEvent && e.originalEvent.pointerType === 'mouse') {
+                    return;
+                }
+
                 const $target = $(e.target);
                 if (!this.$currentTooltip) return;
 
@@ -297,16 +301,27 @@ $(function () {
                 }
             }
 
-            if (left < 10) left = 10;
-            if (left + tooltipRect.width > $win.width() - 10) {
-                left = $win.width() - tooltipRect.width - 10;
-            }
+            const minLeft = 10;
+            const maxLeft = $win.width() - tooltipRect.width - 10;
+
+            let actualLeft = left;
+            if (actualLeft < minLeft) actualLeft = minLeft;
+            if (actualLeft > maxLeft) actualLeft = maxLeft;
+
+            const anchorCenterX = rect.left + scrollX + (rect.width / 2);
+            let arrowLeft = anchorCenterX - actualLeft;
+
+            const minArrowLeft = 12;
+            const maxArrowLeft = tooltipRect.width - 12;
+            if (arrowLeft < minArrowLeft) arrowLeft = minArrowLeft;
+            if (arrowLeft > maxArrowLeft) arrowLeft = maxArrowLeft;
 
             $tooltip.removeClass('open-top open-bottom')
                 .addClass(currentDir)
                 .css({
                     top: top + 'px',
-                    left: left + 'px'
+                    left: actualLeft + 'px',
+                    '--arrow-left': arrowLeft + 'px'
                 });
         }
 
@@ -495,6 +510,7 @@ $(function () {
             });
         }
     }
+
     if ($('.gratitudes__slider').length) {
         new Swiper('.gratitudes__slider', {
             slidesPerView: 1.05,
@@ -547,6 +563,7 @@ $(function () {
 
         let savedTranslate = 0;
         let isPaused = false;
+        let resumeTimeout;
 
         const swiper = new Swiper(this, {
             loop: true,
@@ -572,10 +589,13 @@ $(function () {
         });
 
         const stopSwiper = () => {
+            clearTimeout(resumeTimeout);
             if (isPaused) return;
+
             const style = window.getComputedStyle(swiper.wrapperEl);
             const matrix = new WebKitCSSMatrix(style.transform);
             savedTranslate = matrix.m41;
+
             swiper.autoplay.pause();
             $(swiper.wrapperEl).css('transition', 'none');
             swiper.setTranslate(savedTranslate);
@@ -583,21 +603,25 @@ $(function () {
         };
 
         const startSwiper = () => {
-            if (!isPaused) return;
-            $(swiper.wrapperEl).css('transition', '');
-            swiper.params.freeMode.enabled = false;
-            swiper.update();
-            swiper.params.freeMode.enabled = true;
-            swiper.update();
-            swiper.setTranslate(savedTranslate);
-            swiper.autoplay.resume();
-            isPaused = false;
+            clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => {
+                if (!isPaused) return;
+
+                $(swiper.wrapperEl).css('transition', '');
+                swiper.params.freeMode.enabled = false;
+                swiper.update();
+                swiper.params.freeMode.enabled = true;
+                swiper.update();
+                swiper.setTranslate(savedTranslate);
+                swiper.autoplay.resume();
+                isPaused = false;
+            }, 150);
         };
 
         const tooltip = new TooltipManager({
             onShow: () => stopSwiper(),
-            onHide: (el) => {
-                if (!$el.is(':hover')) {
+            onHide: ($element) => {
+                if ($element && !$element.is(':hover')) {
                     startSwiper();
                 }
             }
@@ -623,13 +647,18 @@ $(function () {
                 }
             });
 
+            $slide.on('pointerleave', function (e) {
+                if (e.originalEvent.pointerType === 'mouse') {
+                    tooltip.hide();
+                }
+            });
+
             $slide.on('click', function (e) {
                 e.stopPropagation();
                 tooltip.show($slide, content);
             });
         });
     });
-
     if ($('.services__slider').length) {
         new MobileSwiper('.services__slider', {
             slidesPerView: "auto",

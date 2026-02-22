@@ -24,6 +24,7 @@
 	pointer-events: none;
 	user-select: none;
 	text-align: left;
+
 	&.tooltip-copy {
 		max-width: 15rem;
 		width: fit-content;
@@ -42,9 +43,10 @@
 		&.open-top {
 			&::after {
 				border-top: rem(8) solid #fff;
-				bottom: rem(-8);
+				bottom: rem(-7);
 			}
 		}
+
 		&.open-bottom {
 			&::after {
 				border-bottom: rem(8) solid #fff;
@@ -59,9 +61,10 @@
 			height: rem(12);
 			border-radius: rem(1);
 			background: #fff;
-			left: calc(50% - rem(6));
+
+			left: var(--arrow-left, 50%);
 			rotate: 135deg;
-			transform: translateX(-50%);
+			margin-left: rem(-6);
 		}
 	}
 }

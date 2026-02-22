@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icons';
-  src:  url('fonts/icons.eot?nrzh8g');
-  src:  url('fonts/icons.eot?nrzh8g#iefix') format('embedded-opentype'),
-    url('fonts/icons.ttf?nrzh8g') format('truetype'),
-    url('fonts/icons.woff?nrzh8g') format('woff'),
-    url('fonts/icons.svg?nrzh8g#icons') format('svg');
+  src:  url('fonts/icons.eot?c5ciwo');
+  src:  url('fonts/icons.eot?c5ciwo#iefix') format('embedded-opentype'),
+    url('fonts/icons.ttf?c5ciwo') format('truetype'),
+    url('fonts/icons.woff?c5ciwo') format('woff'),
+    url('fonts/icons.svg?c5ciwo#icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -33,6 +33,10 @@
 }
 .icon-cross:before {
   content: "\e90b";
+}
+.icon-help-circle:before {
+  content: "\e914";
+  color: #535862;
 }
 .icon-dislike:before {
   content: "\e910";
