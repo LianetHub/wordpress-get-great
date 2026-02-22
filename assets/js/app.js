@@ -55,7 +55,7 @@ $(function () {
             on: {
                 "Carousel.ready": (fancyboxRef) => {
                     const slide = fancyboxRef.getSlide();
-                    if (slide && slide.triggerEl.classList.contains('case-card') && slide.triggerEl.dataset.type === "ajax") {
+                    if (slide && (slide.triggerEl.classList.contains('case-card') || slide.triggerEl.classList.contains('clients__item')) && slide.triggerEl.dataset.type === "ajax") {
                         slide.el.classList.add("is-case-popup-slide");
                     }
                 },

@@ -15,7 +15,6 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
 }
 
 $clients_text = get_field('clients_description', $prefix);
-
 $selected_clients = get_field('selected_clients', $prefix);
 
 if (!$selected_clients) {
@@ -44,7 +43,9 @@ if ($selected_clients) :
 
             <div class="clients__content">
                 <div class="clients__items">
-                    <?php foreach ($selected_clients as $index => $client_item) :
+                    <?php
+                    $current_index = 0;
+                    foreach ($selected_clients as $client_item) :
                         $c_id = (is_object($client_item)) ? $client_item->ID : $client_item;
 
                         if (get_field('is_logo_hidden', $c_id)) {
@@ -54,11 +55,19 @@ if ($selected_clients) :
 
                         $logo_url = get_the_post_thumbnail_url($c_id, 'full');
                         $case = get_field('case_project', $c_id);
-                        $hidden_class = ($index >= $initial_count) ? 'is-hidden' : '';
+                        $hidden_class = ($current_index >= $initial_count) ? 'is-hidden' : '';
                         $client_title = get_the_title($c_id);
+
+                        $current_index++;
+
+                        $case_id = ($case && is_object($case)) ? $case->ID : $case;
                     ?>
-                        <?php if ($case) : ?>
-                            <a href="<?php echo esc_url(get_permalink($case)); ?>" class="clients__item <?php echo $hidden_class; ?>">
+                        <?php if ($case_id) : ?>
+                            <a href="<?php echo get_permalink($case_id); ?>"
+                                class="clients__item <?php echo $hidden_class; ?>"
+                                data-fancybox
+                                data-type="ajax"
+                                data-src="<?php echo admin_url('admin-ajax.php'); ?>?action=load_case_popup&post_id=<?php echo $case_id; ?>">
                                 <?php if ($logo_url) : ?>
                                     <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($client_title); ?>">
                                 <?php endif; ?>
