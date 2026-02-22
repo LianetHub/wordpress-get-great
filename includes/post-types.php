@@ -332,3 +332,30 @@ register_post_type('blog_authors', [
     'supports'            => ['title', 'thumbnail', 'excerpt'],
     'show_in_rest'        => true,
 ]);
+
+register_post_type('clients', [
+    'labels' => [
+        'name'               => 'Клиенты',
+        'singular_name'      => 'Клиент',
+        'add_new'            => 'Добавить клиента',
+        'add_new_item'       => 'Добавить нового клиента',
+        'edit_item'          => 'Редактировать клиента',
+        'new_item'           => 'Новый клиент',
+        'view_item'          => 'Посмотреть клиента',
+        'search_items'       => 'Искать клиентов',
+        'not_found'          => 'Клиентов не найдено',
+        'not_found_in_trash' => 'В корзине клиентов не найдено',
+        'menu_name'          => 'Клиенты',
+    ],
+    'public'              => false,
+    'show_ui'             => true,
+    'show_in_menu'        => true,
+    'query_var'           => false,
+    'rewrite'             => false,
+    'capability_type'     => 'post',
+    'has_archive'         => false,
+    'hierarchical'        => false,
+    'menu_icon'           => 'dashicons-groups',
+    'supports'            => ['title', 'thumbnail', 'excerpt'],
+    'show_in_rest'        => true,
+]);

@@ -15,12 +15,24 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
 }
 
 $clients_text = get_field('clients_description', $prefix);
-$clients_list = get_field('clients_list', 'option');
+
+$selected_clients = get_field('selected_clients', $prefix);
+
+if (!$selected_clients) {
+    $selected_clients = get_posts([
+        'post_type'      => 'clients',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'fields'         => 'ids',
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+    ]);
+}
 
 $initial_count = get_field('clients_initial_count', $prefix) ?: 16;
 
-if ($clients_list) :
-    $total_clients = count($clients_list);
+if ($selected_clients) :
+    $total_clients = count($selected_clients);
 ?>
     <section class="clients">
         <div class="container">
@@ -32,22 +44,30 @@ if ($clients_list) :
 
             <div class="clients__content">
                 <div class="clients__items">
-                    <?php foreach ($clients_list as $index => $item) :
-                        $logo = $item['logo'];
-                        $case = $item['case_project'];
+                    <?php foreach ($selected_clients as $index => $client_item) :
+                        $c_id = (is_object($client_item)) ? $client_item->ID : $client_item;
 
-                        $logo_url = is_array($logo) ? $logo['url'] : $logo;
-                        $logo_alt = is_array($logo) ? $logo['alt'] : '';
+                        if (get_field('is_logo_hidden', $c_id)) {
+                            $total_clients--;
+                            continue;
+                        }
 
+                        $logo_url = get_the_post_thumbnail_url($c_id, 'full');
+                        $case = get_field('case_project', $c_id);
                         $hidden_class = ($index >= $initial_count) ? 'is-hidden' : '';
+                        $client_title = get_the_title($c_id);
                     ?>
                         <?php if ($case) : ?>
                             <a href="<?php echo esc_url(get_permalink($case)); ?>" class="clients__item <?php echo $hidden_class; ?>">
-                                <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>">
+                                <?php if ($logo_url) : ?>
+                                    <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($client_title); ?>">
+                                <?php endif; ?>
                             </a>
                         <?php else : ?>
                             <div class="clients__item <?php echo $hidden_class; ?>">
-                                <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>">
+                                <?php if ($logo_url) : ?>
+                                    <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($client_title); ?>">
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
