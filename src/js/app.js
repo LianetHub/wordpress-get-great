@@ -515,7 +515,6 @@ $(function () {
         new Swiper('.gratitudes__slider', {
             slidesPerView: 1.05,
             spaceBetween: 12,
-            lazy: true,
             navigation: {
                 nextEl: '.gratitudes__next',
                 prevEl: '.gratitudes__prev',
