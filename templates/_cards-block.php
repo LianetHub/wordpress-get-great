@@ -47,10 +47,10 @@ if ($cards) :
                     $desc = $card['desc'];
                 ?>
                     <div class="cards-block__column cards-block__column--<?php echo esc_attr($size); ?>">
-                        <div class="cards-block__icon">
+                        <div class="cards-block__icon" style="color: <?php echo esc_attr($individual_color); ?>;">
                             <?php
                             if ($icon) {
-                                echo get_processed_svg($icon['url'], $individual_color);
+                                echo get_processed_svg($icon['url'], 'currentColor');
                             }
                             ?>
                         </div>

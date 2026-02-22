@@ -132,6 +132,7 @@
 	// .cards-block__subtitle
 	&__subtitle {}
 
+	// .cards-block__content
 	&__content {
 		display: grid;
 		gap: rem(18);
@@ -158,13 +159,32 @@
 		}
 	}
 
+	// .cards-block__column
 	&__column {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		background: #f5f5f5;
+		color: #181d27;
 		position: relative;
 		padding: 1.5rem;
+		transition: background-color 0.3s ease, color 0.3s ease;
+
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: #181D27;
+				color: #fff;
+
+				.cards-block__icon {
+					background-color: #FF4405;
+					color: #fff !important;
+				}
+
+				.cards-block__tooltip {
+					color: #A4A7AE;
+				}
+			}
+		}
 
 		@media (min-width:$md5) {
 			min-height: rem(220);
@@ -192,6 +212,7 @@
 		}
 	}
 
+	// .cards-block__icon
 	&__icon {
 		width: 4.5rem;
 		height: 4.5rem;
@@ -200,6 +221,7 @@
 		align-items: center;
 		margin-bottom: 1.5rem;
 		background: #fff;
+		transition: background-color 0.3s ease, color 0.3s ease;
 
 		svg {
 			width: 2.25rem;
@@ -212,6 +234,7 @@
 		}
 	}
 
+	// .cards-block__bottom
 	&__bottom {
 		display: flex;
 		align-items: flex-start;
@@ -219,11 +242,13 @@
 		gap: 0.875rem;
 	}
 
+	// .cards-block__text
 	&__text {
-		color: #181d27;
+
 		font-weight: 700;
 		line-height: 109.091%;
 		font-size: 1.25rem;
+		transition: color 0.3s ease;
 
 		@media (min-width:$md5) {
 			font-size: 1.125rem;
@@ -238,6 +263,7 @@
 		}
 	}
 
+	// .cards-block__tooltip
 	&__tooltip {
 		cursor: pointer;
 		color: #535862;
@@ -245,6 +271,7 @@
 		width: 1.125rem;
 		height: 1.125rem;
 		font-size: 1.125rem;
+		transition: color 0.3s ease;
 
 		@media (min-width: $md4) {
 			width: 1.25rem;
@@ -265,7 +292,9 @@
 		}
 	}
 
+	// .cards-block__desc
 	&__desc {
+		margin-top: 1.5rem;
 		font-size: 1rem;
 		line-height: 1.5;
 	}

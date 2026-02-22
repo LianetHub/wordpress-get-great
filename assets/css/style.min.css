@@ -5411,8 +5411,11 @@ body {
     -ms-flex-pack: justify;
     justify-content: space-between;
     background: #f5f5f5;
+    color: #181d27;
     position: relative;
-    padding: 1.5rem
+    padding: 1.5rem;
+    -webkit-transition: background-color .3s ease, color .3s ease;
+    transition: background-color .3s ease, color .3s ease
 }
 
 .cards-block__icon {
@@ -5428,7 +5431,9 @@ body {
     -ms-flex-align: center;
     align-items: center;
     margin-bottom: 1.5rem;
-    background: #fff
+    background: #fff;
+    -webkit-transition: background-color .3s ease, color .3s ease;
+    transition: background-color .3s ease, color .3s ease
 }
 
 .cards-block__icon svg {
@@ -5451,10 +5456,11 @@ body {
 }
 
 .cards-block__text {
-    color: #181d27;
     font-weight: 700;
     line-height: 109.091%;
-    font-size: 1.25rem
+    font-size: 1.25rem;
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease
 }
 
 .cards-block__tooltip {
@@ -5464,10 +5470,13 @@ body {
     flex-shrink: 0;
     width: 1.125rem;
     height: 1.125rem;
-    font-size: 1.125rem
+    font-size: 1.125rem;
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease
 }
 
 .cards-block__desc {
+    margin-top: 1.5rem;
     font-size: 1rem;
     line-height: 1.5
 }
@@ -6316,7 +6325,7 @@ body {
 
     .tooltip.open-top::after {
         border-top: .5rem solid #fff;
-        bottom: -.4375rem
+        bottom: -.375rem
     }
 
     .tooltip.open-bottom::after {
@@ -9032,6 +9041,20 @@ body {
 
     .service-card:hover .service-card__btn {
         margin-bottom: 0
+    }
+
+    .cards-block__column:hover {
+        background-color: #181d27;
+        color: #fff
+    }
+
+    .cards-block__column:hover .cards-block__icon {
+        background-color: #ff4405;
+        color: #fff !important
+    }
+
+    .cards-block__column:hover .cards-block__tooltip {
+        color: #a4a7ae
     }
 
     .cards-block__tooltip:hover {
