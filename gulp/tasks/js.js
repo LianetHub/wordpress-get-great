@@ -1,4 +1,5 @@
 import webpack from 'webpack-stream'
+import named from 'vinyl-named';
 
 export const js = () => {
     return app.gulp.src(app.path.src.js, { sourcemaps: app.isDev })
@@ -9,7 +10,6 @@ export const js = () => {
             }))
         )
         .pipe(webpack({
-            // mode: app.isDev ? 'development' : 'production',
             mode: 'production',
             output: {
                 filename: 'app.min.js',
@@ -24,7 +24,23 @@ export const js = () => {
 
 export const jsChunks = () => {
     return app.gulp.src(app.path.src.jsChunks)
+        .pipe(app.plugins.plumber(
+            app.plugins.notify.onError({
+                title: "JS Chunks",
+                message: "Error: <%= error.message %>"
+            }))
+        )
+        .pipe(named())
+        .pipe(webpack({
+            mode: 'production',
+            output: {
+                filename: '[name].min.js',
+            },
+        }))
         .pipe(app.gulp.dest(app.path.build.jsChunks))
+        .pipe(app.gulp.src(app.path.src.jsChunks))
+        .pipe(app.gulp.dest(app.path.build.jsChunks))
+        .pipe(app.plugins.browsersync.stream());
 }
 
 export const copyJsLibs = () => {

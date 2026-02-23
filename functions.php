@@ -41,6 +41,10 @@ function theme_enqueue_scripts()
 	wp_localize_script('app-js', 'great_ajax', [
 		'url' => admin_url('admin-ajax.php')
 	]);
+
+	if (is_singular('post')) {
+		wp_enqueue_script('post-scripts', get_template_directory_uri() . '/assets/js/article-actions.min.js', array('app-js'), null, true);
+	}
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
 
