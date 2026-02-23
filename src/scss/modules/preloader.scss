@@ -6,17 +6,18 @@
 @use "icons";
 
 .preloader {
-	// display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	margin: auto;
 	width: 100vw;
 	height: 100dvh;
-	background: #4e3e2e;
+	background: #181d27;
+	color: #fff;
 	opacity: 1;
 
 	z-index: 200;
+
 	&::before,
 	&::after {
 		content: "";
@@ -27,16 +28,19 @@
 		position: absolute;
 		top: 0;
 	}
+
 	&::before {
 		border-width: 0 rem(200) 100vh 0;
 		border-color: transparent #797979 transparent transparent;
 		left: rem(-200);
 	}
+
 	&::after {
 		border-width: 100vh 0 0 rem(200);
 		border-color: transparent transparent transparent #fff;
 		right: rem(-200);
 	}
+
 	body.is-loaded & {
 		left: calc(-100% - rem(200));
 		visibility: hidden;
@@ -48,6 +52,16 @@
 
 	&__logo {
 		max-width: 80vw;
+		width: 100%;
+
+		@media (min-width:$md4) {
+			max-width: 40vw;
+
+		}
+
+		& img {
+			width: 100%;
+		}
 	}
 
 	// .preloader__inner
@@ -62,6 +76,7 @@
 		overflow: hidden;
 		text-align: center;
 	}
+
 	// .preloader__percentage
 	&__percentage {
 		margin-top: 2.25rem;
@@ -74,10 +89,12 @@
 		line-height: 131.25%;
 		letter-spacing: -0.00625rem;
 		color: $accent;
+
 		& span {
 			color: #fff;
 		}
 	}
+
 	// .preloader__text
 	&__text {
 		margin-top: 0.62rem;

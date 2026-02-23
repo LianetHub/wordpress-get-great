@@ -321,7 +321,8 @@
   margin: auto;
   width: 100vw;
   height: 100dvh;
-  background: #4e3e2e;
+  background: #181d27;
+  color: #fff;
   opacity: 1;
   z-index: 200;
 }
@@ -364,6 +365,11 @@ body.is-loaded .preloader {
 
 .preloader__logo {
   max-width: 80vw;
+  width: 100%;
+}
+
+.preloader__logo img {
+  width: 100%;
 }
 
 .preloader__inner {
@@ -6383,10 +6389,6 @@ body {
           transform: rotate(5deg);
 }
 
-.preloader {
-  display: none !important;
-}
-
 @media (min-width: 575.98px) {
   .popup__form {
     margin-top: 2rem;
@@ -6760,6 +6762,10 @@ body {
 
   .popup__form-footer {
     margin-top: 2rem;
+  }
+
+  .preloader__logo {
+    max-width: 40vw;
   }
 
   .marquee__image {
