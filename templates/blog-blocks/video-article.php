@@ -2,12 +2,14 @@
 $video_type = get_field('video_type');
 $poster = get_field('video_poster');
 $final_url = '';
+$is_external = false;
 
 if ($video_type === 'file' || $video_type === true) {
     $video_file = get_field('video_file');
     $final_url = (is_array($video_file) && isset($video_file['url'])) ? $video_file['url'] : '';
 } else {
     $final_url = get_field('video_external_url');
+    $is_external = true;
 }
 
 $has_poster = (!empty($poster) && is_array($poster) && !empty($poster['url']));
@@ -32,6 +34,7 @@ endif; ?>
 <?php if ($final_url) : ?>
     <a href="<?php echo esc_url($final_url); ?>"
         data-fancybox
+        <?php echo $is_external ? 'data-type="iframe"' : ''; ?>
         class="<?php echo esc_attr(implode(' ', $wrapper_classes)); ?>">
         <img src="<?php echo esc_url($poster_url); ?>"
             alt="<?php echo esc_attr($poster_alt); ?>">
