@@ -25,15 +25,15 @@ $btn_data = $data['btn_data'];
         <div class="container">
             <div class="why__header">
                 <?php if ($hint): ?>
-                    <div class="why__hint hint"><?php echo esc_html($hint); ?></div>
+                    <div class="why__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                 <?php endif; ?>
 
                 <?php if ($title): ?>
-                    <h2 class="why__title title-lg"><?php echo esc_html($title); ?></h2>
+                    <h2 class="why__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php if ($subtitle): ?>
-                    <p class="why__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                    <p class="why__subtitle subtitle" data-animate="bottom"><?php echo esc_html($subtitle); ?></p>
                 <?php endif; ?>
             </div>
             <div class="why__body">
@@ -41,7 +41,7 @@ $btn_data = $data['btn_data'];
                 <?php if ($items): ?>
                     <ul class="why__cards">
                         <?php foreach ($items as $item): ?>
-                            <li class="why__card">
+                            <li class="why__card" data-animate="bottom">
                                 <div class="why__card-icon">
                                     <?php
                                     $icon = $item['card_icon'];

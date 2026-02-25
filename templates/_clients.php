@@ -36,7 +36,7 @@ if ($selected_clients) :
     <section class="clients">
         <div class="container">
             <?php if ($clients_text) : ?>
-                <div class="clients__text typography-block">
+                <div class="clients__text typography-block" data-animate="bottom">
                     <?php echo $clients_text; ?>
                 </div>
             <?php endif; ?>
@@ -67,7 +67,9 @@ if ($selected_clients) :
                                 class="clients__item <?php echo $hidden_class; ?>"
                                 data-fancybox
                                 data-type="ajax"
-                                data-src="<?php echo admin_url('admin-ajax.php'); ?>?action=load_case_popup&post_id=<?php echo $case_id; ?>">
+                                data-src="<?php echo admin_url('admin-ajax.php'); ?>?action=load_case_popup&post_id=<?php echo $case_id; ?>"
+                                data-animate="bottom">
+
                                 <?php if ($logo_url) : ?>
                                     <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($client_title); ?>">
                                 <?php endif; ?>
@@ -83,7 +85,7 @@ if ($selected_clients) :
                 </div>
 
                 <?php if ($total_clients > $initial_count) : ?>
-                    <button type="button" class="clients__more btn btn-primary" data-show-more="clients">
+                    <button type="button" class="clients__more btn btn-primary" data-animate="bottom" data-show-more="clients">
                         Загрузить ещё <?php echo ($total_clients - $initial_count); ?> клиентов
                     </button>
                 <?php endif; ?>

@@ -16,6 +16,16 @@
     <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/assets/site.webmanifest">
     <!-- favicon -->
 
+    <noscript>
+        <style>
+            [data-animate] {
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                transition: none;
+            }
+        </style>
+    </noscript>
     <?php wp_head(); ?>
 </head>
 

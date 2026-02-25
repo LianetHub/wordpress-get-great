@@ -30,11 +30,11 @@ if ($query->have_posts()) :
 
     <section class="other-services">
         <div class="container">
-            <h2 class="other-services__title hint">
+            <h2 class="other-services__title hint" data-animate="bottom">
                 <?php echo esc_html($title); ?>
             </h2>
             <?php if ($query->have_posts()) : ?>
-                <div class="other-services__grid">
+                <div class="other-services__grid" data-animate="bottom">
                     <?php while ($query->have_posts()) : $query->the_post(); ?>
                         <a href="<?php the_permalink(); ?>" class="other-services__item icon-chevron-right">
                             <?php the_title(); ?>

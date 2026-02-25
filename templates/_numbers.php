@@ -25,16 +25,16 @@ if ($slides || $items) :
         <div class="container">
             <div class="numbers__header">
                 <?php if ($hint) : ?>
-                    <div class="numbers__hint hint"><?php echo esc_html($hint); ?></div>
+                    <div class="numbers__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                 <?php endif; ?>
                 <?php if ($title) : ?>
-                    <h2 class="numbers__title title-lg"><?php echo esc_html($title); ?></h2>
+                    <h2 class="numbers__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
             </div>
         </div>
 
         <?php if ($slides) : ?>
-            <div class="numbers__slider swiper">
+            <div class="numbers__slider swiper" data-animate="bottom">
                 <div class="swiper-wrapper">
                     <?php foreach ($slides as $slide) : ?>
                         <div class="numbers__slide swiper-slide">
@@ -57,7 +57,7 @@ if ($slides || $items) :
                             $unit = $item['unit'];
                             $desc = $item['description'];
                         ?>
-                            <div class="numbers__column">
+                            <div class="numbers__column" data-animate="bottom">
                                 <div class="numbers__column-caption">
                                     <?php if ($val) : ?>
                                         <div class="numbers__column-value" data-counter><?php echo esc_html($val); ?></div>

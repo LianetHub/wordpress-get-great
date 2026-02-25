@@ -660,6 +660,7 @@ $(function () {
             });
         });
     });
+
     if ($('.services__slider').length) {
         new MobileSwiper('.services__slider', {
             slidesPerView: "auto",
@@ -801,6 +802,26 @@ $(function () {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
         }
     }
+
+    const $animationSections = $('[data-animate]');
+
+    if ($animationSections.length > 0) {
+
+        $animationSections.each(function () {
+            const $section = $(this);
+
+            const callback = function (entries, observer) {
+                if (entries[0].isIntersecting) {
+                    $section.addClass('animated');
+                }
+            };
+
+            const animationObserver = new IntersectionObserver(callback);
+            animationObserver.observe(this);
+
+        });
+    }
+
 
 
     // Form Controller

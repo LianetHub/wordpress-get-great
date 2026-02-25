@@ -33,7 +33,7 @@ $is_service = (get_post_type() === 'services');
 
         <div class="container">
             <div class="about__body">
-                <div class="about__visual">
+                <div class="about__visual" data-animate="bottom">
                     <?php if (have_rows('about_tabs', $prefix)): ?>
                         <div class="about__images">
                             <?php $i = 0;
@@ -67,16 +67,16 @@ $is_service = (get_post_type() === 'services');
 
                 <div class="about__content">
                     <?php if ($hint): ?>
-                        <div class="about__hint hint"><?php echo esc_html($hint); ?></div>
+                        <div class="about__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                     <?php endif; ?>
 
                     <?php if ($title): ?>
-                        <h2 class="about__title title"><?php echo $title; ?></h2>
+                        <h2 class="about__title title" data-animate="bottom"><?php echo $title; ?></h2>
                     <?php endif; ?>
 
                     <?php if (have_rows('about_tabs', $prefix)): ?>
                         <?php if ($tabs_count > 1): ?>
-                            <div class="about__tabs">
+                            <div class="about__tabs" data-animate="bottom">
                                 <?php $i = 0;
                                 while (have_rows('about_tabs', $prefix)): the_row(); ?>
                                     <button class="about__tab btn btn-secondary <?php echo ($i === 0) ? 'active' : ''; ?>">
@@ -87,7 +87,7 @@ $is_service = (get_post_type() === 'services');
                             </div>
                         <?php endif; ?>
 
-                        <div class="about__tabs-wrapper">
+                        <div class="about__tabs-wrapper" data-animate="bottom">
                             <?php $i = 0;
                             while (have_rows('about_tabs', $prefix)): the_row(); ?>
                                 <div class="about__tab-content <?php echo ($i === 0) ? 'active' : ''; ?>">

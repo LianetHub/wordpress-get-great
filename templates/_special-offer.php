@@ -26,15 +26,15 @@ $image    = get_field('special_offer_image', $prefix);
             <div class="special-offer__body">
                 <div class="special-offer__main">
                     <?php if ($hint): ?>
-                        <div class="special-offer__hint hint"><?php echo esc_html($hint); ?></div>
+                        <div class="special-offer__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                     <?php endif; ?>
 
                     <?php if ($title): ?>
-                        <h2 class="special-offer__title title-md"><?php echo $title; ?></h2>
+                        <h2 class="special-offer__title title-md" data-animate="bottom"><?php echo $title; ?></h2>
                     <?php endif; ?>
 
                     <?php if ($subtitle): ?>
-                        <p class="special-offer__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                        <p class="special-offer__subtitle subtitle" data-animate="bottom"><?php echo esc_html($subtitle); ?></p>
                     <?php endif; ?>
 
                     <?php if (have_rows('special_offer_cards', $prefix)): ?>
@@ -43,7 +43,7 @@ $image    = get_field('special_offer_image', $prefix);
                                 $card_icon = get_sub_field('card_icon');
                                 $card_text = get_sub_field('card_text');
                             ?>
-                                <li class="special-offer__card">
+                                <li class="special-offer__card" data-animate="bottom">
                                     <?php if ($card_icon): ?>
                                         <div class="special-offer__card-icon">
                                             <?php
@@ -82,7 +82,7 @@ $image    = get_field('special_offer_image', $prefix);
                 </div>
 
                 <?php if ($image): ?>
-                    <div class="special-offer__image">
+                    <div class="special-offer__image" data-animate="bottom">
                         <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
                     </div>
                 <?php endif; ?>

@@ -25,15 +25,15 @@ if ($items) :
         <div class="container">
             <div class="licenses__header">
                 <?php if ($hint): ?>
-                    <div class="licenses__hint hint"><?php echo esc_html($hint); ?></div>
+                    <div class="licenses__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                 <?php endif; ?>
 
                 <?php if ($title): ?>
-                    <h2 class="licenses__title title-lg"><?php echo esc_html($title); ?></h2>
+                    <h2 class="licenses__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php if ($subtitle): ?>
-                    <p class="licenses__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                    <p class="licenses__subtitle subtitle" data-animate="bottom"><?php echo esc_html($subtitle); ?></p>
                 <?php endif; ?>
             </div>
 
@@ -46,7 +46,9 @@ if ($items) :
                     $col_value = $item['licenses_columns'] ?: '4';
                     $item_span_class = ($col_value === '5') ? 'licenses__item--span-4' : 'licenses__item--span-5';
                 ?>
-                    <li class="licenses__item <?php echo $item_span_class; ?> <?php echo $has_border ? 'has-border' : ''; ?>">
+                    <li
+                        data-animate="bottom"
+                        class="licenses__item <?php echo $item_span_class; ?> <?php echo $has_border ? 'has-border' : ''; ?>">
                         <?php if ($image) : ?>
                             <div class="licenses__item-image">
                                 <img src="<?php echo esc_url($image['url']); ?>"

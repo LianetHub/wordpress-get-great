@@ -53,22 +53,22 @@ $query = new WP_Query($args);
     <div class="container">
         <div class="cases__header">
             <?php if ($hint): ?>
-                <div class="cases__hint hint"><?php echo esc_html($hint); ?></div>
+                <div class="cases__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
             <?php endif; ?>
 
             <?php if ($title): ?>
-                <h2 class="cases__title title-lg"><?php echo esc_html($title); ?></h2>
+                <h2 class="cases__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
             <?php endif; ?>
 
             <?php if ($subtitle): ?>
-                <div class="cases__subtitle subtitle"><?php echo esc_html($subtitle); ?></div>
+                <div class="cases__subtitle subtitle" data-animate="bottom"><?php echo esc_html($subtitle); ?></div>
             <?php endif; ?>
         </div>
 
         <?php if ($query->have_posts()): ?>
             <ul class="cases__list">
                 <?php while ($query->have_posts()): $query->the_post(); ?>
-                    <li class="cases__item">
+                    <li class="cases__item" data-animate="bottom">
                         <?php get_template_part('templates/components/case-card'); ?>
                     </li>
                 <?php endwhile;
@@ -81,7 +81,7 @@ $query = new WP_Query($args);
         if ($archive_link):
             $count_all = wp_count_posts('portfolio')->publish;
         ?>
-            <a href="<?php echo esc_url($archive_link); ?>" class="cases__more btn btn-primary">
+            <a href="<?php echo esc_url($archive_link); ?>" class="cases__more btn btn-primary" data-animate="bottom">
                 Смотреть все <?php echo $count_all; ?> кейсов
             </a>
         <?php endif; ?>

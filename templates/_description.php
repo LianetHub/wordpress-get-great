@@ -23,11 +23,11 @@ if ($title || $text) :
         <div class="container">
             <div class="description__content">
                 <?php if ($title) : ?>
-                    <h2 class="description__title hint"><?php echo esc_html($title); ?></h2>
+                    <h2 class="description__title hint" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php if ($text) : ?>
-                    <div class="description__text typography-block">
+                    <div class="description__text typography-block" data-animate="bottom">
                         <?php echo $text; ?>
                     </div>
                 <?php endif; ?>

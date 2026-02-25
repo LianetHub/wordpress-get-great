@@ -24,7 +24,7 @@ if (get_field('show_pres', 'option')):
 ?>
     <section class="presentation">
         <div class="container">
-            <div class="presentation__content">
+            <div class="presentation__content" data-animate="bottom">
                 <div class="presentation__info">
                     <div class="presentation__hint hint">презентация</div>
 

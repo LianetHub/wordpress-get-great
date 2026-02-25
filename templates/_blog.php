@@ -41,7 +41,9 @@
                     $placeholder_logo = get_field('logo', 'option');
                     $card_image_class = 'articles__card-image' . (!$has_thumb ? ' is-placeholder' : '');
                 ?>
-                    <li class="articles__item">
+                    <li
+                        data-animate="bottom"
+                        class="articles__item">
                         <a href="<?php the_permalink(); ?>" class="articles__card">
                             <span class="articles__card-label"><?php echo esc_html($cat_name); ?></span>
 

@@ -33,7 +33,7 @@
         <?php if (have_posts()) : ?>
             <ul class="cases__list">
                 <?php while (have_posts()) : the_post(); ?>
-                    <li class="cases__item">
+                    <li class="cases__item" data-animate="bottom">
                         <?php get_template_part('templates/components/case-card'); ?>
                     </li>
                 <?php endwhile; ?>

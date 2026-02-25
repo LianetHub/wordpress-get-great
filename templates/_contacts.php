@@ -33,8 +33,8 @@ if ($section_bg) {
     <div class="container">
         <div class="contacts__body">
             <div class="contacts__main">
-                <h2 class="contacts__title title-sm"><?php echo esc_html($section_title); ?></h2>
-                <ul class="contacts__list">
+                <h2 class="contacts__title title-sm" data-animate="bottom"><?php echo esc_html($section_title); ?></h2>
+                <ul class="contacts__list" data-animate="bottom">
                     <?php if ($requisites): ?>
                         <li class="contacts__item">
                             <div class="contacts__item-name">Реквизиты:</div>
@@ -109,7 +109,11 @@ if ($section_bg) {
                     <?php endif; ?>
                 </ul>
             </div>
-            <form action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" method="POST" class="contacts__form form">
+            <form
+                data-animate="bottom"
+                action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
+                method="POST"
+                class="contacts__form form">
                 <input type="hidden" name="action" value="send_contact_form">
                 <div class="contacts__form-header">
                     <?php if ($contacts_form_title): ?>

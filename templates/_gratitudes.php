@@ -24,11 +24,11 @@ $count = count($gallery);
     <div class="gratitudes__body">
         <div class="container">
             <div class="gratitudes__header">
-                <div class="gratitudes__hint hint"><?php echo esc_html($hint); ?></div>
-                <h2 class="gratitudes__title title-lg"><?php echo esc_html($title); ?></h2>
+                <div class="gratitudes__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
+                <h2 class="gratitudes__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
             </div>
             <div class="gratitudes__content">
-                <div class="gratitudes__caption">
+                <div class="gratitudes__caption" data-animate="bottom">
                     <div class="gratitudes__details title-xs">
                         <?php echo $title_slider; ?>
                         <span class="quantity-count">
@@ -43,7 +43,7 @@ $count = count($gallery);
                         </div>
                     </div>
                 </div>
-                <div class="gratitudes__slider swiper">
+                <div class="gratitudes__slider swiper" data-animate="bottom">
                     <div class="swiper-wrapper">
                         <?php foreach ($gallery as $image): ?>
                             <a href="<?php echo esc_url($image['url']); ?>"

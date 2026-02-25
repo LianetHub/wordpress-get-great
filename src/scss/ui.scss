@@ -12,6 +12,7 @@
 @use "modules/tooltip";
 @use "modules/marguee";
 @use "modules/pagination";
+@use "modules/animation";
 //============ МОДУЛИ ====================
 
 .title-lg {
@@ -19,15 +20,19 @@
 	font-weight: 700;
 	line-height: 100%;
 	font-size: 2.25rem;
+
 	@media (min-width: $md4) {
 		font-size: 2.5rem;
 	}
+
 	@media (min-width: $md3) {
 		font-size: 2.75rem;
 	}
+
 	@media (min-width: $md2) {
 		font-size: 3rem;
 	}
+
 	@media (min-width: $md1) {
 		font-size: 4rem;
 	}
@@ -38,15 +43,19 @@
 	font-weight: 700;
 	line-height: 100%;
 	font-size: 1.75rem;
+
 	@media (min-width: $md5) {
 		font-size: 2.25rem;
 	}
+
 	@media (min-width: $md2) {
 		font-size: 2.75rem;
 	}
+
 	@media (min-width: $md1) {
 		font-size: 3rem;
 	}
+
 	@media (min-width: $md0) {
 		font-size: 3.5rem;
 	}
@@ -57,12 +66,15 @@
 	font-weight: 700;
 	line-height: 100%;
 	font-size: 2.25rem;
+
 	@media (min-width: $md4) {
 		font-size: 2.5rem;
 	}
+
 	@media (min-width: $md3) {
 		font-size: 2.75rem;
 	}
+
 	@media (min-width: $md2) {
 		font-size: 3rem;
 	}
@@ -73,6 +85,7 @@
 	font-weight: 700;
 	line-height: 100%;
 	font-size: 1.5rem;
+
 	@media (min-width: $md4) {
 		font-size: 2rem;
 	}
@@ -97,15 +110,19 @@
 	align-items: center;
 	gap: 0.38rem;
 	font-size: rem(14);
+
 	@media (min-width: $md4) {
 		font-size: 1rem;
 	}
+
 	@media (min-width: $md3) {
 		font-size: 1.125rem;
 	}
+
 	@media (min-width: $md2) {
 		font-size: 1.25rem;
 	}
+
 	&::before {
 		content: "";
 		width: em(1.1875, 1.25);
@@ -121,9 +138,11 @@
 	line-height: 130%;
 	letter-spacing: -0.0125rem;
 	font-size: 1rem;
+
 	@media (min-width: $md5) {
 		font-size: 1.125rem;
 	}
+
 	@media (min-width: $md3) {
 		font-size: 1.25rem;
 	}
@@ -150,6 +169,7 @@
 	& .swiper-navigation-icon {
 		display: none !important;
 	}
+
 	position: relative;
 	left: auto !important;
 	right: auto !important;
@@ -157,9 +177,8 @@
 	top: auto !important;
 	margin: 0 !important;
 	transform: none !important;
-	transition:
-		background-color 0.3s ease 0s,
-		color 0.3s ease 0s;
+	transition: background-color 0.3s ease 0s,
+	color 0.3s ease 0s;
 	z-index: 2;
 
 	flex-shrink: 0;
@@ -213,6 +232,7 @@
 			display: block;
 		}
 	}
+
 	&.counting::after {
 		animation: countingBar var(--counting-speed, 15.8s) linear forwards;
 	}
@@ -221,10 +241,12 @@
 		0% {
 			transform: scale3d(0, 1, 1);
 		}
+
 		100% {
 			transform: scale3d(1, 1, 1);
 		}
 	}
+
 	@extend %ic, .icon-arrow-right;
 }
 
@@ -240,6 +262,7 @@
 		color: #414651;
 		line-height: 140%;
 		font-size: 1rem;
+
 		.swiper-pagination-current {
 			color: var(--swiper-pagination-fraction-color, #000);
 			font-weight: 700;
@@ -248,18 +271,22 @@
 			font-size: 2rem;
 		}
 	}
+
 	&.swiper-pagination-lock {
 		display: none;
 	}
+
 	&.swiper-pagination-bullets {
 		position: static;
 		margin: auto;
 		width: auto;
 		--swiper-pagination-bullet-horizontal-gap: #{rem(6)};
+
 		.swiper-pagination-bullet {
 			background: #fff;
 			opacity: 1;
 			position: relative;
+
 			&::before {
 				content: "";
 				position: absolute;
@@ -269,6 +296,7 @@
 				width: 1.5rem;
 				height: 1.5rem;
 			}
+
 			&.swiper-pagination-bullet-active {
 				opacity: 1;
 				background: $accent;
@@ -285,6 +313,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
+
 	// .socials__item
 	&__item {
 		--hover-bg: #{$accent};
@@ -300,6 +329,7 @@
 		background: #61656c;
 		border-radius: 50%;
 		transition: background-color 0.3s ease;
+
 		@media (any-hover: hover) {
 			&:hover {
 				background-color: var(--hover-bg);
@@ -318,6 +348,7 @@
 	color: transparent !important;
 	pointer-events: none;
 	transition: none;
+
 	&::before {
 		content: "";
 		position: absolute;
@@ -339,6 +370,7 @@
 	0% {
 		transform: translate(-50%, -50%) rotate(0deg);
 	}
+
 	100% {
 		transform: translate(-50%, -50%) rotate(360deg);
 	}
@@ -385,12 +417,15 @@ $scrollbarHover: color.adjust($accent, $lightness: -10%);
 ::-webkit-scrollbar {
 	width: rem(8);
 }
+
 ::-webkit-scrollbar-track {
 	background: #fff;
 }
+
 ::-webkit-scrollbar-thumb {
 	background: $scrollbarColor;
 	border-radius: rem(8);
+
 	@media (any-hover: hover) {
 		&:hover {
 			background: $scrollbarHover;

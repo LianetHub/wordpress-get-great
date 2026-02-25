@@ -20,7 +20,7 @@ $title = get_field('mission_title', $prefix) ?: "Наша миссия";
 <section class="mission">
     <div class="container">
         <?php if ($title): ?>
-            <h2 class="mission__title title-lg"><?php echo esc_html($title); ?></h2>
+            <h2 class="mission__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
         <?php endif; ?>
 
         <?php if (have_rows('mission_columns', $prefix)): ?>
@@ -40,13 +40,16 @@ $title = get_field('mission_title', $prefix) ?: "Наша миссия";
                                     $font_size_mobile = get_sub_field('text_content_size_mobile') ?: '14px';
                                     ?>
                                     <div class="mission__text typography-block"
+                                        data-animate="bottom"
                                         style="--fs-desktop: <?php echo esc_attr($font_size_desktop); ?>; --fs-mobile: <?php echo esc_attr($font_size_mobile); ?>;">
                                         <?php the_sub_field('text_content'); ?>
                                     </div>
                                 <?php endif; ?>
 
                                 <?php if ($layout === 'quote'): ?>
-                                    <blockquote class="mission__quote">
+                                    <blockquote
+                                        data-animate="bottom"
+                                        class="mission__quote">
                                         «<?php the_sub_field('quote_text'); ?>»
                                     </blockquote>
                                 <?php endif; ?>

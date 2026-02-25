@@ -25,14 +25,14 @@ if ($items) :
             <div class="container">
                 <div class="how-we-work__header">
                     <?php if ($hint) : ?>
-                        <div class="how-we-work__hint hint"><?php echo esc_html($hint); ?></div>
+                        <div class="how-we-work__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                     <?php endif; ?>
                     <?php if ($title) : ?>
-                        <h2 class="how-we-work__title title-lg"><?php echo esc_html($title); ?></h2>
+                        <h2 class="how-we-work__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                     <?php endif; ?>
                 </div>
 
-                <div class="how-we-work__slider swiper">
+                <div class="how-we-work__slider swiper" data-animate="bottom">
                     <ol class="swiper-wrapper">
                         <?php foreach ($items as $item) :
                             $caption = $item['caption'];

@@ -73,16 +73,16 @@ if ($services_list) :
         <div class="services__wrapper">
             <div class="container">
                 <div class="services__header">
-                    <?php if ($hint): echo '<div class="services__hint hint">' . esc_html($hint) . '</div>';
+                    <?php if ($hint): echo '<div  data-animate="bottom" class="services__hint hint">' . esc_html($hint) . '</div>';
                     endif; ?>
-                    <?php if ($title): echo '<h2 class="services__title title-lg">' . esc_html($title) . '</h2>';
+                    <?php if ($title): echo '<h2  data-animate="bottom" class="services__title title-lg">' . esc_html($title) . '</h2>';
                     endif; ?>
-                    <?php if ($subtitle): echo '<p class="services__subtitle subtitle">' . esc_html($subtitle) . '</p>';
+                    <?php if ($subtitle): echo '<p  data-animate="bottom" class="services__subtitle subtitle">' . esc_html($subtitle) . '</p>';
                     endif; ?>
                 </div>
 
                 <div class="services__content">
-                    <div class="services__column">
+                    <div class="services__column" data-animate="bottom">
                         <div class="services__items">
                             <?php foreach ($left_column as $item) : ?>
                                 <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['id']; ?>">
@@ -106,7 +106,7 @@ if ($services_list) :
                         <?php endif; ?>
                     </div>
 
-                    <div class="services__projects">
+                    <div class="services__projects" data-animate="bottom">
                         <?php foreach ($all_items as $item) :
                             $proj = $item['project'];
                             if (empty($proj['title'])) continue;
@@ -133,7 +133,7 @@ if ($services_list) :
                         <?php endforeach; ?>
                     </div>
 
-                    <div class="services__column">
+                    <div class="services__column" data-animate="bottom">
                         <div class="services__items">
                             <?php foreach ($right_column as $item) : ?>
                                 <button type="button" data-da=".services__slider-wrapper, 1199.98" class="services__item swiper-slide <?php echo $item['active']; ?>" data-project-id="<?php echo $item['id']; ?>">
@@ -144,7 +144,7 @@ if ($services_list) :
                         </div>
                     </div>
                 </div>
-                <div class="services__bottom">
+                <div class="services__bottom" data-animate="bottom">
                     <div class="services__slider swiper">
                         <div class="services__slider-wrapper swiper-wrapper"></div>
                     </div>

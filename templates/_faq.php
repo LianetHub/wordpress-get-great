@@ -35,13 +35,13 @@ if ($show): ?>
         <div class="container">
             <div class="faq__header">
                 <?php if ($hint): ?>
-                    <div class="faq__hint hint"><?php echo esc_html($hint); ?></div>
+                    <div class="faq__hint hint" data-animate="bottom"><?php echo esc_html($hint); ?></div>
                 <?php endif; ?>
                 <?php if ($title): ?>
-                    <h2 class="faq__title title-lg"><?php echo esc_html($title); ?></h2>
+                    <h2 class="faq__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
                 <?php if ($subtitle): ?>
-                    <p class="faq__subtitle subtitle"><?php echo esc_html($subtitle); ?></p>
+                    <p class="faq__subtitle subtitle" data-animate="bottom"><?php echo esc_html($subtitle); ?></p>
                 <?php endif; ?>
             </div>
 
@@ -64,7 +64,7 @@ if ($show): ?>
                         <?php if (!empty($column_items)): ?>
                             <div class="faq__column">
                                 <?php foreach ($column_items as $item): ?>
-                                    <div class="faq__item">
+                                    <div class="faq__item" data-animate="bottom">
                                         <div class="faq__item-question" data-spoller>
                                             <?php echo esc_html($item['faq_question']); ?>
                                         </div>
