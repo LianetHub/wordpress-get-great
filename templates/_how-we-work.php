@@ -20,7 +20,7 @@ $items = get_field('how_we_work_items', $prefix);
 
 if ($items) :
 ?>
-    <section class="how-we-work">
+    <section class="how-we-work" id="how-we-work">
         <div class="how-we-work__wrapper">
             <div class="container">
                 <div class="how-we-work__header">

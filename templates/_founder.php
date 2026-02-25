@@ -21,7 +21,7 @@ $image = get_field('founder_image', $prefix);
 
 if ($quote || $name) :
 ?>
-    <section class="founder">
+    <section class="founder" id="founder">
         <div class="founder__wrapper">
             <div class="container">
                 <div class="founder__content">

@@ -1,4 +1,4 @@
-<section class="cases">
+<section class="cases" id="portfolio">
     <div class="container">
         <div class="articles__tags">
 

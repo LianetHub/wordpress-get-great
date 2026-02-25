@@ -20,7 +20,7 @@ $items    = $data['items'];
 $btn_data = $data['btn_data'];
 ?>
 
-<section class="why">
+<section class="why" id="why">
     <div class="why__content">
         <div class="container">
             <div class="why__header">

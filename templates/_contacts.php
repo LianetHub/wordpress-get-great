@@ -29,7 +29,7 @@ if ($section_bg) {
 
 
 
-<section class="contacts" <?php echo $style; ?>>
+<section class="contacts" id="contacts" <?php echo $style; ?>>
     <div class="container">
         <div class="contacts__body">
             <div class="contacts__main">

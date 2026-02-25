@@ -21,7 +21,7 @@ $items = get_field('licenses_items', $prefix);
 
 if ($items) :
 ?>
-    <section class="licenses">
+    <section class="licenses" id="licenses">
         <div class="container">
             <div class="licenses__header">
                 <?php if ($hint): ?>

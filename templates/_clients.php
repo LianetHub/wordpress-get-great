@@ -33,7 +33,7 @@ $initial_count = get_field('clients_initial_count', $prefix) ?: 16;
 if ($selected_clients) :
     $total_clients = count($selected_clients);
 ?>
-    <section class="clients">
+    <section class="clients" id="clients">
         <div class="container">
             <?php if ($clients_text) : ?>
                 <div class="clients__text typography-block" data-animate="bottom">

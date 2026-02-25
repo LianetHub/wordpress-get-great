@@ -19,7 +19,7 @@ $text = get_field('description_text', $prefix);
 
 if ($title || $text) :
 ?>
-    <section class="description">
+    <section class="description" id="description">
         <div class="container">
             <div class="description__content">
                 <?php if ($title) : ?>

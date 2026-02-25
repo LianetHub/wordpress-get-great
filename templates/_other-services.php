@@ -28,7 +28,7 @@ $query = new WP_Query($args);
 if ($query->have_posts()) :
 ?>
 
-    <section class="other-services">
+    <section class="other-services" id="other-services">
         <div class="container">
             <h2 class="other-services__title hint" data-animate="bottom">
                 <?php echo esc_html($title); ?>

@@ -11,7 +11,7 @@ $promo_form_btn = get_field('promo_form_btn', 'option') ?? "Отправить";
 $has_h1 = false;
 ?>
 
-<section class="promo">
+<section class="promo" id="promo">
     <div class="promo__slider swiper">
         <div class="swiper-wrapper">
             <?php if ($promo_slides) : ?>

@@ -21,7 +21,7 @@ $cards = get_field('cards_block_items', $prefix);
 
 if ($cards) :
 ?>
-    <section class="cards-block">
+    <section class="cards-block" id="cards">
         <div class="container">
             <div class="cards-block__header">
                 <?php if ($hint): ?>

@@ -20,7 +20,7 @@ $subtitle = get_field('special_offer_subtitle', $prefix);
 $image    = get_field('special_offer_image', $prefix);
 ?>
 
-<section class="special-offer">
+<section class="special-offer" id="special-offer">
     <div class="special-offer__wrapper">
         <div class="container">
             <div class="special-offer__body">

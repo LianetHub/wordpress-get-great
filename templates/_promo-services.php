@@ -2,7 +2,7 @@
 $promo_slides = get_field('promo_slides');
 ?>
 
-<section class="promo promo--services">
+<section class="promo promo--services" id="promo">
     <div class="promo__top">
         <div class="container">
             <?php require(TEMPLATE_PATH . '/components/breadcrumbs.php'); ?>

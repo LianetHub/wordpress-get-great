@@ -31,7 +31,7 @@ $items    = $data['items'];
 
 
 if ($show): ?>
-    <section class="faq">
+    <section class="faq" id="faq">
         <div class="container">
             <div class="faq__header">
                 <?php if ($hint): ?>

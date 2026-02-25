@@ -49,7 +49,7 @@ if (!empty($manual_cases)) {
 $query = new WP_Query($args);
 ?>
 
-<section class="cases">
+<section class="cases" id="portfolio">
     <div class="container">
         <div class="cases__header">
             <?php if ($hint): ?>

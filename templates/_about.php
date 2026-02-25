@@ -26,7 +26,7 @@ $has_wrapper = ($bg_color === 'blue');
 $is_service = (get_post_type() === 'services');
 ?>
 
-<<?php echo $tag; ?> class="about">
+<<?php echo $tag; ?> class="about" id="about">
     <?php if ($has_wrapper): ?>
         <div class="about__wrapper">
         <?php endif; ?>

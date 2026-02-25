@@ -21,7 +21,7 @@ $items = get_field('numbers_items', $prefix);
 
 if ($slides || $items) :
 ?>
-    <section class="numbers">
+    <section class="numbers" id="numbers">
         <div class="container">
             <div class="numbers__header">
                 <?php if ($hint) : ?>

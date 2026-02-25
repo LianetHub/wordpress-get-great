@@ -22,7 +22,7 @@ if (get_field('show_pres', 'option')):
         $size = size_format($file_data['filesize']);
     }
 ?>
-    <section class="presentation">
+    <section class="presentation" id="presentation">
         <div class="container">
             <div class="presentation__content" data-animate="bottom">
                 <div class="presentation__info">

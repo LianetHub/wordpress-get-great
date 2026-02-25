@@ -25,7 +25,7 @@ if (!$selected_clients) {
 }
 
 if ($selected_clients): ?>
-    <div class="clients clients--marquee">
+    <div class="clients clients--marquee" id="clients">
         <div class="container">
             <div class="clients__marquee marquee">
                 <div class="marquee__slider swiper marquee__slider--images">

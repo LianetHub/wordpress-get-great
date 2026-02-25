@@ -14,7 +14,7 @@ $has_thumbnail = has_post_thumbnail($current_id) && !$hide_image_context;
 $hero_class = $has_thumbnail ? ' hero--has-poster' : '';
 ?>
 
-<section class="hero<?php echo $hero_class; ?>">
+<section id="hero" class="hero<?php echo $hero_class; ?>">
     <div class="container">
         <div class="hero__content">
             <?php

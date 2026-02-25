@@ -1,4 +1,4 @@
-<div class="articles">
+<div class="articles" id="blog">
     <div class="container">
         <div class="articles__tags">
             <?php

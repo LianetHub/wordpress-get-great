@@ -20,7 +20,7 @@ if (!$gallery) return;
 $count = count($gallery);
 ?>
 
-<section class="gratitudes">
+<section class="gratitudes" id="gratitudes">
     <div class="gratitudes__body">
         <div class="container">
             <div class="gratitudes__header">

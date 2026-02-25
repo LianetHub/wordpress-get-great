@@ -17,7 +17,7 @@ if (is_admin() && $source === 'global' && get_current_screen()->base !== 'toplev
 $title = get_field('mission_title', $prefix) ?: "Наша миссия";
 ?>
 
-<section class="mission">
+<section class="mission" id="mission">
     <div class="container">
         <?php if ($title): ?>
             <h2 class="mission__title title-lg" data-animate="bottom"><?php echo esc_html($title); ?></h2>
