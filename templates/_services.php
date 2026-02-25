@@ -109,26 +109,32 @@ if ($services_list) :
                     <div class="services__projects" data-animate="bottom">
                         <?php foreach ($all_items as $item) :
                             $proj = $item['project'];
-                            if (empty($proj['title'])) continue;
                         ?>
                             <div class="services__project <?php echo $item['active']; ?>" data-project-target="<?php echo $item['id']; ?>">
-                                <span class="services__project-image">
-                                    <?php if ($proj['img']): ?>
-                                        <img src="<?php echo esc_url($proj['img']); ?>" alt="<?php echo esc_attr($proj['title']); ?>">
-                                    <?php endif; ?>
-                                </span>
-                                <div class="services__project-info">
-                                    <div class="services__project-name"><?php echo esc_html($proj['title']); ?></div>
-                                    <div class="services__project-desc"><?php echo esc_html($proj['text']); ?></div>
-                                    <?php if (!empty($proj['btn_data'])): ?>
-                                        <?php
-                                        get_template_part('templates/components/button', null, [
-                                            'data'  => $proj['btn_data']['btn'],
-                                            'class' => 'services__project-btn',
-                                        ]);
-                                        ?>
-                                    <?php endif; ?>
-                                </div>
+                                <?php if (!empty($proj['img'])): ?>
+                                    <span class="services__project-image">
+                                        <img src="<?php echo esc_url($proj['img']); ?>" alt="<?php echo esc_attr($proj['title'] ?? ''); ?>">
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if (!empty($proj['title']) || !empty($proj['text']) || !empty($proj['btn_data']['btn'])): ?>
+                                    <div class="services__project-info">
+                                        <?php if (!empty($proj['title'])): ?>
+                                            <div class="services__project-name"><?php echo esc_html($proj['title']); ?></div>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($proj['text'])): ?>
+                                            <div class="services__project-desc"><?php echo esc_html($proj['text']); ?></div>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($proj['btn_data']['btn'])):
+                                            get_template_part('templates/components/button', null, [
+                                                'data'  => $proj['btn_data']['btn'],
+                                                'class' => 'services__project-btn',
+                                            ]);
+                                        endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
