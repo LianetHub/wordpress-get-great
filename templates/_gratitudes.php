@@ -50,8 +50,7 @@ $count = count($gallery);
                                 data-fancybox="gratitudes"
                                 class="gratitudes__slide swiper-slide">
                                 <img src="<?php echo esc_url($image['url']); ?>"
-                                    alt="<?php echo esc_attr($image['alt']); ?>"
-                                    loading="lazy">
+                                    alt="<?php echo esc_attr($image['alt']); ?>">
                             </a>
                         <?php endforeach; ?>
                     </div>
