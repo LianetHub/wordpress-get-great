@@ -66,15 +66,11 @@ class Wptuts_Simple_Admin
 
 							$siblings.each(function() {
 								var otherField = acf.getField($(this));
-
 								if (otherField.$el[0] !== field.$el[0]) {
 									var $otherInput = otherField.$input();
-
 									if ($otherInput.prop('checked')) {
 										$otherInput.prop('checked', false);
-
 										otherField.$el.find('.acf-switch').removeClass('-on');
-
 										setTimeout(function() {
 											otherField.val(0);
 										}, 10);
@@ -84,10 +80,52 @@ class Wptuts_Simple_Admin
 						}
 					});
 				});
+
+				const limit = 3;
+				const selector = '.acf-field[data-name="show_in_header"]';
+
+				$(document).on('change', selector + ' input[type="checkbox"]', function() {
+					let $allFields = $(selector);
+					let $checkedInputs = $allFields.find('input[type="checkbox"]:checked');
+
+					if ($checkedInputs.length >= limit) {
+						$allFields.each(function() {
+							let $input = $(this).find('input[type="checkbox"]');
+							if (!$input.prop('checked')) {
+								$input.prop('disabled', true);
+								$(this).addClass('is-disabled-limit');
+							}
+						});
+					} else {
+						$allFields.find('input[type="checkbox"]').prop('disabled', false);
+						$allFields.removeClass('is-disabled-limit');
+					}
+				});
+
+				acf.add_action('ready append', function() {
+					$(selector + ' input[type="checkbox"]').trigger('change');
+				});
 			})(jQuery);
 		</script>
+		<style>
+			.acf-field[data-name="show_in_header"].is-disabled-limit {
+				opacity: 0.5 !important;
+				pointer-events: none;
+				filter: grayscale(1);
+			}
+
+			.acf-field[data-name="show_in_header"].is-disabled-limit label {
+				cursor: not-allowed !important;
+			}
+
+			.acf-field[data-name="show_in_header"].is-disabled-limit .acf-switch {
+				background: #eee !important;
+				border-color: #ccc !important;
+			}
+		</style>
 <?php
 	}
+
 	function my_custom_login_logo()
 	{
 		echo '

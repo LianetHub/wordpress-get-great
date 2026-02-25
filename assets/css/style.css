@@ -3,14 +3,6 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  font-display: swap;
   src: url("../fonts/Gilroy-Bold.woff2") format("woff2"), url("../fonts/Gilroy-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
@@ -21,6 +13,14 @@
   font-display: swap;
   src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
   font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  font-display: swap;
+  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -2090,6 +2090,12 @@ body.is-loaded .preloader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.footer__menu-item.menu-item-object-services {
+  -webkit-column-break-inside: avoid;
+     -moz-column-break-inside: avoid;
+          break-inside: avoid;
 }
 
 .footer__menu-item._spoller-open .footer__menu-link {
@@ -6441,6 +6447,8 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
     margin-left: 1rem;
     padding-right: 1rem;
     border-right: 0.0625rem solid #61656c;
@@ -6856,13 +6864,6 @@ body {
     -webkit-column-gap: 2rem;
        -moz-column-gap: 2rem;
             column-gap: 2rem;
-  }
-
-  .footer__menu-item.menu-item-object-services .footer__submenu-item {
-    margin-top: 2rem;
-    -webkit-column-break-inside: avoid;
-       -moz-column-break-inside: avoid;
-            break-inside: avoid;
   }
 
   .footer__menu-item.blog-block .footer__submenu {
@@ -8240,7 +8241,7 @@ body {
   }
 
   .menu__link {
-    padding: 0.375em 0.875em;
+    padding: 0.375em 0.75em;
     border-radius: 0.75rem;
     min-height: 2.25rem;
     font-weight: 400;
@@ -8334,9 +8335,8 @@ body {
     font-size: 3rem;
   }
 
-  .header__socials {
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+  .menu__link {
+    padding: 0.375em 0.875em;
   }
 
   .footer__menu-list {

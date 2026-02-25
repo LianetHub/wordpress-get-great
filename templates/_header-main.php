@@ -56,23 +56,24 @@ $email = get_field('email', 'option');
                 <?php if (have_rows('social_links', 'option')): ?>
                     <div class="menu__socials socials">
                         <?php while (have_rows('social_links', 'option')): the_row();
+                            $show_in_header = get_sub_field('show_in_header');
+                            $show_item = get_sub_field('show_item');
+
+                            if (!$show_item || !$show_in_header) continue;
+
                             $icon = get_sub_field('icon');
                             $link = get_sub_field('link');
                             $hover_color = get_sub_field('hover_color');
-                            $is_whatsapp = strpos($link, 'whatsapp') !== false;
-                            $is_telegram = strpos($link, 'telegram') !== false || strpos($link, 't.me') !== false;
                         ?>
-                            <?php if ($is_whatsapp || $is_telegram): ?>
-                                <a href="<?php echo esc_url($link); ?>"
-                                    class="socials__item"
-                                    style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
-                                    target="_blank"
-                                    rel="nofollow">
-                                    <?php if ($icon): ?>
-                                        <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
-                                    <?php endif; ?>
-                                </a>
-                            <?php endif; ?>
+                            <a href="<?php echo esc_url($link); ?>"
+                                class="socials__item"
+                                style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
+                                target="_blank"
+                                rel="nofollow">
+                                <?php if ($icon): ?>
+                                    <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
+                                <?php endif; ?>
+                            </a>
                         <?php endwhile; ?>
                     </div>
                 <?php endif; ?>
@@ -94,24 +95,24 @@ $email = get_field('email', 'option');
     <?php if (have_rows('social_links', 'option')): ?>
         <div class="header__socials socials">
             <?php while (have_rows('social_links', 'option')): the_row();
+                $show_in_header = get_sub_field('show_in_header');
+                $show_item = get_sub_field('show_item');
+
+                if (!$show_item || !$show_in_header) continue;
+
                 $icon = get_sub_field('icon');
                 $link = get_sub_field('link');
                 $hover_color = get_sub_field('hover_color');
-
-                $is_whatsapp = strpos($link, 'whatsapp') !== false;
-                $is_telegram = strpos($link, 'telegram') !== false || strpos($link, 't.me') !== false;
             ?>
-                <?php if ($is_whatsapp || $is_telegram): ?>
-                    <a href="<?php echo esc_url($link); ?>"
-                        class="socials__item"
-                        style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
-                        target="_blank"
-                        rel="nofollow">
-                        <?php if ($icon): ?>
-                            <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
-                        <?php endif; ?>
-                    </a>
-                <?php endif; ?>
+                <a href="<?php echo esc_url($link); ?>"
+                    class="socials__item"
+                    style="--hover-bg: <?php echo esc_attr($hover_color); ?>;"
+                    target="_blank"
+                    rel="nofollow">
+                    <?php if ($icon): ?>
+                        <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
+                    <?php endif; ?>
+                </a>
             <?php endwhile; ?>
         </div>
     <?php endif; ?>
