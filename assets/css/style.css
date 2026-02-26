@@ -5538,6 +5538,11 @@ body {
   color: #a4a7ae;
 }
 
+.other-services__item {
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
 .cards-block__header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9221,6 +9226,10 @@ body {
 
   .service-card:hover .service-card__btn {
     margin-bottom: 0;
+  }
+
+  .other-services__item:hover {
+    color: #ff4405;
   }
 
   .cards-block__column:hover {

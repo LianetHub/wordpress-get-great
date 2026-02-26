@@ -21,10 +21,7 @@ $manual_cases = get_field('selected_cases', $prefix);
 
 $posts_per_page = wp_is_mobile() ? 5 : 9;
 
-
 if (!empty($manual_cases)) {
-
-
     if (wp_is_mobile() && count($manual_cases) > 5) {
         $manual_cases = array_slice($manual_cases, 0, 5);
     }
@@ -47,6 +44,7 @@ if (!empty($manual_cases)) {
 }
 
 $query = new WP_Query($args);
+$displayed_count = $query->post_count;
 ?>
 
 <section class="cases" id="portfolio">
@@ -78,11 +76,14 @@ $query = new WP_Query($args);
 
         <?php
         $archive_link = get_post_type_archive_link('portfolio');
-        if ($archive_link):
-            $count_all = wp_count_posts('portfolio')->publish;
+        $count_all = (int)wp_count_posts('portfolio')->publish;
+
+        if ($archive_link && $count_all > $displayed_count):
+            $titles = ['кейс', 'кейса', 'кейсов'];
+            $cases_label = $titles[($count_all % 100 > 4 && $count_all % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][min($count_all % 10, 5)]];
         ?>
             <a href="<?php echo esc_url($archive_link); ?>" class="cases__more btn btn-primary" data-animate="bottom">
-                Смотреть все <?php echo $count_all; ?> кейсов
+                Смотреть все <?php echo $count_all; ?> <?php echo $cases_label; ?>
             </a>
         <?php endif; ?>
     </div>

@@ -103,6 +103,14 @@
 			order: 1;
 			color: #a4a7ae;
 		}
+
+		transition: color 0.3s ease;
+
+		@media (any-hover: hover) {
+			&:hover {
+				color: $accent;
+			}
+		}
 	}
 }
 

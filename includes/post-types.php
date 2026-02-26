@@ -333,6 +333,14 @@ register_post_type('blog_authors', [
     'show_in_rest'        => true,
 ]);
 
+add_action('admin_menu', function () {
+    remove_meta_box('authordiv', 'post', 'normal');
+});
+
+add_action('init', function () {
+    remove_post_type_support('post', 'author');
+});
+
 register_post_type('clients', [
     'labels' => [
         'name'               => 'Клиенты',
