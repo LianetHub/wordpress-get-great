@@ -1003,6 +1003,20 @@
 		}
 	}
 
+	// .article__item-content
+	&__item-content {
+		gap: 0.25rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	// .article__item-title
+	&__item-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
 	// .article__item-txt
 	&__item-txt {
 		line-height: 133.333%;

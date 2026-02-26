@@ -6,6 +6,7 @@
     <div class="article__items <?php echo ($view_type == 1) ? 'article__items--cols' : ''; ?>">
         <?php while (have_rows('article_items')) : the_row(); ?>
             <?php
+            $title = get_sub_field('title');
             $ic = get_sub_field('ic');
             $txt = get_sub_field('txt');
             $column_size = get_sub_field('column_size');
@@ -53,9 +54,19 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if ($txt) : ?>
-                    <div class="article__item-txt">
-                        <?php echo $txt; ?>
+                <?php if ($title || $txt) : ?>
+                    <div class="article__item-content">
+                        <?php if ($title) : ?>
+                            <div class="article__item-title">
+                                <?php echo esc_html($title); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($txt) : ?>
+                            <div class="article__item-txt">
+                                <?php echo $txt; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>
