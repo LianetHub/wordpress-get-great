@@ -531,21 +531,29 @@
 
 		&.has-border {
 			.licenses__item-image {
+				aspect-ratio: math.div(302, 124);
+				padding: 1.25rem;
 				border: rem(1) solid #D5D7DA;
 			}
 		}
 	}
 
 	&__item-image {
-		aspect-ratio: math.div(302, 124);
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex: 1 1 auto;
+
+		@media (min-width:$md5) {
+			aspect-ratio: math.div(302, 124);
+
+		}
 
 		& img {
-			width: 100%;
+			width: auto;
 			height: auto;
 			display: block;
+			max-height: rem(302);
 		}
 	}
 

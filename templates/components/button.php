@@ -27,20 +27,23 @@ if (empty($data)) {
 $is_link = $data['is_link'] ?? false;
 $btn_txt = $data['btn_txt'] ?? '';
 $btn_link = '';
-$btn_target = '_self';
+$btn_target = !empty($data['btn_target']) ? '_blank' : '_self';
 
 if ($is_link) {
     $link_data = $data['btn_link'] ?? [];
 
     if (is_array($link_data)) {
         $btn_link = $link_data['url'] ?? '';
-        $btn_target = $link_data['target'] ?? '_self';
+
+        if ($btn_target === '_self' && !empty($link_data['target'])) {
+            $btn_target = $link_data['target'];
+        }
+
         if (empty($btn_txt)) {
             $btn_txt = $link_data['title'] ?? '';
         }
     } else {
         $btn_link = $link_data;
-        $btn_target = !empty($data['btn_target']) ? '_blank' : '_self';
     }
 
     if (empty($btn_link) || empty($btn_txt)) {
@@ -90,7 +93,8 @@ if ($custom_class) {
     ?>
     <a href="<?php echo esc_url($btn_link); ?>"
         class="<?php echo esc_attr($class_string); ?>"
-        target="<?php echo esc_attr($btn_target); ?>">
+        target="<?php echo esc_attr($btn_target); ?>"
+        <?php echo $btn_target === '_blank' ? 'rel="noopener noreferrer"' : ''; ?>>
         <?php echo esc_html($btn_txt); ?>
     </a>
 
