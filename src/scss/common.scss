@@ -685,8 +685,9 @@ body {
 
 	// .special-offer__wrapper
 	&__wrapper {
-		background: url("@img/stend-decor.png") 0 0 / cover no-repeat;
+		background: linear-gradient(180deg, #fff 0%, transparent 13.33%, transparent 80.01%, #fff 95%), url("@img/stend-decor.png") 0 0 / cover no-repeat;
 		padding: rem(0) 0 rem(24);
+
 
 		@media (min-width: $md4) {
 			padding: rem(67) 0;
