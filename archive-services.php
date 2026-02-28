@@ -16,7 +16,7 @@ $services_desc = get_field('services_description', $donor_id);
     <div class="services services-page">
         <div class="container">
             <?php if ($services_desc): ?>
-                <div class="services__desc">
+                <div class="services__desc typography-block">
                     <?php echo wp_kses_post($services_desc); ?>
                 </div>
             <?php endif; ?>

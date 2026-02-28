@@ -5197,10 +5197,7 @@ body {
 }
 
 .services__desc {
-  font-size: 1.375rem;
-  line-height: 136.364%;
   max-width: 70rem;
-  letter-spacing: 0.0181818182em;
 }
 
 .services__desc strong {
@@ -9013,6 +9010,12 @@ body {
 
   .articles__details.title-xs {
     font-size: 1.375rem;
+  }
+
+  .contacts__item-name {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 8.75rem;
+            flex: 0 0 8.75rem;
   }
 }
 
