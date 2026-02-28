@@ -1709,7 +1709,7 @@ body.is-loaded .preloader {
 
 .header {
   position: fixed;
-  z-index: 6;
+  z-index: 205;
   left: 0;
   right: 0;
   background: rgba(24, 29, 39, 0.86);
@@ -2154,12 +2154,6 @@ body.is-loaded .preloader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.footer__menu-item.menu-item-object-services {
-  -webkit-column-break-inside: avoid;
-     -moz-column-break-inside: avoid;
-          break-inside: avoid;
 }
 
 .footer__menu-item._spoller-open .footer__menu-link {
@@ -7019,9 +7013,10 @@ body {
   }
 
   .footer__menu-list {
-    -webkit-columns: 2;
-       -moz-columns: 2;
-            columns: 2;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+    grid-template-columns: repeat(2, 1fr);
     -webkit-column-gap: 2rem;
        -moz-column-gap: 2rem;
             column-gap: 2rem;
@@ -7029,12 +7024,6 @@ body {
 
   .footer__menu-item.blog-block .footer__submenu {
     display: none !important;
-  }
-
-  .footer__menu-item.menu-item-object-portfolio {
-    -webkit-column-break-inside: avoid;
-       -moz-column-break-inside: avoid;
-            break-inside: avoid;
   }
 
   .footer__menu-item {
@@ -7732,9 +7721,8 @@ body {
   }
 
   .footer__menu-list {
-    -webkit-columns: 3;
-       -moz-columns: 3;
-            columns: 3;
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .container.container--fluid {
@@ -8103,9 +8091,8 @@ body {
   }
 
   .footer__menu-list {
-    -webkit-columns: 4;
-       -moz-columns: 4;
-            columns: 4;
+    -ms-grid-columns: (1fr)[4];
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .container {
@@ -8526,9 +8513,8 @@ body {
   }
 
   .footer__menu-list {
-    -webkit-columns: 5;
-       -moz-columns: 5;
-            columns: 5;
+    -ms-grid-columns: (1fr)[5];
+    grid-template-columns: repeat(5, 1fr);
     -webkit-column-gap: 3rem;
        -moz-column-gap: 3rem;
             column-gap: 3rem;
@@ -8536,10 +8522,6 @@ body {
 
   .footer__menu-item.menu-item-object-services .footer__submenu-item {
     width: 15.625rem;
-  }
-
-  .footer__menu-item.menu-item-object-portfolio {
-    min-height: 17rem;
   }
 
   .container.container--fluid {
@@ -8680,13 +8662,8 @@ body {
     -webkit-column-gap: 5rem;
        -moz-column-gap: 5rem;
             column-gap: 5rem;
-    -webkit-columns: 6;
-       -moz-columns: 6;
-            columns: 6;
-  }
-
-  .footer__menu-item.menu-item-object-portfolio {
-    min-height: 15rem;
+    -ms-grid-columns: (1fr)[6];
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .container {
