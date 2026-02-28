@@ -3,14 +3,6 @@
 @font-face {
     font-family: Gilroy;
     font-display: swap;
-    src: url(../fonts/Gilroy-Bold.woff2) format("woff2"), url(../fonts/Gilroy-Bold.woff) format("woff");
-    font-weight: 700;
-    font-style: normal
-}
-
-@font-face {
-    font-family: Gilroy;
-    font-display: swap;
     src: url(../fonts/Gilroy-Regular.woff2) format("woff2"), url(../fonts/Gilroy-Regular.woff) format("woff");
     font-weight: 400;
     font-style: normal
@@ -25,12 +17,11 @@
 }
 
 @font-face {
-    font-family: Inter;
-    src: url(../fonts/Inter-VariableFont_wght.woff2) format("woff2 supports variations"), url(../fonts/Inter-VariableFont_wght.woff2) format("woff2-variations"), url(../fonts/Inter-VariableFont_wght.woff) format("woff");
-    font-weight: 100 900;
-    font-stretch: 75% 125%;
-    font-style: normal;
-    font-display: swap
+    font-family: Gilroy;
+    font-display: swap;
+    src: url(../fonts/Gilroy-Bold.woff2) format("woff2"), url(../fonts/Gilroy-Bold.woff) format("woff");
+    font-weight: 700;
+    font-style: normal
 }
 
 @font-face {
@@ -39,6 +30,15 @@
     src: url(../fonts/icons.woff2) format("woff2"), url(../fonts/icons.woff) format("woff");
     font-weight: 400;
     font-style: normal
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter-VariableFont_wght.woff2) format("woff2 supports variations"), url(../fonts/Inter-VariableFont_wght.woff2) format("woff2-variations"), url(../fonts/Inter-VariableFont_wght.woff) format("woff");
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap
 }
 
 .breadcrumbs__item:not(:last-child)::before, .btn.btn-primary::before, .case-block__list-item::before, .checklist-block__item::after, .faq__item-question::before, .gratitudes__slide::before, .sidebar__link::before, .sidebar__list .menu-item a::before, .sub-menu__link::before, .swiper-button-next, .swiper-button-prev, [class*=" icon-"]:before, [class^=icon-]:before {
@@ -4912,7 +4912,7 @@ body {
     top: 0
 }
 
-.typography-block a:not(.article__more) {
+.typography-block a:not(.article__more, .btn) {
     color: #1570ef
 }
 
@@ -5067,6 +5067,64 @@ body {
     -webkit-transition: background-color .3s ease;
     transition: background-color .3s ease;
     color: #fff
+}
+
+.service-order {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../img/article-item-decor-light.png);
+    background-color: #f5f5f5;
+    gap: 3.2rem;
+    margin: 1.6rem 0 3.2rem;
+    padding: 1.6rem;
+    border-radius: 1.6rem
+}
+
+.service-order.orange {
+    background-image: url(../img/article-item-decor.png);
+    background-color: #ff4405;
+    color: #fff
+}
+
+.service-order__title {
+    font-weight: 500;
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    line-height: 1.2;
+    font-size: 1.8rem
+}
+
+.service-order__title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background: currentColor;
+    opacity: .2;
+    width: 100%;
+    height: 1px;
+    right: 0;
+    bottom: -1.6rem
+}
+
+.service-order__btn {
+    -ms-flex-negative: 0;
+    flex-shrink: 0
+}
+
+.service-order__btn.btn-white-border {
+    color: #fff;
+    border-color: #fff;
+    --btn-text-color: #fff
 }
 
 .services.services-page {
@@ -7300,6 +7358,31 @@ body {
         margin: 3rem 0
     }
 
+    .service-order {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 6.4rem;
+        margin: 1.6rem 0 6.4rem;
+        padding: 1.6rem 3.2rem
+    }
+
+    .service-order__title {
+        font-size: 2.4rem
+    }
+
+    .service-order__title::after {
+        right: -3.2rem;
+        top: 0;
+        bottom: auto;
+        width: 1px;
+        height: 100%
+    }
+
     .services__header {
         -webkit-box-align: center;
         -ms-flex-align: center;
@@ -9091,12 +9174,18 @@ body {
         color: #fff
     }
 
-    .typography-block a:not(.article__more):hover {
+    .typography-block a:not(.article__more, .btn):hover {
         text-decoration: underline
     }
 
     .video-modal-block:hover::before {
         background: rgba(255, 255, 255, .1)
+    }
+
+    .service-order__btn.btn-white-border:hover {
+        border-color: #fff;
+        background: #fff;
+        color: #ff4405
     }
 
     .services__item:hover {
