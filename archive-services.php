@@ -21,45 +21,47 @@ $services_desc = get_field('services_description', $donor_id);
                 </div>
             <?php endif; ?>
 
-            <div class="services__grid">
-                <?php
-                if (have_posts()) :
-                    $i = 1;
-                    while (have_posts()) : the_post();
-                        $index = sprintf('%02d', $i);
-                        $image_id = get_post_thumbnail_id();
-                        $short_desc = get_the_excerpt();
-                ?>
-                        <a href="<?php the_permalink(); ?>" class="service-card">
+            <div class="services__cards swiper">
+                <div class="swiper-wrapper">
+                    <?php
+                    if (have_posts()) :
+                        $i = 1;
+                        while (have_posts()) : the_post();
+                            $index = sprintf('%02d', $i);
+                            $image_id = get_post_thumbnail_id();
+                            $short_desc = get_the_excerpt();
+                    ?>
+                            <a href="<?php the_permalink(); ?>" class="service-card swiper-slide">
 
-                            <?php if ($image_id): ?>
-                                <span class="service-card__image">
-                                    <?php echo wp_get_attachment_image($image_id, 'full'); ?>
-                                </span>
-                            <?php endif; ?>
-
-                            <span class="service-card__content">
-                                <span class="service-card__number">
-                                    <?php echo $index; ?>
-                                </span>
-                                <span class="service-card__name">
-                                    <?php the_title(); ?>
-                                </span>
-                                <?php if ($short_desc): ?>
-                                    <span class="service-card__desc">
-                                        <span><?php echo esc_html($short_desc); ?></span>
+                                <?php if ($image_id): ?>
+                                    <span class="service-card__image">
+                                        <?php echo wp_get_attachment_image($image_id, 'full'); ?>
                                     </span>
                                 <?php endif; ?>
-                                <span class="service-card__footer">
-                                    <span class="service-card__btn btn btn-primary">Подробнее</span>
+
+                                <span class="service-card__content">
+                                    <span class="service-card__number">
+                                        <?php echo $index; ?>
+                                    </span>
+                                    <span class="service-card__name">
+                                        <?php the_title(); ?>
+                                    </span>
+                                    <?php if ($short_desc): ?>
+                                        <span class="service-card__desc">
+                                            <span><?php echo esc_html($short_desc); ?></span>
+                                        </span>
+                                    <?php endif; ?>
+                                    <span class="service-card__footer">
+                                        <span class="service-card__btn btn btn-primary">Подробнее</span>
+                                    </span>
                                 </span>
-                            </span>
-                        </a>
-                <?php
-                        $i++;
-                    endwhile;
-                endif;
-                ?>
+                            </a>
+                    <?php
+                            $i++;
+                        endwhile;
+                    endif;
+                    ?>
+                </div>
             </div>
         </div>
     </div>

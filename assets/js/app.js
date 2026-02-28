@@ -669,6 +669,13 @@ $(function () {
         }, 1199.98)
     }
 
+    if ($('.services__cards').length) {
+        new MobileSwiper('.services__cards', {
+            slidesPerView: "auto",
+            spaceBetween: 12,
+        })
+    }
+
     if ($('.numbers__slider').length) {
         new Swiper('.numbers__slider', {
             slidesPerView: 5,
