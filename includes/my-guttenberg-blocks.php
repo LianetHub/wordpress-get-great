@@ -90,5 +90,14 @@ add_action('acf/init', function () {
             'render_template' => 'templates/blog-blocks/video-article.php',
             'mode'            => 'edit',
         ]);
+
+        acf_register_block_type([
+            'name' => 'service-order',
+            'title' => __('Заказ услуги', 'txtdomain'),
+            'category' => 'pp-category',
+            'icon' => 'excerpt-view',
+            'render_template' => 'templates/blog-blocks/service-order-article.php',
+            'mode'            => 'edit',
+        ]);
     }
 });
