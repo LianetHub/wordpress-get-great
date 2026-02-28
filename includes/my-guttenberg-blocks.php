@@ -99,5 +99,14 @@ add_action('acf/init', function () {
             'render_template' => 'templates/blog-blocks/service-order-article.php',
             'mode'            => 'edit',
         ]);
+
+        acf_register_block_type([
+            'name'            => 'btn-article',
+            'title'           => __('Кнопка в статье', 'txtdomain'),
+            'category'        => 'pp-category',
+            'icon'            => 'button',
+            'render_template' => 'templates/blog-blocks/btn-article.php',
+            'mode'            => 'edit',
+        ]);
     }
 });
