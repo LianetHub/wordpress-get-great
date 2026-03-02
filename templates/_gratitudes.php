@@ -47,7 +47,7 @@ $count = count($gallery);
                     <div class="swiper-wrapper">
                         <?php foreach ($gallery as $image): ?>
                             <a href="<?php echo esc_url($image['url']); ?>"
-                                data-fancybox="gratitudes"
+                                data-fancybox="gratitudes-gallery"
                                 class="gratitudes__slide swiper-slide">
                                 <img src="<?php echo esc_url($image['url']); ?>"
                                     alt="<?php echo esc_attr($image['alt']); ?>">

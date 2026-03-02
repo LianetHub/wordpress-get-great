@@ -924,7 +924,7 @@ $(function () {
                             }]);
 
                             if (typeof ym === 'function') {
-                                ym(105964434, 'reachGoal', 'sendmail');
+                                ym(107072304, 'reachGoal', 'sendmail');
                             }
                         }
 
