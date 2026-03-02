@@ -301,6 +301,10 @@
   margin-top: 1.5rem;
 }
 
+.popup__download-link {
+  margin-top: 1rem;
+}
+
 .popup__form-footer {
   display: -webkit-box;
   display: -ms-flexbox;

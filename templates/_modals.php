@@ -32,6 +32,12 @@ $success_subtitle = get_field('success_subtitle', 'option');
 $success_close_btn = get_field('success_close_btn', 'option') ?? "ок, закрыть";
 $success_icon = get_field('success_icon', 'option');
 
+$success_presentation_title = get_field('success_presentation_title', 'option');
+$success_presentation_subtitle = get_field('success_presentation_subtitle', 'option');
+$success_presentation_close_btn = get_field('success_presentation_close_btn', 'option') ?? "ок, закрыть";
+$success_presentation_icon = get_field('success_presentation_icon', 'option');
+$success_presentation_download_text = get_field('success_presentation_download_text', 'option') ?? "Скачать презентацию";
+
 $privacy_policy = get_field('privacy_policy', 'option');
 
 ?>
@@ -234,8 +240,6 @@ $privacy_policy = get_field('privacy_policy', 'option');
     </button>
 </div>
 
-
-
 <div class="popup popup--small" id="success-submitting">
     <?php if ($success_icon): ?>
         <div class="popup__icon">
@@ -254,5 +258,42 @@ $privacy_policy = get_field('privacy_policy', 'option');
     <?php endif; ?>
     <button type="button" data-fancybox-close class="popup__btn btn btn-secondary">
         <?php echo esc_html($success_close_btn) ?>
+    </button>
+</div>
+
+<div class="popup popup--small" id="success-submitting-presentation">
+    <?php if ($success_presentation_icon): ?>
+        <div class="popup__icon">
+            <img src="<?php echo esc_url($success_presentation_icon['url']); ?>"
+                alt="<?php echo esc_attr($success_presentation_icon['alt']) ?: 'Иконка'; ?>">
+        </div>
+    <?php endif; ?>
+    <?php if ($success_presentation_title): ?>
+        <h3 class="popup__title title-sm">
+            <?php echo esc_html($success_presentation_title) ?>
+        </h3>
+    <?php endif; ?>
+    <?php if ($success_presentation_subtitle): ?>
+        <p class="popup__subtitle">
+            <?php echo esc_html($success_presentation_subtitle) ?>
+        </p>
+    <?php endif; ?>
+    <?php
+    $presentation_file = get_field('pres_file', 'option');
+
+    if ($presentation_file && isset($presentation_file['ID'])) {
+        $file_url = wp_get_attachment_url($presentation_file['ID']);
+
+        if ($file_url) {
+    ?>
+            <a href="<?php echo esc_url($file_url); ?>" class="popup__download-link btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <?php echo esc_html($success_presentation_download_text) ?>
+            </a>
+    <?php
+        }
+    }
+    ?>
+    <button type="button" data-fancybox-close class="popup__btn btn btn-secondary">
+        <?php echo esc_html($success_presentation_close_btn) ?>
     </button>
 </div>

@@ -234,6 +234,10 @@
 	// .popup__form-field
 	&__form-field {}
 
+	&__download-link {
+		margin-top: 1rem;
+	}
+
 	// .popup__form-footer
 	&__form-footer {
 		display: flex;

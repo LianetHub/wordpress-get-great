@@ -893,6 +893,8 @@ $(function () {
             formData.append('page_url', window.location.href);
             const $submitBtn = $form.find(this.selectors.submitBtn);
 
+            const formAction = formData.get('action');
+
             $submitBtn.addClass(this.selectors.loadingClass);
 
             try {
@@ -910,17 +912,23 @@ $(function () {
                         $form.find('.form__file-preview').remove();
                         $form.find('.uploaded').removeClass('uploaded');
 
-
-
                         if (!isSilent) {
-
                             const instance = Fancybox.getInstance();
                             if (instance) {
                                 instance.destroy();
                             }
 
+                            // --- ДОРАБОТКА ТУТ ---
+                            // Определяем ID попапа успеха в зависимости от формы
+                            let successPopupId = "#success-submitting";
+
+                            if (formAction === 'send_download_form') {
+                                successPopupId = "#success-submitting-presentation";
+                            }
+                            // ---------------------
+
                             Fancybox.show([{
-                                src: "#success-submitting",
+                                src: successPopupId,
                                 type: "inline"
                             }]);
 
