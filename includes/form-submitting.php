@@ -88,6 +88,7 @@ function handle_universal_form()
     $email        = sanitize_email($data['email'] ?? '');
     $promo_source = sanitize_text_field($data['promo_slide_source'] ?? '');
     $message_text = nl2br(sanitize_textarea_field($data['message'] ?? ''));
+    $page_url     = sanitize_text_field($data['page_url'] ?? 'Не определен');
 
     ob_start();
 ?>
@@ -115,6 +116,12 @@ function handle_universal_form()
                     <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><?php echo esc_html($promo_source); ?></td>
                 </tr>
             <?php endif; ?>
+            <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Страница:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;">
+                    <a href="<?php echo esc_url($page_url); ?>"><?php echo esc_html($page_url); ?></a>
+                </td>
+            </tr>
         </table>
 
         <?php if ($message_text): ?>

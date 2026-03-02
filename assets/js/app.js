@@ -890,6 +890,7 @@ $(function () {
             const url = $form.attr('action');
             const method = $form.attr('method') || 'POST';
             const formData = new FormData($form[0]);
+            formData.append('page_url', window.location.href);
             const $submitBtn = $form.find(this.selectors.submitBtn);
 
             $submitBtn.addClass(this.selectors.loadingClass);
