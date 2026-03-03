@@ -19,13 +19,9 @@ $title        = get_field('cases_title', $prefix) ?: "Наши кейсы";
 $subtitle     = get_field('cases_subtitle', $prefix) ?: "Мы знаем, что такое брендбук, стиль, первые лица, «надо вчера»";
 $manual_cases = get_field('selected_cases', $prefix);
 
-$posts_per_page = wp_is_mobile() ? 5 : 9;
+$limit = 9;
 
-if (!empty($manual_cases)) {
-    if (wp_is_mobile() && count($manual_cases) > 5) {
-        $manual_cases = array_slice($manual_cases, 0, 5);
-    }
-
+if (!empty($manual_cases) && is_array($manual_cases)) {
     $args = [
         'post_type'      => 'portfolio',
         'post__in'       => $manual_cases,
@@ -36,7 +32,7 @@ if (!empty($manual_cases)) {
 } else {
     $args = [
         'post_type'      => 'portfolio',
-        'posts_per_page' => $posts_per_page,
+        'posts_per_page' => $limit,
         'post_status'    => 'publish',
         'orderby'        => 'date',
         'order'          => 'DESC',
@@ -44,7 +40,6 @@ if (!empty($manual_cases)) {
 }
 
 $query = new WP_Query($args);
-$displayed_count = $query->post_count;
 ?>
 
 <section class="cases" id="portfolio">
@@ -78,12 +73,12 @@ $displayed_count = $query->post_count;
         $archive_link = get_post_type_archive_link('portfolio');
         $count_all = (int)wp_count_posts('portfolio')->publish;
 
-        if ($archive_link && $count_all > $displayed_count):
+        if ($archive_link && $count_all > $limit):
             $titles = ['кейс', 'кейса', 'кейсов'];
             $cases_label = $titles[($count_all % 100 > 4 && $count_all % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][min($count_all % 10, 5)]];
         ?>
             <a href="<?php echo esc_url($archive_link); ?>" class="cases__more btn btn-primary" data-animate="bottom">
-                Смотреть все <?php echo $count_all; ?> <?php echo $cases_label; ?>
+                Смотреть <?php echo $count_all; ?> <?php echo $cases_label; ?>
             </a>
         <?php endif; ?>
     </div>
