@@ -48,6 +48,7 @@ if ($items) :
                             </li>
                         <?php endforeach; ?>
                     </ol>
+                    <div class="how-we-work__slider-pagination swiper-pagination"></div>
                 </div>
             </div>
         </div>

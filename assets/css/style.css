@@ -11,15 +11,7 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "icons";
-  font-display: swap;
-  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -27,8 +19,8 @@
 @font-face {
   font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy-Regular.woff") format("woff");
-  font-weight: 400;
+  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -39,6 +31,14 @@
   font-stretch: 75% 125%;
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: "icons";
+  font-display: swap;
+  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 
 .sidebar__link::before,
@@ -2684,6 +2684,11 @@ body {
   gap: 1.5rem;
 }
 
+.special-offer__main {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .special-offer__title {
   margin-top: 0.4375rem;
 }
@@ -2696,6 +2701,18 @@ body {
 }
 
 .special-offer__cards {
+  display: none;
+}
+
+.special-offer__cards-pagination.swiper-pagination {
+  margin-top: 2rem;
+}
+
+.special-offer__cards-pagination.swiper-pagination .swiper-pagination-bullet {
+  background: #F5F5F5;
+}
+
+.special-offer__cards-pagination.swiper-pagination-lock {
   display: none;
 }
 
@@ -2715,6 +2732,10 @@ body {
   min-height: 15rem;
   -webkit-transition: background-color 0.3s ease, color 0.3s ease;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.special-offer__card.swiper-slide {
+  width: 16.25rem;
 }
 
 .special-offer__card-icon {
@@ -3145,7 +3166,6 @@ body {
 }
 
 .promo.promo--services {
-  min-height: 56.25rem;
   height: 100%;
   padding: 6.25rem 0 4rem;
 }
@@ -5813,6 +5833,14 @@ body {
   line-height: 150%;
 }
 
+.how-we-work__slider-pagination.swiper-pagination {
+  margin-top: 2rem;
+}
+
+.how-we-work__slider-pagination.swiper-pagination-lock {
+  display: none;
+}
+
 .licenses__header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6641,11 +6669,9 @@ body {
 
   .special-offer__cards {
     margin-top: 3rem;
-    display: -ms-grid;
-    display: grid;
     gap: 1.5rem;
-    -ms-grid-columns: (1fr)[2];
-    grid-template-columns: repeat(2, 1fr);
+    display: block;
+    overflow: visible;
   }
 
   .special-offer__btn {
@@ -7765,6 +7791,10 @@ body {
     font-size: 1.5rem;
   }
 
+  .special-offer__cards {
+    overflow: hidden;
+  }
+
   .about__body {
     gap: 1.25rem;
     -ms-grid-columns: (1fr)[2];
@@ -8538,11 +8568,6 @@ body {
 
   .main > *:not(.hero, .promo, .clients--marquee, .article):last-child {
     padding-bottom: 6.875rem;
-  }
-
-  .special-offer__cards {
-    -ms-grid-columns: (1fr)[3];
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .about__title.title {

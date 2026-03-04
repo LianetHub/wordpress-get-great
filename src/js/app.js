@@ -739,6 +739,10 @@ $(function () {
             slidesPerView: "auto",
             spaceBetween: 24,
             watchOverflow: true,
+            pagination: {
+                el: '.how-we-work__slider-pagination',
+                clickable: true
+            },
             breakpoints: {
                 767.98: {
                     spaceBetween: 36,
@@ -752,6 +756,26 @@ $(function () {
                 1661.98: {
                     spaceBetween: 56,
                 },
+            }
+        })
+    }
+
+    if ($('.special-offer__cards').length) {
+        new Swiper('.special-offer__cards', {
+            slidesPerView: "auto",
+            spaceBetween: 24,
+            watchOverflow: true,
+            pagination: {
+                el: '.special-offer__cards-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                991.98: {
+                    slidesPerView: 2
+                },
+                1709.98: {
+                    slidesPerView: 3
+                }
             }
         })
     }

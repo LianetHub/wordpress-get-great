@@ -482,6 +482,17 @@
 
 		}
 	}
+
+	&__slider-pagination {
+		&.swiper-pagination {
+
+			margin-top: 2rem;
+		}
+
+		&.swiper-pagination-lock {
+			display: none;
+		}
+	}
 }
 
 .licenses {

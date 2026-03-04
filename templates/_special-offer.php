@@ -38,36 +38,39 @@ $image    = get_field('special_offer_image', $prefix);
                     <?php endif; ?>
 
                     <?php if (have_rows('special_offer_cards', $prefix)): ?>
-                        <ul class="special-offer__cards">
-                            <?php while (have_rows('special_offer_cards', $prefix)): the_row();
-                                $card_icon = get_sub_field('card_icon');
-                                $card_text = get_sub_field('card_text');
-                            ?>
-                                <li class="special-offer__card" data-animate="bottom">
-                                    <?php if ($card_icon): ?>
-                                        <div class="special-offer__card-icon">
-                                            <?php
-                                            $icon_id = is_array($card_icon) ? $card_icon['id'] : $card_icon;
-                                            $icon_path = get_attached_file($icon_id);
+                        <div class="special-offer__cards swiper">
+                            <ul class="swiper-wrapper">
+                                <?php while (have_rows('special_offer_cards', $prefix)): the_row();
+                                    $card_icon = get_sub_field('card_icon');
+                                    $card_text = get_sub_field('card_text');
+                                ?>
+                                    <li class="special-offer__card swiper-slide" data-animate="bottom">
+                                        <?php if ($card_icon): ?>
+                                            <div class="special-offer__card-icon">
+                                                <?php
+                                                $icon_id = is_array($card_icon) ? $card_icon['id'] : $card_icon;
+                                                $icon_path = get_attached_file($icon_id);
 
-                                            if ($icon_path && file_exists($icon_path)) {
-                                                $ext = pathinfo($icon_path, PATHINFO_EXTENSION);
-                                                if ($ext === 'svg') {
-                                                    echo file_get_contents($icon_path);
-                                                } else {
-                                                    echo wp_get_attachment_image($icon_id, 'full');
+                                                if ($icon_path && file_exists($icon_path)) {
+                                                    $ext = pathinfo($icon_path, PATHINFO_EXTENSION);
+                                                    if ($ext === 'svg') {
+                                                        echo file_get_contents($icon_path);
+                                                    } else {
+                                                        echo wp_get_attachment_image($icon_id, 'full');
+                                                    }
                                                 }
-                                            }
-                                            ?>
-                                        </div>
-                                    <?php endif; ?>
+                                                ?>
+                                            </div>
+                                        <?php endif; ?>
 
-                                    <?php if ($card_text): ?>
-                                        <div class="special-offer__card-text"><?php echo esc_html($card_text); ?></div>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endwhile; ?>
-                        </ul>
+                                        <?php if ($card_text): ?>
+                                            <div class="special-offer__card-text"><?php echo esc_html($card_text); ?></div>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endwhile; ?>
+                            </ul>
+                            <div class="special-offer__cards-pagination swiper-pagination"></div>
+                        </div>
                     <?php endif; ?>
 
                     <?php

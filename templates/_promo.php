@@ -9,9 +9,43 @@ $promo_form_subtitle = get_field('promo_form_subtitle', 'option');
 $promo_form_btn = get_field('promo_form_btn', 'option') ?? "Отправить";
 
 $has_h1 = false;
+
+$video_urls = [];
+if ($promo_slides) {
+    foreach ($promo_slides as $slide) {
+        if (!empty($slide['slide_video']['url'])) {
+            $video_urls[] = $slide['slide_video']['url'];
+        }
+    }
+}
+
+$unique_videos = array_unique($video_urls);
+$is_single_video_mode = (count($unique_videos) === 1 && count($video_urls) > 1);
+$common_video_url = $is_single_video_mode ? reset($unique_videos) : '';
+
+$global_poster_url = '';
+if ($is_single_video_mode && !empty($promo_slides)) {
+    $first_slide_img = $promo_slides[0]['slide_image'];
+    if ($first_slide_img) {
+        $global_poster_url = $first_slide_img['url'];
+    }
+}
 ?>
 
 <section class="promo" id="promo">
+    <?php if ($is_single_video_mode) : ?>
+        <video
+            class="promo__video"
+            preload="metadata"
+            playsinline
+            autoplay
+            muted
+            loop
+            poster="<?php echo esc_url($global_poster_url); ?>">
+            <source src="<?php echo esc_url($common_video_url); ?>" type="video/mp4">
+        </video>
+    <?php endif; ?>
+
     <div class="promo__slider swiper">
         <div class="swiper-wrapper">
             <?php if ($promo_slides) : ?>
@@ -29,19 +63,15 @@ $has_h1 = false;
                         }
                     }
 
-                    $poster_url = '';
-                    if ($slide_img) {
-                        $poster_url = $slide_img['url'];
-                    }
-
+                    $poster_url = $slide_img ? $slide_img['url'] : '';
                     $bg_style = '';
-                    if ($slide_img && empty($slide_video)) {
+                    if ($slide_img && !$is_single_video_mode && (empty($slide_video))) {
                         $bg_style = ' style="background-image: url(' . esc_url($poster_url) . '); background-size: cover; background-position: center;"';
                     }
                     ?>
                     <div class="promo__slide swiper-slide" <?php echo $bg_style; ?> data-title="<?php echo esc_attr($slide['tab_text']); ?>">
-                        <?php if (!empty($slide_video)) : ?>
-                            <video class="promo__video" playsinline autoplay muted loop poster="<?php echo esc_url($poster_url); ?>">
+                        <?php if (!$is_single_video_mode && !empty($slide_video)) : ?>
+                            <video class="promo__video" preload="metadata" playsinline autoplay muted loop poster="<?php echo esc_url($poster_url); ?>">
                                 <source src="<?php echo esc_url($slide_video['url']); ?>" type="video/mp4">
                             </video>
                         <?php endif; ?>
@@ -60,9 +90,7 @@ $has_h1 = false;
                                     $slide_btns = $slide['btns'];
                                     if ($slide_btns) :
                                         foreach ($slide_btns as $btn_item) :
-
                                             $btn_data = $btn_item['btn'];
-
                                             if (!empty($btn_data)) {
                                                 get_template_part('templates/components/button', null, [
                                                     'data'  => $btn_data,
