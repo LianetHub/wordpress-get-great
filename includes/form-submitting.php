@@ -84,7 +84,23 @@ function handle_universal_form()
     $headers = ['Content-Type: text/html; charset=UTF-8'];
 
     $username     = sanitize_text_field($data['username'] ?? '');
-    $phone        = sanitize_text_field($data['phone'] ?? '');
+    $raw_phone    = sanitize_text_field($data['phone'] ?? '');
+
+    $clean_phone = preg_replace('/[^0-9]/', '', $raw_phone);
+    if (strlen($clean_phone) === 10) {
+        $phone = '+7' . $clean_phone;
+    } elseif (strlen($clean_phone) === 11) {
+        if (strpos($clean_phone, '8') === 0) {
+            $phone = '+7' . substr($clean_phone, 1);
+        } elseif (strpos($clean_phone, '7') === 0) {
+            $phone = '+' . $clean_phone;
+        } else {
+            $phone = $raw_phone;
+        }
+    } else {
+        $phone = $raw_phone;
+    }
+
     $email        = sanitize_email($data['email'] ?? '');
     $promo_source = sanitize_text_field($data['promo_slide_source'] ?? '');
     $message_text = nl2br(sanitize_textarea_field($data['message'] ?? ''));
