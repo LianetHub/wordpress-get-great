@@ -367,3 +367,72 @@ register_post_type('clients', [
     'supports'            => ['title', 'thumbnail', 'excerpt'],
     'show_in_rest'        => true,
 ]);
+
+/**
+ * Фильтрация: Скрытие постов из архивов, если их категория помечена в ACF как скрытая
+ */
+add_action('pre_get_posts', 'exclude_portfolio_posts_by_hidden_term');
+function exclude_portfolio_posts_by_hidden_term($query)
+{
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    if ($query->is_post_type_archive('portfolio') || $query->is_tax('portfolio_cat')) {
+        $hidden_terms = get_terms([
+            'taxonomy'   => 'portfolio_cat',
+            'hide_empty' => false,
+            'fields'     => 'ids',
+            'meta_query' => [
+                [
+                    'key'     => 'exclude_portfolio_cat',
+                    'value'   => '1',
+                    'compare' => '='
+                ]
+            ]
+        ]);
+
+        if (!empty($hidden_terms) && !is_wp_error($hidden_terms)) {
+            $tax_query = $query->get('tax_query') ?: [];
+            $tax_query[] = [
+                'taxonomy' => 'portfolio_cat',
+                'field'    => 'term_id',
+                'terms'    => $hidden_terms,
+                'operator' => 'NOT IN',
+                'include_children' => true,
+            ];
+
+            $query->set('tax_query', $tax_query);
+        }
+    }
+}
+
+/**
+ * Фильтрация: Скрытие самих категорий из всех списков (фильтры, меню, виджеты)
+ */
+add_filter('get_terms_args', 'exclude_hidden_portfolio_terms', 10, 2);
+function exclude_hidden_portfolio_terms($args, $taxonomies)
+{
+    if (is_admin() || !in_array('portfolio_cat', (array)$taxonomies)) {
+        return $args;
+    }
+
+    $meta_query = isset($args['meta_query']) ? (array)$args['meta_query'] : [];
+
+    $meta_query[] = [
+        'relation' => 'OR',
+        [
+            'key'     => 'exclude_portfolio_cat',
+            'value'   => '1',
+            'compare' => '!='
+        ],
+        [
+            'key'     => 'exclude_portfolio_cat',
+            'compare' => 'NOT EXISTS'
+        ]
+    ];
+
+    $args['meta_query'] = $meta_query;
+
+    return $args;
+}
