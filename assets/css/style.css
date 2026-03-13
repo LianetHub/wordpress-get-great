@@ -6172,6 +6172,10 @@ body {
   margin-bottom: 2rem;
 }
 
+.case-block.case-block--client-desc p:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
 .case-block__list {
   -webkit-column-gap: 1rem;
      -moz-column-gap: 1rem;

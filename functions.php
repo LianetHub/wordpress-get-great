@@ -509,7 +509,8 @@ add_action('acf/init', function () {
 	$blocks = [
 		'client-desc'    => 'О клиенте',
 		'client-request' => 'Запрос клиента',
-		'results-list'   => 'Что было сделано'
+		'results-list'   => 'Что было сделано',
+		'case-desc'      => 'Описание кейса'
 	];
 
 	foreach ($blocks as $slug => $title) {
@@ -533,6 +534,12 @@ add_filter('register_post_type_args', function ($args, $post_type) {
 	if ($post_type === 'portfolio') {
 		$args['template'] = [
 			['acf/client-desc', [
+				'lock' => [
+					'remove' => true,
+					'move'   => false,
+				],
+			]],
+			['acf/case-desc', [
 				'lock' => [
 					'remove' => true,
 					'move'   => false,
@@ -574,7 +581,7 @@ function load_case_popup_callback()
 	$right_column_html = '';
 	$client_name = '';
 
-	$left_target_blocks = ['acf/client-desc', 'acf/client-request', 'acf/results-list'];
+	$left_target_blocks = ['acf/client-desc', 'acf/case-desc', 'acf/client-request', 'acf/results-list'];
 	$right_target_blocks = ['core/image', 'core/gallery', 'acf/portfolio-video', 'core/video'];
 
 	foreach ($blocks as $block) {

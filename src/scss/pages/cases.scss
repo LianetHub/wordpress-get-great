@@ -404,7 +404,13 @@
 
     &.case-block--results {}
 
-    &.case-block--client-desc {}
+    &.case-block--client-desc {
+        & p {
+            &:not(:last-child) {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
 
     &.case-block--request {}
 
