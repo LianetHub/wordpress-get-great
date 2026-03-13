@@ -580,6 +580,10 @@ function load_case_popup_callback()
 	foreach ($blocks as $block) {
 		if (empty($block['blockName'])) continue;
 
+		if (isset($block['attrs']['data']['is_hidden_in_modal']) && $block['attrs']['data']['is_hidden_in_modal']) {
+			continue;
+		}
+
 		if ($block['blockName'] === 'acf/client-desc') {
 			$client_name = isset($block['attrs']['data']['client_name']) ? $block['attrs']['data']['client_name'] : '';
 		}
