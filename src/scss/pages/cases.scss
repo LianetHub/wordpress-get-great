@@ -311,6 +311,9 @@
 
     // .case-detail__main
     &__main {
+        min-width: 0;
+        max-width: 100%;
+        
         @media (min-width:$md1) {
             margin: 0 auto;
             max-width: rem(940);

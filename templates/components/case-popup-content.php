@@ -29,8 +29,8 @@ $post_id = $data['post_id'];
         </div>
 
         <div class="case-popup__actions">
-            <a href="#discuss-project" data-fancybox class="btn btn-primary">Обсудить проект</a>
-            <a href="<?php echo get_permalink($post_id); ?>" class="btn btn-secondary">Подробнее</a>
+            <a href="<?php echo get_permalink($post_id); ?>" class="btn btn-primary">Подробнее о кейсе</a>
+            <a href="#discuss-project" data-fancybox class="btn btn-secondary">Заказать</a>
         </div>
     </div>
 

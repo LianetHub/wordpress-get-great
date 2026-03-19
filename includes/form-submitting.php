@@ -172,13 +172,20 @@ function handle_universal_form()
 
     if ($action === 'send_download_form' && $mail_sent && !empty($email)) {
         $presentation_file = get_field('pres_file', 'option');
+        $custom_user_text = get_field('user_downoload_success_text', 'option');
 
         if ($presentation_file && isset($presentation_file['ID'])) {
             $user_subject = 'Ваша презентация от Get Great';
             $user_message = '<div style="font-family: Arial, sans-serif;">';
             $user_message .= '<h2>Здравствуйте, ' . esc_html($username) . '!</h2>';
-            $user_message .= '<p>Благодарим вас за интерес к нашей компании. Во вложении к этому письму находится презентация, которую вы запрашивали.</p>';
-            $user_message .= '<p>Если у вас возникнут вопросы, мы всегда на связи!</p>';
+            
+            if ($custom_user_text) {
+                $user_message .= wpautop($custom_user_text);
+            } else {
+                $user_message .= '<p>Благодарим вас за интерес к нашей компании. Во вложении к этому письму находится презентация, которую вы запрашивали.</p>';
+                $user_message .= '<p>Если у вас возникнут вопросы, мы всегда на связи!</p>';
+            }
+            
             $user_message .= '</div>';
 
             $file_path = get_attached_file($presentation_file['ID']);
