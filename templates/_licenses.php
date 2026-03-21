@@ -45,15 +45,22 @@ if ($items) :
 
                     $col_value = $item['licenses_columns'] ?: '4';
                     $item_span_class = ($col_value === '5') ? 'licenses__item--span-4' : 'licenses__item--span-5';
+                    $only_image_class = (!$name && $image) ? 'only-image' : '';
                 ?>
                     <li
                         data-animate="bottom"
-                        class="licenses__item <?php echo $item_span_class; ?> <?php echo $has_border ? 'has-border' : ''; ?>">
+                        class="licenses__item <?php echo $item_span_class; ?> <?php echo $only_image_class; ?> <?php echo $has_border ? 'has-border' : ''; ?>">
+
                         <?php if ($image) : ?>
-                            <div class="licenses__item-image">
+                            <?php if ($name) : ?>
+                                <div class="licenses__item-image">
+                                    <img src="<?php echo esc_url($image['url']); ?>"
+                                        alt="<?php echo esc_attr($image['alt'] ?: $name); ?>">
+                                </div>
+                            <?php else : ?>
                                 <img src="<?php echo esc_url($image['url']); ?>"
-                                    alt="<?php echo esc_attr($image['alt'] ?: $name); ?>">
-                            </div>
+                                    alt="<?php echo esc_attr($image['alt'] ?: ''); ?>">
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <?php if ($name) : ?>

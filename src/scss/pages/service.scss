@@ -309,6 +309,8 @@
 }
 
 .how-we-work {
+	overflow: hidden;
+
 	&__wrapper {
 		padding: 4rem 0;
 		background:
@@ -548,6 +550,23 @@
 			}
 		}
 
+		&.only-image {
+			max-height: rem(302);
+			padding: 1.25rem;
+			border: rem(1) solid #D5D7DA;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			align-self: stretch;
+
+			& img {
+				width: auto;
+				height: auto;
+				display: block;
+				max-height: rem(260);
+			}
+		}
+
 		&.has-border {
 			.licenses__item-image {
 				aspect-ratio: math.div(302, 124);
@@ -565,7 +584,6 @@
 
 		@media (min-width:$md5) {
 			aspect-ratio: math.div(302, 124);
-
 		}
 
 		& img {
