@@ -722,7 +722,7 @@ $(function () {
             },
             breakpoints: {
                 767.98: {
-                    slidesPerView: 3,
+                    slidesPerView: 2,
                 },
                 1199.98: {
                     slidesPerView: 3,

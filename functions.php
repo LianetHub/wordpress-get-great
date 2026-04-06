@@ -24,7 +24,7 @@ function theme_enqueue_styles()
 	wp_enqueue_style('swiper', get_template_directory_uri() . '/assets/css/libs/swiper-bundle.min.css');
 	wp_enqueue_style('fancybox', get_template_directory_uri() . '/assets/css/libs/fancybox.css');
 	wp_enqueue_style('reset', get_template_directory_uri() . '/assets/css/reset.min.css');
-	wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.min.css');
+	wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.min.css?v1.0.1');
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
 

@@ -17,10 +17,10 @@
 }
 
 @font-face {
-  font-family: "icons";
+  font-family: "Gilroy";
   font-display: swap;
-  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
-  font-weight: 400;
+  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -34,10 +34,10 @@
 }
 
 @font-face {
-  font-family: "Gilroy";
+  font-family: "icons";
   font-display: swap;
-  src: url("../fonts/Gilroy-SemiBold.woff2") format("woff2"), url("../fonts/Gilroy-SemiBold.woff") format("woff");
-  font-weight: 600;
+  src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -9008,14 +9008,6 @@ body {
   .numbers__column:last-child {
     border-bottom: 0;
     padding-bottom: 0;
-  }
-
-  .articles__slider .swiper-wrapper {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    gap: 2rem;
   }
 
   .article__header .article__label {
