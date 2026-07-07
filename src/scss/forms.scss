@@ -196,6 +196,17 @@
 		}
 	}
 
+	// .form__captcha
+	&__captcha {
+		margin-top: 1rem;
+		margin-bottom: rem(16);
+
+		&._error {
+			outline: 1px solid #e53935;
+			border-radius: rem(4);
+		}
+	}
+
 	// .form__btn
 	&__btn {
 		width: 100%;

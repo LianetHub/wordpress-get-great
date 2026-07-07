@@ -69,6 +69,7 @@ $privacy_policy = get_field('privacy_policy', 'option');
                 <span class="form__field-label form__field-label--required">Ваш телефон</span>
                 <input type="tel" name="phone" data-required class="form__control" placeholder="+7 (___) ___-__-__">
             </label>
+            <?php get_template_part('templates/components/smart-captcha'); ?>
             <div class="popup__form-footer">
                 <button type="submit" class="form__btn btn btn-primary btn-sm">
                     <?php echo esc_html($callback_form_btn) ?>
@@ -111,6 +112,7 @@ $privacy_policy = get_field('privacy_policy', 'option');
                 <span class="form__field-label form__field-label--required">Ваш e-mail</span>
                 <input type="email" name="email" data-required class="form__control" placeholder="Введите e-mail">
             </label>
+            <?php get_template_part('templates/components/smart-captcha'); ?>
             <div class="popup__form-footer">
                 <button type="submit" class="form__btn btn btn-primary btn-sm">
                     <?php echo esc_html($download_form_btn) ?>
@@ -159,6 +161,7 @@ $privacy_policy = get_field('privacy_policy', 'option');
                     <span class="form__file-btn icon-clip">Прикрепить (до 10 мб.)</span>
                 </label>
             </div>
+            <?php get_template_part('templates/components/smart-captcha'); ?>
             <div class="popup__form-footer">
                 <button type="submit" class="form__btn btn btn-primary btn-sm">
                     <?php echo esc_html($discuss_form_btn) ?>
@@ -207,6 +210,7 @@ $privacy_policy = get_field('privacy_policy', 'option');
                     <span class="form__file-btn icon-clip">Прикрепить (до 10 мб.)</span>
                 </label>
             </div>
+            <?php get_template_part('templates/components/smart-captcha'); ?>
             <div class="popup__form-footer">
                 <button type="submit" class="form__btn btn btn-primary btn-sm">
                     <?php echo esc_html($visualization_form_btn) ?>

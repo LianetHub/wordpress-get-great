@@ -156,6 +156,7 @@ if ($is_single_video_mode && !empty($promo_slides)) {
                             <input type="tel" name="phone" data-required class="form__control" placeholder="+7 (___) ___-__-__">
                         </label>
                     </div>
+                    <?php get_template_part('templates/components/smart-captcha'); ?>
                     <div class="promo__form-footer">
                         <button type="submit" class="form__btn btn btn-primary btn-sm"><?php echo esc_html($promo_form_btn); ?></button>
                         <?php if ($privacy_txt): ?>

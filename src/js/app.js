@@ -59,6 +59,11 @@ $(function () {
                         slide.el.classList.add("is-case-popup-slide");
                     }
                 },
+                done: () => {
+                    setTimeout(() => {
+                        window.formController?.initCaptchas();
+                    }, 100);
+                },
             },
         });
     }
@@ -897,6 +902,100 @@ $(function () {
 
             $(document).off('change', this.selectors.fileInput).on('change', this.selectors.fileInput, (e) => this.handleFileChange(e));
             $(document).off('click', this.selectors.fileRemove).on('click', this.selectors.fileRemove, (e) => this.handleFileRemove(e));
+
+            this.waitForCaptchaApi();
+            document.addEventListener('great-smartcaptcha-ready', () => this.initCaptchas());
+        }
+
+        initCaptchas($scope) {
+            const $root = $scope ? ($scope instanceof jQuery ? $scope : $($scope)) : $(document);
+            const clientKey = window.great_ajax?.captcha_client_key;
+            const $containers = $root.find('form [data-smart-captcha]');
+
+            console.log('[SmartCaptcha] init', {
+                hasApi: !!window.smartCaptcha,
+                hasClientKey: !!clientKey,
+                containers: $containers.length,
+            });
+
+            if (!clientKey) {
+                console.warn('[SmartCaptcha] Нет ключа клиента. Добавьте SMARTCAPTCHA_CLIENT_KEY в .env в корне WordPress');
+                return false;
+            }
+
+            if (!window.smartCaptcha) {
+                console.warn('[SmartCaptcha] API не готов, ждём загрузку captcha.js');
+                return false;
+            }
+
+            let rendered = 0;
+
+            $containers.each(function () {
+                if (this.dataset.widgetId !== undefined) {
+                    return;
+                }
+
+                const $form = $(this).closest('form');
+                const formAction = $form.find('[name="action"]').val() || 'unknown';
+
+                try {
+                    const widgetId = window.smartCaptcha.render(this, {
+                        sitekey: clientKey,
+                        hl: 'ru',
+                        callback: (token) => {
+                            console.log('[SmartCaptcha] токен получен', {
+                                formAction,
+                                widgetId,
+                                hasToken: !!token,
+                            });
+                        },
+                    });
+
+                    this.dataset.widgetId = String(widgetId);
+                    rendered++;
+                    console.log('[SmartCaptcha] виджет отрисован', { formAction, widgetId });
+                } catch (error) {
+                    console.error('[SmartCaptcha] ошибка render', { formAction, error });
+                }
+            });
+
+            console.log('[SmartCaptcha] init завершён', { rendered, total: $containers.length });
+            return rendered > 0;
+        }
+
+        waitForCaptchaApi() {
+            if (this.initCaptchas()) {
+                return;
+            }
+
+            const timer = setInterval(() => {
+                if (this.initCaptchas()) {
+                    clearInterval(timer);
+                }
+            }, 200);
+
+            setTimeout(() => {
+                clearInterval(timer);
+                if (!$('form [data-smart-captcha][data-widget-id]').length && $('form [data-smart-captcha]').length) {
+                    console.error('[SmartCaptcha] не удалось инициализировать виджеты за 15 сек');
+                }
+            }, 15000);
+        }
+
+        resetCaptcha($form) {
+            if (!window.smartCaptcha) {
+                return;
+            }
+
+            const container = $form.find('[data-smart-captcha]')[0];
+
+            if (container?.dataset.widgetId !== undefined) {
+                window.smartCaptcha.reset(Number(container.dataset.widgetId));
+            }
+        }
+
+        toggleCaptchaError($form, hasError) {
+            $form.find('[data-smart-captcha]').toggleClass(this.selectors.errorClass, hasError);
         }
 
         bindSubmit($form) {
@@ -910,15 +1009,28 @@ $(function () {
         }
 
         async sendForm($form, isSilent = false) {
-            console.log('submit from form controller');
             const url = $form.attr('action');
             const method = $form.attr('method') || 'POST';
             const formData = new FormData($form[0]);
             formData.append('page_url', window.location.href);
             const $submitBtn = $form.find(this.selectors.submitBtn);
-
             const formAction = formData.get('action');
 
+            if ($form.find('[data-smart-captcha]').length && !formData.get('smart-token')) {
+                console.warn('[SmartCaptcha] отправка отменена: токен не найден', {
+                    formAction,
+                });
+                this.toggleCaptchaError($form, true);
+                this.showErrorPopup();
+                return;
+            }
+
+            console.log('[SmartCaptcha] отправка формы', {
+                formAction,
+                hasToken: !!formData.get('smart-token'),
+            });
+
+            this.toggleCaptchaError($form, false);
             $submitBtn.addClass(this.selectors.loadingClass);
 
             try {
@@ -931,10 +1043,10 @@ $(function () {
                     const result = await response.json();
 
                     if (result.success) {
-
                         $form[0].reset();
                         $form.find('.form__file-preview').remove();
                         $form.find('.uploaded').removeClass('uploaded');
+                        this.resetCaptcha($form);
 
                         if (!isSilent) {
                             const instance = Fancybox.getInstance();
@@ -942,14 +1054,11 @@ $(function () {
                                 instance.destroy();
                             }
 
-                            // --- ДОРАБОТКА ТУТ ---
-                            // Определяем ID попапа успеха в зависимости от формы
                             let successPopupId = "#success-submitting";
 
                             if (formAction === 'send_download_form') {
                                 successPopupId = "#success-submitting-presentation";
                             }
-                            // ---------------------
 
                             Fancybox.show([{
                                 src: successPopupId,
@@ -962,15 +1071,18 @@ $(function () {
                         }
 
                     } else {
-                        console.error('Ошибка логики сервера:', result.data.message);
+                        console.error('Ошибка логики сервера:', result.data?.message);
+                        this.resetCaptcha($form);
                         this.showErrorPopup();
                     }
                 } else {
                     console.error('Ошибка сервера (HTTP статус)');
+                    this.resetCaptcha($form);
                     this.showErrorPopup();
                 }
             } catch (error) {
                 console.error('Ошибка сети', error);
+                this.resetCaptcha($form);
                 this.showErrorPopup();
             } finally {
                 $submitBtn.removeClass(this.selectors.loadingClass);

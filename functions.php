@@ -24,7 +24,7 @@ function theme_enqueue_styles()
 	wp_enqueue_style('swiper', get_template_directory_uri() . '/assets/css/libs/swiper-bundle.min.css');
 	wp_enqueue_style('fancybox', get_template_directory_uri() . '/assets/css/libs/fancybox.css');
 	wp_enqueue_style('reset', get_template_directory_uri() . '/assets/css/reset.min.css');
-	wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.min.css?v1.0.1');
+	wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.min.css?v1.0.2');
 }
 add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
 
@@ -36,10 +36,23 @@ function theme_enqueue_scripts()
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/libs/jquery-4.0.0.min.js', array(), null, true);
 	wp_enqueue_script('swiper-js', get_template_directory_uri() . '/assets/js/libs/swiper-bundle.min.js', array(), null, true);
 	wp_enqueue_script('fancybox-js', get_template_directory_uri() . '/assets/js/libs/fancybox.umd.js', array(), null, true);
-	wp_enqueue_script('app-js', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery'), null, true);
+	wp_enqueue_script(
+		'yandex-smartcaptcha',
+		'https://smartcaptcha.cloud.yandex.ru/captcha.js?render=onload&onload=greatSmartCaptchaOnload',
+		array(),
+		null,
+		true
+	);
+	wp_add_inline_script(
+		'yandex-smartcaptcha',
+		'function greatSmartCaptchaOnload(){window.greatSmartCaptchaReady=true;console.log("[SmartCaptcha] captcha.js загружен");document.dispatchEvent(new CustomEvent("great-smartcaptcha-ready"));}',
+		'before'
+	);
+	wp_enqueue_script('app-js', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery', 'yandex-smartcaptcha'), null, true);
 
 	wp_localize_script('app-js', 'great_ajax', [
-		'url' => admin_url('admin-ajax.php')
+		'url' => admin_url('admin-ajax.php'),
+		'captcha_client_key' => $_ENV['SMARTCAPTCHA_CLIENT_KEY'] ?? '',
 	]);
 
 	if (is_singular('post')) {

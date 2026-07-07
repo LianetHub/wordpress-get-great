@@ -64,6 +64,47 @@ function great_get_client_ip()
     return 'Не определен';
 }
 
+function great_validate_smart_captcha($token)
+{
+    $server_key = $_ENV['SMARTCAPTCHA_SERVER_KEY'] ?? '';
+
+    if (empty($server_key) || empty($token)) {
+        return false;
+    }
+
+    $body_args = [
+        'secret' => $server_key,
+        'token' => sanitize_text_field($token),
+    ];
+
+    $client_ip = great_get_client_ip();
+
+    if (filter_var($client_ip, FILTER_VALIDATE_IP)) {
+        $body_args['ip'] = $client_ip;
+    }
+
+    $response = wp_remote_post('https://smartcaptcha.cloud.yandex.ru/validate', [
+        'timeout' => 5,
+        'body' => $body_args,
+    ]);
+
+    if (is_wp_error($response)) {
+        error_log('SmartCaptcha validation error: ' . $response->get_error_message());
+        return true;
+    }
+
+    $status_code = wp_remote_retrieve_response_code($response);
+
+    if ($status_code !== 200) {
+        error_log('SmartCaptcha validation HTTP error: code=' . $status_code . '; body=' . wp_remote_retrieve_body($response));
+        return true;
+    }
+
+    $body = json_decode(wp_remote_retrieve_body($response), true);
+
+    return isset($body['status']) && $body['status'] === 'ok';
+}
+
 function get_form_recipients()
 {
     $recipients = [];
@@ -96,6 +137,12 @@ foreach ($form_actions as $action) {
 
 function handle_universal_form()
 {
+    $captcha_token = $_POST['smart-token'] ?? '';
+
+    if (!great_validate_smart_captcha($captcha_token)) {
+        wp_send_json_error(['message' => 'Подтвердите, что вы не робот']);
+    }
+
     $data = $_POST;
     $action = $_POST['action'] ?? '';
 
@@ -160,17 +207,17 @@ function handle_universal_form()
                 </tr>
             <?php endif; ?>
             <?php if ($promo_source): ?>\
-                <tr>
-                    <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Источник (слайд):</strong></td>
-                    <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><?php echo esc_html($promo_source); ?></td>
-                </tr>
-            <?php endif; ?>
             <tr>
-                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Страница:</strong></td>
-                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;">
-                    <a href="<?php echo esc_url($page_url); ?>"><?php echo esc_html($page_url); ?></a>
-                </td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Источник (слайд):</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><?php echo esc_html($promo_source); ?></td>
             </tr>
+        <?php endif; ?>
+        <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Страница:</strong></td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;">
+                <a href="<?php echo esc_url($page_url); ?>"><?php echo esc_html($page_url); ?></a>
+            </td>
+        </tr>
         </table>
 
         <?php if ($message_text): ?>
@@ -211,14 +258,14 @@ function handle_universal_form()
             $user_subject = 'Ваша презентация от Get Great';
             $user_message = '<div style="font-family: Arial, sans-serif;">';
             $user_message .= '<h2>Здравствуйте, ' . esc_html($username) . '!</h2>';
-            
+
             if ($custom_user_text) {
                 $user_message .= wpautop($custom_user_text);
             } else {
                 $user_message .= '<p>Благодарим вас за интерес к нашей компании. Во вложении к этому письму находится презентация, которую вы запрашивали.</p>';
                 $user_message .= '<p>Если у вас возникнут вопросы, мы всегда на связи!</p>';
             }
-            
+
             $user_message .= '</div>';
 
             $file_path = get_attached_file($presentation_file['ID']);

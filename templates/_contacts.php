@@ -143,6 +143,7 @@ if ($section_bg) {
                         </label>
                     </div>
                 </div>
+                <?php get_template_part('templates/components/smart-captcha'); ?>
                 <div class="contacts__form-footer">
                     <button type="submit" class="form__btn btn btn-primary btn-sm"><?php echo esc_html($contacts_form_btn); ?></button>
                     <?php if ($privacy_txt): ?>
