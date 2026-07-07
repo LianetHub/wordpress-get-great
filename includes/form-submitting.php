@@ -36,6 +36,34 @@ function custom_mail_from_name($original_name)
     return 'Get Great - Уведомления';
 }
 
+function great_get_client_ip()
+{
+    $ip_keys = [
+        'HTTP_CF_CONNECTING_IP',
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_REAL_IP',
+        'REMOTE_ADDR',
+    ];
+
+    foreach ($ip_keys as $key) {
+        if (empty($_SERVER[$key])) {
+            continue;
+        }
+
+        $ip = sanitize_text_field(wp_unslash($_SERVER[$key]));
+
+        if (strpos($ip, ',') !== false) {
+            $ip = trim(explode(',', $ip)[0]);
+        }
+
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            return $ip;
+        }
+    }
+
+    return 'Не определен';
+}
+
 function get_form_recipients()
 {
     $recipients = [];
@@ -105,6 +133,7 @@ function handle_universal_form()
     $promo_source = sanitize_text_field($data['promo_slide_source'] ?? '');
     $message_text = nl2br(sanitize_textarea_field($data['message'] ?? ''));
     $page_url     = sanitize_text_field($data['page_url'] ?? 'Не определен');
+    $client_ip    = great_get_client_ip();
 
     ob_start();
 ?>
@@ -120,13 +149,17 @@ function handle_universal_form()
                 <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Телефон:</strong></td>
                 <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><a href="tel:<?php echo esc_attr($phone); ?>"><?php echo esc_html($phone); ?></a></td>
             </tr>
+            <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>IP Address:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><?php echo esc_html($client_ip); ?></td>
+            </tr>
             <?php if ($email): ?>
                 <tr>
                     <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Email:</strong></td>
                     <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></td>
                 </tr>
             <?php endif; ?>
-            <?php if ($promo_source): ?>
+            <?php if ($promo_source): ?>\
                 <tr>
                     <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><strong>Источник (слайд):</strong></td>
                     <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f4;"><?php echo esc_html($promo_source); ?></td>
