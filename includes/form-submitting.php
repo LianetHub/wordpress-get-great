@@ -64,6 +64,17 @@ function great_get_client_ip()
     return 'Не определен';
 }
 
+function great_is_smart_captcha_enabled()
+{
+    if (!function_exists('get_field')) {
+        return true;
+    }
+
+    $value = get_field('show_smart_captcha', 'option');
+
+    return $value === null ? true : (bool) $value;
+}
+
 function great_validate_smart_captcha($token)
 {
     $server_key = $_ENV['SMARTCAPTCHA_SERVER_KEY'] ?? '';
@@ -137,10 +148,12 @@ foreach ($form_actions as $action) {
 
 function handle_universal_form()
 {
-    $captcha_token = $_POST['smart-token'] ?? '';
+    if (great_is_smart_captcha_enabled()) {
+        $captcha_token = $_POST['smart-token'] ?? '';
 
-    if (!great_validate_smart_captcha($captcha_token)) {
-        wp_send_json_error(['message' => 'Подтвердите, что вы не робот']);
+        if (!great_validate_smart_captcha($captcha_token)) {
+            wp_send_json_error(['message' => 'Подтвердите, что вы не робот']);
+        }
     }
 
     $data = $_POST;

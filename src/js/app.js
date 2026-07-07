@@ -903,11 +903,23 @@ $(function () {
             $(document).off('change', this.selectors.fileInput).on('change', this.selectors.fileInput, (e) => this.handleFileChange(e));
             $(document).off('click', this.selectors.fileRemove).on('click', this.selectors.fileRemove, (e) => this.handleFileRemove(e));
 
-            this.waitForCaptchaApi();
-            document.addEventListener('great-smartcaptcha-ready', () => this.initCaptchas());
+            if (window.great_ajax?.captcha_enabled) {
+                this.waitForCaptchaApi();
+                document.addEventListener('great-smartcaptcha-ready', () => this.initCaptchas());
+            } else {
+                console.log('[SmartCaptcha] отключена в настройках темы');
+            }
+        }
+
+        isCaptchaEnabled() {
+            return !!window.great_ajax?.captcha_enabled;
         }
 
         initCaptchas($scope) {
+            if (!this.isCaptchaEnabled()) {
+                return false;
+            }
+
             const $root = $scope ? ($scope instanceof jQuery ? $scope : $($scope)) : $(document);
             const clientKey = window.great_ajax?.captcha_client_key;
             const $containers = $root.find('form [data-smart-captcha]');
@@ -964,6 +976,10 @@ $(function () {
         }
 
         waitForCaptchaApi() {
+            if (!this.isCaptchaEnabled()) {
+                return;
+            }
+
             if (this.initCaptchas()) {
                 return;
             }
@@ -1016,7 +1032,7 @@ $(function () {
             const $submitBtn = $form.find(this.selectors.submitBtn);
             const formAction = formData.get('action');
 
-            if ($form.find('[data-smart-captcha]').length && !formData.get('smart-token')) {
+            if (this.isCaptchaEnabled() && $form.find('[data-smart-captcha]').length && !formData.get('smart-token')) {
                 console.warn('[SmartCaptcha] отправка отменена: токен не найден', {
                     formAction,
                 });
@@ -1027,6 +1043,7 @@ $(function () {
 
             console.log('[SmartCaptcha] отправка формы', {
                 formAction,
+                captchaEnabled: this.isCaptchaEnabled(),
                 hasToken: !!formData.get('smart-token'),
             });
 

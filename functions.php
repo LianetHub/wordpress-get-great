@@ -36,23 +36,32 @@ function theme_enqueue_scripts()
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/libs/jquery-4.0.0.min.js', array(), null, true);
 	wp_enqueue_script('swiper-js', get_template_directory_uri() . '/assets/js/libs/swiper-bundle.min.js', array(), null, true);
 	wp_enqueue_script('fancybox-js', get_template_directory_uri() . '/assets/js/libs/fancybox.umd.js', array(), null, true);
-	wp_enqueue_script(
-		'yandex-smartcaptcha',
-		'https://smartcaptcha.cloud.yandex.ru/captcha.js?render=onload&onload=greatSmartCaptchaOnload',
-		array(),
-		null,
-		true
-	);
-	wp_add_inline_script(
-		'yandex-smartcaptcha',
-		'function greatSmartCaptchaOnload(){window.greatSmartCaptchaReady=true;console.log("[SmartCaptcha] captcha.js загружен");document.dispatchEvent(new CustomEvent("great-smartcaptcha-ready"));}',
-		'before'
-	);
-	wp_enqueue_script('app-js', get_template_directory_uri() . '/assets/js/app.min.js', array('jquery', 'yandex-smartcaptcha'), null, true);
+
+	$app_deps = array('jquery');
+	$captcha_enabled = function_exists('great_is_smart_captcha_enabled') && great_is_smart_captcha_enabled();
+
+	if ($captcha_enabled) {
+		wp_enqueue_script(
+			'yandex-smartcaptcha',
+			'https://smartcaptcha.cloud.yandex.ru/captcha.js?render=onload&onload=greatSmartCaptchaOnload',
+			array(),
+			null,
+			true
+		);
+		wp_add_inline_script(
+			'yandex-smartcaptcha',
+			'function greatSmartCaptchaOnload(){window.greatSmartCaptchaReady=true;console.log("[SmartCaptcha] captcha.js загружен");document.dispatchEvent(new CustomEvent("great-smartcaptcha-ready"));}',
+			'before'
+		);
+		$app_deps[] = 'yandex-smartcaptcha';
+	}
+
+	wp_enqueue_script('app-js', get_template_directory_uri() . '/assets/js/app.min.js', $app_deps, null, true);
 
 	wp_localize_script('app-js', 'great_ajax', [
 		'url' => admin_url('admin-ajax.php'),
-		'captcha_client_key' => $_ENV['SMARTCAPTCHA_CLIENT_KEY'] ?? '',
+		'captcha_enabled' => $captcha_enabled,
+		'captcha_client_key' => $captcha_enabled ? ($_ENV['SMARTCAPTCHA_CLIENT_KEY'] ?? '') : '',
 	]);
 
 	if (is_singular('post')) {
