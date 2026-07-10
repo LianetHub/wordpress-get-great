@@ -4,7 +4,11 @@ add_action('phpmailer_init', 'configure_smtp_mailer');
 
 function configure_smtp_mailer($phpmailer)
 {
-    if (!isset($_ENV['SMTP_HOST']) || !isset($_ENV['SMTP_USERNAME']) || !isset($_ENV['SMTP_PASSWORD'])) {
+    if (
+        empty($_ENV['SMTP_HOST']) ||
+        empty($_ENV['SMTP_USERNAME']) ||
+        empty($_ENV['SMTP_PASSWORD'])
+    ) {
         return;
     }
 

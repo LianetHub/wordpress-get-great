@@ -891,6 +891,13 @@ $(function () {
                 }
             });
 
+            $(document).on('input change', 'input[name="smart-token"]', (e) => {
+                const $form = $(e.target).closest('form');
+                if ($form.length) {
+                    this.toggleCaptchaError($form, false);
+                }
+            });
+
             $(document).on('keydown', 'input[type="tel"]', (e) => this.onPhoneKeyDown(e));
             $(document).on('input', 'input[type="tel"]', (e) => this.onPhoneInput(e));
             $(document).on('paste', 'input[type="tel"]', (e) => this.onPhonePaste(e));
@@ -906,8 +913,6 @@ $(function () {
             if (window.great_ajax?.captcha_enabled) {
                 this.waitForCaptchaApi();
                 document.addEventListener('great-smartcaptcha-ready', () => this.initCaptchas());
-            } else {
-                console.log('[SmartCaptcha] отключена в настройках темы');
             }
         }
 
@@ -924,19 +929,7 @@ $(function () {
             const clientKey = window.great_ajax?.captcha_client_key;
             const $containers = $root.find('form [data-smart-captcha]');
 
-            console.log('[SmartCaptcha] init', {
-                hasApi: !!window.smartCaptcha,
-                hasClientKey: !!clientKey,
-                containers: $containers.length,
-            });
-
-            if (!clientKey) {
-                console.warn('[SmartCaptcha] Нет ключа клиента. Добавьте SMARTCAPTCHA_CLIENT_KEY в .env в корне WordPress');
-                return false;
-            }
-
-            if (!window.smartCaptcha) {
-                console.warn('[SmartCaptcha] API не готов, ждём загрузку captcha.js');
+            if (!clientKey || !window.smartCaptcha) {
                 return false;
             }
 
@@ -954,24 +947,15 @@ $(function () {
                     const widgetId = window.smartCaptcha.render(this, {
                         sitekey: clientKey,
                         hl: 'ru',
-                        callback: (token) => {
-                            console.log('[SmartCaptcha] токен получен', {
-                                formAction,
-                                widgetId,
-                                hasToken: !!token,
-                            });
-                        },
                     });
 
                     this.dataset.widgetId = String(widgetId);
                     rendered++;
-                    console.log('[SmartCaptcha] виджет отрисован', { formAction, widgetId });
                 } catch (error) {
                     console.error('[SmartCaptcha] ошибка render', { formAction, error });
                 }
             });
 
-            console.log('[SmartCaptcha] init завершён', { rendered, total: $containers.length });
             return rendered > 0;
         }
 
@@ -1033,19 +1017,9 @@ $(function () {
             const formAction = formData.get('action');
 
             if (this.isCaptchaEnabled() && $form.find('[data-smart-captcha]').length && !formData.get('smart-token')) {
-                console.warn('[SmartCaptcha] отправка отменена: токен не найден', {
-                    formAction,
-                });
-                this.toggleCaptchaError($form, true);
-                this.showErrorPopup();
+                this.showCaptchaError($form);
                 return;
             }
-
-            console.log('[SmartCaptcha] отправка формы', {
-                formAction,
-                captchaEnabled: this.isCaptchaEnabled(),
-                hasToken: !!formData.get('smart-token'),
-            });
 
             this.toggleCaptchaError($form, false);
             $submitBtn.addClass(this.selectors.loadingClass);
@@ -1090,7 +1064,12 @@ $(function () {
                     } else {
                         console.error('Ошибка логики сервера:', result.data?.message);
                         this.resetCaptcha($form);
-                        this.showErrorPopup();
+
+                        if (result.data?.message === 'Подтвердите, что вы не робот') {
+                            this.showCaptchaError($form);
+                        } else {
+                            this.showErrorPopup();
+                        }
                     }
                 } else {
                     console.error('Ошибка сервера (HTTP статус)');
@@ -1103,6 +1082,15 @@ $(function () {
                 this.showErrorPopup();
             } finally {
                 $submitBtn.removeClass(this.selectors.loadingClass);
+            }
+        }
+
+        showCaptchaError($form) {
+            this.toggleCaptchaError($form, true);
+
+            const $captcha = $form.find('[data-smart-captcha]');
+            if ($captcha.length) {
+                $captcha[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
 

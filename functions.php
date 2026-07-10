@@ -50,7 +50,7 @@ function theme_enqueue_scripts()
 		);
 		wp_add_inline_script(
 			'yandex-smartcaptcha',
-			'function greatSmartCaptchaOnload(){window.greatSmartCaptchaReady=true;console.log("[SmartCaptcha] captcha.js загружен");document.dispatchEvent(new CustomEvent("great-smartcaptcha-ready"));}',
+			'function greatSmartCaptchaOnload(){window.greatSmartCaptchaReady=true;document.dispatchEvent(new CustomEvent("great-smartcaptcha-ready"));}',
 			'before'
 		);
 		$app_deps[] = 'yandex-smartcaptcha';
