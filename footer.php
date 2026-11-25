@@ -88,6 +88,38 @@ if ($is_error_404) {
 </footer>
 </div>
 
+<!-- wappi.pro -->
+<script src="https://wappi.pro/static/js/widget.js?v=20261103-insta"></script>
+<script type="text/javascript">
+WappiUTM.init(({
+    "id": "wmb7GqXrp2Es7lPlITjD",
+    "buttons": [
+        {
+            "messenger": "whatsapp",
+            "phone": "+74951287161",
+            "tooltip": "",
+            "msgText": "",
+            "profile_id": "",
+            "title": "",
+            "color": "",
+            "theme": ""
+        },
+        {
+            "messenger": "max",
+            "phone": "https://max.ru/u/f9LHodD0cOJs1bO5mqNwQpQsBhSJ497yLxc4gL03xZ6MWVTxIIhZFkIb-gY",
+            "tooltip": "",
+            "profile_id": "",
+            "title": "",
+            "color": "",
+            "theme": ""
+        }
+    ],
+    "position": "right",
+    "color": "#25C5EB"
+}));
+</script>
+<!-- /wappi.pro -->
+
 <?php require_once(TEMPLATE_PATH . '_modals.php'); ?>
 
 <?php wp_footer(); ?>
